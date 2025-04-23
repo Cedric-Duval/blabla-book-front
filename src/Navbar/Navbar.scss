@@ -1,0 +1,25 @@
+@use '../styles/variables' as v;
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    background-color: v.$secondary-color;
+
+    .header-logo {
+        height: 80px; 
+        width: 110px;
+      }
+}
+
+nav ul {
+    display: flex;         
+    gap: 1rem;             
+    margin: 0;
+    padding: 20px;
+  }
+
+  #search {
+    width: 50%;
+  }

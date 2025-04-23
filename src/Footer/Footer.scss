@@ -1,0 +1,23 @@
+@use '../styles/variables' as v;
+
+.footer {
+    background-color: v.$secondary-color ;
+    text-align: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding-bottom: 10px;
+  }
+
+  .footer-bottom {
+    margin-bottom: 10px;
+  }

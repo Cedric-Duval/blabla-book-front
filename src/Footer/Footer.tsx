@@ -1,14 +1,19 @@
-function Footer (){
+import '../Footer/Footer.scss'
+
+function Footer() {
     return (
-        <div className="footer-links">
-        <a href="#">Mentions Légales</a>
-        <a href="#">Confidentialité</a>
-        <a href="#">Cookies</a>
-        <a href="#">Contact</a>
-    
-    <a className="copyright"/>
-        ©2025 Blabla Book - Tous droits réservés
-    </div>
+        <div className="footer">
+            <div className="footer-top">
+                <a href="#">Mentions Légales</a>
+                <a href="#">Confidentialité</a>
+                <a href="#">Cookies</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div className="footer-bottom">
+                <p>©2025 Blabla Book - Tous droits réservés</p>
+            </div>
+        </div>
     )
 }
 

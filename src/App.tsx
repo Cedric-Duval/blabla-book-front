@@ -1,12 +1,15 @@
-import Header from './Header/Header'
+import Navbar from './Navbar/Navbar'
 import Footer from './Footer/Footer'
+
+import './App.scss'
 
 function App() {
 
   return (
     <div className='app'>
-<Header />
-<Footer />
+      <Navbar />
+      texte
+      <Footer />
     </div>
   )
 }
