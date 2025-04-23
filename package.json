@@ -1,0 +1,30 @@
+{
+  "name": "blabla-book-front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "format": "npx @biomejs/biome format ./",
+    "format:fix": "npx @biomejs/biome format --write ./",
+    "lint": "npx @biomejs/biome lint ./",
+    "lint:fix": "npx @biomejs/biome lint --write ./",
+    "check": "npx @biomejs/biome check ./",
+    "check:fix": "npx @biomejs/biome check --write ./"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "globals": "^16.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1"
+  }
+}
