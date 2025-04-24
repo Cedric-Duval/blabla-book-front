@@ -13,7 +13,7 @@ function Homepage() {
                 </hgroup>
                 <p>Bienvenue dans l'univers des livres où chaque page tournée est une nouvelle aventure. Rejoignez notre communauté de lecteurs passionnés, partagez vos coups de cœur et découvrez des trésors littéraires qui vous attendent. Ne restez pas seul avec vos livres !</p>
                 
-                <button type="button" className="buttonc">Commencer ici</button>
+                <button type="button" className="button">Commencer ici</button>
             </div>
             <img src="/pres.jpeg" alt=""/>
         </section>
