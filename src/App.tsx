@@ -10,7 +10,6 @@ function App() {
     <div className='app'>
       <Navbar />
       <Homepage />
-      texte
       <Footer />
     </div>
   )

@@ -1,7 +1,9 @@
 @use '../styles/variables' as v;
 
 .navbar {
+    
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100vw;
@@ -11,10 +13,18 @@
         height: 80px; 
         width: 110px;
       }
+
+
+
+    & .burger-menu {
+      margin-right: 20px;     
+      display: none; 
+    }
 }
 
 nav ul {
-    display: flex;         
+    display: flex;    
+    flex-direction: row;     
     gap: 1rem;             
     margin: 0;
     padding: 20px;
@@ -23,3 +33,72 @@ nav ul {
   #search {
     width: 50%;
   }
+
+
+
+ @media screen and (max-width: 700px) {
+  .navbar {
+    position: sticky;
+    top:0;
+    flex-direction: column;
+    height: 11.5vh;
+
+    & #logo {
+      position: absolute;
+      left: 10px;
+    }
+
+    & #search {
+      position: absolute;
+      top: 15vh;
+      border: solid 1px v.$secondary-color;
+      border-radius: 5px;
+    }
+
+    & ul {
+      background-color: v.$base-color;
+      height: 88.5vh;
+      width: 100vw;
+      flex-direction: column;
+      position: fixed;
+      top: 11.5vh;
+      left: 0;
+      padding: 3vh 7vh;
+
+
+
+      & a {
+        text-decoration: none;
+        color: v.$police-color;
+        font-size: 4vw;
+        
+      }
+      & a:hover {
+        cursor: pointer;
+      }
+
+      
+    }
+    & li {
+      padding: 16px;
+    }
+    & li:last-child {
+        display: block;
+        background-color: v.$secondary-color;
+        & a {
+          color: white;
+        }
+      }
+
+
+    & ul.hidden {
+        display: none;
+    }
+    & .burger-menu {
+      position: absolute;
+      display: block;
+      top: 20px;
+      right: 20px;
+    }
+  }
+}
