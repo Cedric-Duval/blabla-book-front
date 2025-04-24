@@ -15,7 +15,9 @@ function Homepage() {
                 
                 <button type="button" className="button">Commencer ici</button>
             </div>
-            <img src="../Pictures/pres.jpeg" alt=""/>
+            <div id="presentation-img">
+                <img src="../Pictures/pres.jpeg" alt=""/>
+            </div>
         </section>
 
 

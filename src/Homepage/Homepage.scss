@@ -4,19 +4,28 @@
 
 //----------------------------- HERO SECTION -------------------------
 
-img {
-   max-width: 500px ;
+#presentation-img {
+    
+     max-width: 450px;
+
+    & img {
+    width: 100%;
+       
+
+    }
 }
+
 
 #hero-section{
     display: flex;
     background-color: v.$base-color;
-    gap: 10rem;
+    gap: 8vw;
+    flex-wrap: wrap;
     
 }
 
 #presentation{
-    max-width: 500px;
+    max-width: 470px;
 }
 
 
@@ -48,3 +57,5 @@ hr {
     width: 220px;
     border-top: solid 2px v.$secondary-color;
 }
+
+
