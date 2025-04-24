@@ -5,6 +5,7 @@ function Navbar (){
 
         <nav className="navbar">
             <div id="logo">
+               
                 <a href=""><img src="/Logo.png" alt="" className='header-logo' /></a>
             </div>
             <input
@@ -14,8 +15,11 @@ function Navbar (){
                         placeholder="Recherche par titre, auteur, ISBN ..."/>
             <div id="menu">
                 <ul>
+                
                 <li><a href="#">Accueil</a></li>
+               
                 <li><a href="#">Livres</a></li>
+                
                 <li><a href="#">Bibliothèque</a></li>
                 <li><a href="#" className="button-connect">Se connecter</a></li>
                 <li><a href="#" className="create-account">Créer un compte</a></li>

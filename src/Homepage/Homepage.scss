@@ -1,0 +1,42 @@
+@use '../styles/variables' as v;
+
+img {
+   max-width: 500px ;
+}
+
+#hero-section{
+    display: flex;
+    background-color: v.$base-color;
+    gap: 10rem;
+    
+}
+
+#presentation{
+    max-width: 500px;
+}
+
+h1{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: -1px 6px 9px rgba(0, 0, 0, 0.25);
+}
+h4{
+    font-weight: 400;
+}
+
+p{
+    font-size:medium;
+    margin: 0.5rem 0;
+    padding-bottom: 10px;
+    line-height: 1.3rem;
+    letter-spacing: 0.026rem;
+    word-spacing: 0.04rem;
+}
+
+button{
+    background-color: v.$secondary-color;
+    margin: 1rem 0;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+}
