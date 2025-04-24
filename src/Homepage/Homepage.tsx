@@ -1,5 +1,5 @@
 import './Homepage.scss'
-import '../styles/_section.scss'
+
 
 function Homepage() {
 
@@ -15,17 +15,21 @@ function Homepage() {
                 
                 <button type="button" className="button">Commencer ici</button>
             </div>
-            <img src="/pres.jpeg" alt=""/>
+            <img src="../Pictures/pres.jpeg" alt=""/>
         </section>
 
 
         <section id="personal-library-section" className="section">
-            <hgroup>
-                <h4>LOREM IPSUM DOLOR SIT</h4>
-                <h2>Votre bibliothèque personnelle</h2>
-            </hgroup>
-            <p>Chaque utilisateur peut créer sa propre bibliothèque, ajouter les livres déjà lus ou ceux qu’il souhaite lire, et garder une trace de ses découvertes. Vous pouvez consulter les informations de chaque ouvrage, ajouter des commentaires ou des notes, et ainsi construire une mémoire vivante de votre parcours de lecteur.</p>
-            <p>Vous avez oublié si vous avez déjà lu ce roman il y a deux ans ? Avec BlaBlaBook, ce genre d’incertitude n’existe plus. Tout est centralisé, organisé et accessible depuis votre espace personnel.</p>
+            <div className='personal-library-container'>
+                <hgroup>
+                    <h4>LOREM IPSUM DOLOR SIT</h4>
+                    <h2>Votre bibliothèque personnelle</h2>
+                </hgroup>
+                <p>Chaque utilisateur peut créer sa propre bibliothèque, ajouter les livres déjà lus ou ceux qu’il souhaite lire, et garder une trace de ses découvertes. Vous pouvez consulter les informations de chaque ouvrage, ajouter des commentaires ou des notes, et ainsi construire une mémoire vivante de votre parcours de lecteur.</p>
+                <p>Vous avez oublié si vous avez déjà lu ce roman il y a deux ans ? Avec BlaBlaBook, ce genre d’incertitude n’existe plus. Tout est centralisé, organisé et accessible depuis votre espace personnel.</p>
+                 
+                <hr />
+            </div>
         </section>
 
         <section id="random-books-section" className="section">

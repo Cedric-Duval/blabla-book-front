@@ -6,7 +6,7 @@ function Navbar (){
         <nav className="navbar">
             <div id="logo">
                
-                <a href=""><img src="/Logo.png" alt="" className='header-logo' /></a>
+                <a href=""><img src="../Pictures/Logo.png" alt="" className='header-logo' /></a>
             </div>
             <input
                         type="text"
