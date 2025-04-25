@@ -42,6 +42,7 @@ nav ul {
     top:0;
     flex-direction: column;
     height: 11.5vh;
+    z-index: 1;
 
     & #logo {
       position: absolute;
