@@ -66,11 +66,11 @@ hr {
 
 // --------------------- RANDOMBOOKS SECTION -----------------------
 
-#random-books-section {
+#books-section {
     background-color: v.$base-color;
     
 
-    & .random-books-title{
+    & .books-title{
         text-align: center;
         padding-bottom: 20px;
         font-family: "Inter";
@@ -84,7 +84,7 @@ hr {
         }
     }
 
-    & #random-books-list {
+    & #books-list {
         max-width: 1200px;
         display: flex;
         margin: 0 auto;
@@ -147,6 +147,7 @@ hr {
             bottom: 8px;
               
         }
+        
     }
 }
 

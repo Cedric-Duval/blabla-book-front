@@ -54,14 +54,14 @@ function Homepage() {
                 </div>
             </section>
 
-            <section id="random-books-section" className="section">
+            <section id="books-section" className="section">
                 <div >
-                    <hgroup className='random-books-title'>
+                    <hgroup className='books-title'>
                         <h3>Besoin d’inspiration ?</h3>
                         <p>Laisse-toi surprendre par notre sélection du jour.</p>
                     </hgroup>
                     <div>
-                        <ul id="random-books-list">
+                        <ul id="books-list">
                             {randomBooks.map((randombook) => {
                                 return (
                                     <li key={randombook.id}>

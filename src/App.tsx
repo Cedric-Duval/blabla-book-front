@@ -1,18 +1,33 @@
-import Footer from './Footer/Footer'
-import Navbar from './Navbar/Navbar'
+
 import './App.scss'
 import { } from 'react';
-import Homepage from './Homepage/Homepage'
-
-function App() {
+import { Route, Routes } from 'react-router';
+import Books from './Books/Books';
+import Footer from './Footer/Footer';
+import Homepage from './Homepage/Homepage';
+import Navbar from './Navbar/Navbar';
 
  
+function App() {
+
+
 
   return (
     <div className='app'>
       <Navbar />
-      <Homepage />
-      <Footer />
+
+      <Routes>
+        <Route path="/" element={
+          <Homepage />
+        } />
+        <Route path="/books" element={
+          <Books />
+        } />
+
+
+
+      </Routes>
+      <Footer/> 
     </div>
   )
 }
