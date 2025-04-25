@@ -93,8 +93,15 @@ hr {
         text-align: center;
         justify-content: center;
 
-        & img {
+        & #book-img {
+            position: relative;
             max-width: 150px;
+            margin: 0 auto;
+        }
+        & img {
+            width: 150px;
+            
+
         }
         & a {
             color: v.$police-color;
@@ -104,7 +111,7 @@ hr {
         }
 
         & figure {
-            position: relative;
+            
             display: inline-block;
             
             font-family: "Inter";
@@ -112,6 +119,7 @@ hr {
 
             & hgroup {
                 margin: 10px 0;
+                max-width: 180px;
 
                 & figcaption { 
                     font-size: 1rem;
@@ -136,7 +144,7 @@ hr {
             font-size: 1rem;
             font-weight: normal;
             right: 3px;
-            top: 217px;
+            bottom: 8px;
               
         }
     }

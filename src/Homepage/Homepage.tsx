@@ -1,7 +1,27 @@
-import './Homepage.scss'
+import { useEffect, useState } from 'react';
+import type { IBooks } from '../@types/books';
+import './Homepage.scss';
+import axios from 'axios'
+
 
 
 function Homepage() {
+
+    const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
+
+    useEffect(() => {
+        const getRandomBooks = async () => {
+            try {
+                const response = await axios.get(
+                    "http://localhost:3000/random-books",
+                );
+                setRandomBooks(response.data);
+            } catch (_error) {
+            }
+        };
+        getRandomBooks();
+    }, []);
+
 
     return (
         <div id="homepage">
@@ -42,71 +62,28 @@ function Homepage() {
                     </hgroup>
                     <div>
                         <ul id="random-books-list">
-                            <li>
-                                <a href="/test">
-                                    <figure>
-                                        <img
-                                            src="../Pictures/charlottebronte.jpeg" alt="book-image" />
-                                        <hgroup>
-                                            <figcaption>La Nuit du Faune</figcaption>
-                                            <h5>Romain Lucazeau</h5>
-                                        </hgroup>
-                                        <button type='button'> + </button>
-                                    </figure>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/test">
-                                    <figure>
-                                        <img
-                                            src="../Pictures/charlottebronte.jpeg" alt="book-image" />
-                                        <hgroup>
-                                            <figcaption>La Nuit du Faune</figcaption>
-                                            <h5>Romain Lucazeau</h5>
-                                        </hgroup>
-                                        <button type='button'> + </button>
-                                    </figure>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/test">
-                                    <figure>
-                                        <img
-                                            src="../Pictures/charlottebronte.jpeg" alt="book-image" />
-                                        <hgroup>
-                                            <figcaption>La Nuit du Faune</figcaption>
-                                            <h5>Romain Lucazeau</h5>
-                                        </hgroup>
-                                        <button type='button'> + </button>
-                                    </figure>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/test">
-                                    <figure>
-                                        <img
-                                            src="../Pictures/charlottebronte.jpeg" alt="book-image" />
-                                        <hgroup>
-                                            <figcaption>La Nuit du Faune</figcaption>
-                                            <h5>Romain Lucazeau</h5>
-                                        </hgroup>
-                                        <button type='button'> + </button>
-                                    </figure>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/test">
-                                    <figure>
-                                        <img
-                                            src="../Pictures/charlottebronte.jpeg" alt="book-image" />
-                                        <hgroup>
-                                            <figcaption>La Nuit du Faune</figcaption>
-                                            <h5>Romain Lucazeau</h5>
-                                        </hgroup>
-                                        <button type='button'> + </button>
-                                    </figure>
-                                </a>
-                            </li>
+                            {randomBooks.map((randombook) => {
+                                return (
+                                    <li key={randombook.id}>
+                                        <a href="/test">
+                                            <figure>
+                                                <div id="book-img">
+                                                    <img
+                                                        src={randombook.image} alt="book-image"
+                                                    />
+                                                    <button type='button'> + </button>
+                                                </div>
+                                                <hgroup>
+                                                    <figcaption>{randombook.title}</figcaption>
+                                                    <h5>{randombook.author}</h5>
+                                                </hgroup>
+
+                                            </figure>
+                                        </a>
+                                    </li>
+                                )
+                            })}
+
                         </ul>
                     </div>
                 </div>

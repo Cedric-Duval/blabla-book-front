@@ -1,10 +1,12 @@
-import Navbar from './Navbar/Navbar'
 import Footer from './Footer/Footer'
-
+import Navbar from './Navbar/Navbar'
 import './App.scss'
+import { } from 'react';
 import Homepage from './Homepage/Homepage'
 
 function App() {
+
+ 
 
   return (
     <div className='app'>
@@ -15,4 +17,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
