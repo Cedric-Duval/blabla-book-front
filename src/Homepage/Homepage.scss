@@ -2,43 +2,48 @@
 @use '../styles/section';
 
 
+
+
 //----------------------------- HERO SECTION -------------------------
-
-#presentation-img {
-    
-     max-width: 450px;
-
-    & img {
-    width: 100%;
-       
-
-    }
-}
-
 
 #hero-section{
     display: flex;
     background-color: v.$base-color;
     gap: 8vw;
     flex-wrap: wrap;
+
+    & #presentation{
+        max-width: 470px;
+
+
+        & button{
+            background-color: v.$secondary-color;
+            margin: 1rem 0;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+        }
+    }
+
+    & #presentation-img {
+    
+        max-width: 450px;
+   
+       & img {
+       width: 100%;
+          
+   
+       }
+   }
     
 }
 
-#presentation{
-    max-width: 470px;
-}
 
 
 
 
 
-button{
-    background-color: v.$secondary-color;
-    margin: 1rem 0;
-    color: white;
-    border: none;
-    padding: 15px 40px;
-}
+
 
 
 //------------------------- PERSONNAL LIBRARY SECTION ----------------------
@@ -56,6 +61,85 @@ button{
 hr {
     width: 220px;
     border-top: solid 2px v.$secondary-color;
+}
+
+
+// --------------------- RANDOMBOOKS SECTION -----------------------
+
+#random-books-section {
+    background-color: v.$base-color;
+    
+
+    & .random-books-title{
+        text-align: center;
+        padding-bottom: 20px;
+        font-family: "Inter";
+        & h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+
+        }
+        & p {
+            font-weight: 200;
+        }
+    }
+
+    & #random-books-list {
+        max-width: 1200px;
+        display: flex;
+        margin: 0 auto;
+        gap: calc(2vh + 4vw);
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+
+        & img {
+            max-width: 150px;
+        }
+        & a {
+            color: v.$police-color;
+            text-decoration: none;
+            
+        
+        }
+
+        & figure {
+            position: relative;
+            display: inline-block;
+            
+            font-family: "Inter";
+            
+
+            & hgroup {
+                margin: 10px 0;
+
+                & figcaption { 
+                    font-size: 1rem;
+                    
+                }
+                & h5 {
+                    font-weight: 200;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        
+
+        
+        & button {
+            position: absolute;
+            background-color: v.$secondary-color;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: normal;
+            right: 3px;
+            top: 217px;
+              
+        }
+    }
 }
 
 
