@@ -3,9 +3,15 @@ import { Link } from 'react-router';
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
+  setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Navbar({ setDisplayRegisterForm }: INavbarProps) {
+function Navbar({
+  setDisplayRegisterForm,
+  isLogged,
+  setDisplayLoginForm,
+}: INavbarProps) {
   return (
     <nav className="navbar">
       <div id="logo">
@@ -32,22 +38,38 @@ function Navbar({ setDisplayRegisterForm }: INavbarProps) {
           <li>
             <Link to="/myLibrary">Bibliothèque</Link>
           </li>
-          <li>
-            <Link to="#" className="button-connect">
-              Se connecter
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="#"
-              className="create-account"
-              onClick={() => {
-                setDisplayRegisterForm(true);
-              }}
-            >
-              Créer un compte
-            </Link>
-          </li>
+          {isLogged ? (
+            <li>
+              <Link to="#" className="button-connect">
+                Profil
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to="#"
+                  className="button-connect"
+                  onClick={() => {
+                    setDisplayLoginForm(true);
+                  }}
+                >
+                  Se connecter
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="create-account"
+                  onClick={() => {
+                    setDisplayRegisterForm(true);
+                  }}
+                >
+                  Créer un compte
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <Link to="" className="burger-menu">

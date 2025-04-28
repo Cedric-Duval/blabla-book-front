@@ -20,7 +20,7 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
           },
         },
       );
-      console.log(httpResponse);
+      console.log(httpResponse.data);
       closeRegisterForm();
     } catch (error) {
       console.error("Erreur lors de la création de l'utilisateur", error);
