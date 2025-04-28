@@ -9,10 +9,17 @@ import RegisterForm from './RegisterForm/RegisterForm';
 
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
+
+  function closeRegisterForm() {
+    setDisplayRegisterForm(false);
+  }
+
   return (
     <div className="app">
-      {displayRegisterForm && <RegisterForm />}
-      <Navbar />
+      {displayRegisterForm && (
+        <RegisterForm closeRegisterForm={closeRegisterForm} />
+      )}
+      <Navbar setDisplayRegisterForm={setDisplayRegisterForm} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/books" element={<Books />} />

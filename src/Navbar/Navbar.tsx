@@ -1,7 +1,11 @@
 import './Navbar.scss';
 import { Link } from 'react-router';
 
-function Navbar() {
+interface INavbarProps {
+  setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Navbar({ setDisplayRegisterForm }: INavbarProps) {
   return (
     <nav className="navbar">
       <div id="logo">
@@ -34,7 +38,13 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="#" className="create-account">
+            <Link
+              to="#"
+              className="create-account"
+              onClick={() => {
+                setDisplayRegisterForm(true);
+              }}
+            >
               Créer un compte
             </Link>
           </li>
