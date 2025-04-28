@@ -1,4 +1,4 @@
-import Book from './Book'
+import './Book.scss'
 
 function Book() {
 

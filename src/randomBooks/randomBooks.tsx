@@ -1,5 +1,6 @@
 import './randomBooks.scss';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 
 function randomBooks() {
@@ -44,7 +45,7 @@ const test = [];
 
 						{randomBooks.map((book) => {
                             <li>
-                                <a href="/test">
+                                <Link to="/book/:id">
                                     <figure>
                                         <img
                                             src="../Pictures/charlottebronte.jpeg" alt="book-image" />
@@ -54,7 +55,7 @@ const test = [];
                                         </hgroup>
                                         <button type='button'> + </button>
                                     </figure>
-                                </a>
+                                </Link>
                             </li> 
 						}
 

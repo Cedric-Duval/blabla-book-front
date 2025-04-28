@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { IBooks } from '../@types/books';
 import './Homepage.scss';
 import axios from 'axios'
+import { Link } from 'react-router';
 
 
 
@@ -65,7 +66,7 @@ function Homepage() {
                             {randomBooks.map((randombook) => {
                                 return (
                                     <li key={randombook.id}>
-                                        <a href="/test">
+                                        <Link to={`/book/${randombook.id}`}>
                                             <figure>
                                                 <div id="book-img">
                                                     <img
@@ -79,7 +80,7 @@ function Homepage() {
                                                 </hgroup>
 
                                             </figure>
-                                        </a>
+                                        </Link>
                                     </li>
                                 )
                             })}
