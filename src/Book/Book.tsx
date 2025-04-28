@@ -1,13 +1,13 @@
 import './Book.scss';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, Link } from 'react-router';
 import axios from 'axios'
 
 function Book() {
 
   const params = useParams();
   const bookId = params.id;
-  console.log(bookId);
+  // console.log(bookId);
 
   const [book, setBook] = useState<IBook[]>([]);
 
@@ -24,30 +24,40 @@ function Book() {
         getBook();
     }, []);
 
-    console.log(book);
+    // console.log(book);
     
 
 
 
 
   return (
-    <section id="book">
-        <h1>{book.title}</h1>
-        <div id="main">
+    <section id="book-section" className="section"> 
+        <Link to="/books"><img id="left-arrow" src="../Pictures/humbleicons--arrow-left.png" alt="left-arrow" /></Link>
+        <h2>{book.title}</h2>
+        <div id="presentation">
+          <div id="presentation-image">
             <img src={`${book.image}`} alt={`${book.title}`}/>
-            <div id="details">
-                <h2>{book.title}</h2>
-                <p>{book.author}</p>
-                <p>{book.publication_year}</p>
-                <p>{book.editor}</p>
-                <p>{book.isbn}</p>
-                <p>{book.pages} pages</p>
-                <h3>Résumé:</h3>
-                <p>{book.summary}</p>
-                <button>Bouton</button>
-
+          </div>
+            <div id="presentation-texts">
+              <div id="details">
+                  {/* <h2>{book.title}</h2> */}
+                  <p>De: {book.author}</p>
+                  <p>Parution: {book.publication_year}</p>
+                  <p>Édition: {book.editor}</p>
+                  <p>ISBN: {book.isbn}</p>
+                  <p>{book.pages} pages</p>
+              </div>
             </div>
-        </div>
+            
+          </div>
+          <div id="summary">
+            <hr />
+            <h3>Résumé:</h3>  
+            <p>{book.summary}</p>
+            <Link to=""><img id="add-button" src="../Pictures/ic--outline-plus.png" alt="left-arrow" /></Link>
+
+          </div>
+        
     </section>
   )
 }
