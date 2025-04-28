@@ -1,33 +1,54 @@
+import { useEffect, useState } from 'react';
 import './Books.scss'
+import type { IBooks } from '../@types/books';
+import axios from 'axios';
 
 
 function Books() {
+
+    const [allBooks, setAllBooks] = useState<IBooks[]>([]);
+
+    useEffect(() => {
+        const getAllBooks = async () => {
+            try {
+                const response = await axios.get(
+                    "http://localhost:3000/books",
+                );
+                setAllBooks(response.data);
+            } catch (_error) {
+            }
+        };
+        getAllBooks();
+    }, []);
+
+
     return (
 
 
         <section id="books-section" className="section">
             <div className='head-books'>
                 <h1>Tous nos livres</h1>
-                <input type="text" />
+                <input type="text"
+                placeholder="Recherche parmis vos livres" />
             </div> 
 
 
-            {/* <div className="books-list">
+            <div className="books-list">
                 <ul >
-                            {books.map((book) => {
+                            {allBooks.map((books) => {
                                 return (
-                                    <li key={book.id}>
+                                    <li key={books.id}>
                                         <a href="/test">
                                             <figure>
                                                 <div id="book-img">
                                                     <img
-                                                        src={book.image} alt="book-image"
+                                                        src={books.image} alt="book-image"
                                                     />
-                                                    <button type='button'> + </button>
+                                                    <button type='button'> ... </button>
                                                 </div>
                                                 <hgroup>
-                                                    <figcaption>{book.title}</figcaption>
-                                                    <h5>{book.author}</h5>
+                                                    <figcaption>{books.title}</figcaption>
+                                                    <h5>{books.author}</h5>
                                                 </hgroup>
 
                                             </figure>
@@ -37,7 +58,7 @@ function Books() {
                             })}
 
                         </ul>
-                    </div> */}
+                    </div> 
         </section>
 
 

@@ -15,7 +15,176 @@
         flex-wrap: wrap;
     }
 
-
-    
-
 }
+
+//----------- SECTION HEADER (Titre + Input) --------------- 
+.head-books {
+    display: flex; // Met le titre et l'input sur la même ligne
+    justify-content: space-between; // Espace entre titre et input
+    align-items: center; // Centre verticalement le titre et l'input
+    margin-bottom: 20px; // Espace sous le header
+    
+  
+   & h1 {
+      font-size: 2rem; // Taille du titre
+      margin: 0; // Supprime la marge automatique du h1
+    }
+  
+    & input {
+      font-size: 0.8rem; // Taille du texte dans l'input
+      border-radius: 5px;
+      width: 250px; // Largeur fixe du champ input
+      height: 25px;
+      border: solid 1px v.$secondary-color;
+    }
+  }
+  
+  //----------- SECTION LISTE DE LIVRES (Books list) ------------
+
+  .books-list {
+  
+    & ul {
+      display: grid; // Organisation en grille
+      grid-template-columns: repeat(5, 1fr); // 5 colonnes par ligne
+      gap: 20px; // Espace entre les livres
+    }
+  
+    & li { 
+      text-align: center;
+
+     & a {
+        color: v.$police-color;
+        text-decoration: none;
+      }
+  
+     & figure {
+            display: inline-block;
+            
+            font-family: "Inter";
+      }
+  
+     & #book-img {
+        position: relative; 
+        max-width: 150px; 
+        margin: 0 auto;
+  
+       & img {
+          width: 150px; 
+        }
+  
+       & button {
+        position: absolute;
+        background-color: v.$secondary-color;
+        border: none;
+        color: white;
+        border-radius: 50%;
+        font-size: 1rem;
+        font-weight: normal;
+        right: 3px;
+        top: 8px;
+          
+        }
+      }
+  
+     & hgroup {
+        margin: 10px 0;
+        max-width: 180px;
+      }
+  
+     & figcaption {
+        font-size: 1rem;
+      }
+  
+     & h5 {
+        font-weight: 200;
+        font-size: 0.85rem;
+      }
+    }
+  }
+  
+  /* ========== SECTION RESPONSIVE DESIGN ========== */
+  @media (max-width: 1200px) {
+    .books-list ul {
+      grid-template-columns: repeat(3, 1fr); // 3 colonnes sur écran moyen
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .books-list ul {
+      grid-template-columns: repeat(2, 1fr); // 2 colonnes sur tablette
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .books-list ul {
+      grid-template-columns: 1fr; // 1 colonne sur mobile
+    }
+  }
+  
+
+  /* & #books-list {
+        max-width: 1200px;
+        display: flex;
+        margin: 0 auto;
+        gap: calc(2vh + 4vw);
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+
+        & #book-img {
+            position: relative;
+            max-width: 150px;
+            margin: 0 auto;
+        }
+        & img {
+            width: 150px;
+            
+
+        }
+        & a {
+            color: v.$police-color;
+            text-decoration: none;
+            
+        
+        }
+
+        & figure {
+            
+            display: inline-block;
+            
+            font-family: "Inter";
+            
+
+            & hgroup {
+                margin: 10px 0;
+                max-width: 180px;
+
+                & figcaption { 
+                    font-size: 1rem;
+                    
+                }
+                & h5 {
+                    font-weight: 200;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        
+
+        
+        & button {
+            position: absolute;
+            background-color: v.$secondary-color;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: normal;
+            right: 3px;
+            bottom: 8px;
+              
+        }
+        
+    }
+} */
