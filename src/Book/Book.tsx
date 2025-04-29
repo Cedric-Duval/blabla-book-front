@@ -2,6 +2,8 @@ import './Book.scss';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import axios from 'axios'
+import type { IBooks } from '../@types/books';
+
 
 function Book() {
 
@@ -9,7 +11,7 @@ function Book() {
   const bookId = params.id;
   // console.log(bookId);
 
-  const [book, setBook] = useState<IBook[]>([]);
+  const [book, setBook] = useState<IBooks[]>([]);
 
     useEffect(() => {
         const getBook = async () => {
@@ -22,13 +24,11 @@ function Book() {
             }
         };
         getBook();
-    }, []);
+    }, [bookId]);
 
+    
     // console.log(book);
     
-
-
-
 
   return (
     <section id="book-section" className="section"> 

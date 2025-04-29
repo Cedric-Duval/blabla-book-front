@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Books.scss'
 import type { IBooks } from '../@types/books';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 
 function Books() {
@@ -38,7 +39,7 @@ function Books() {
                             {allBooks.map((books) => {
                                 return (
                                     <li key={books.id}>
-                                        <a href="/test">
+                                        <Link to={`/book/${books.id}`}>
                                             <figure>
                                                 <div id="book-img">
                                                     <img
@@ -52,7 +53,7 @@ function Books() {
                                                 </hgroup>
 
                                             </figure>
-                                        </a>
+                                            </Link>
                                     </li>
                                 )
                             })}
