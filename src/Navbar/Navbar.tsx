@@ -1,17 +1,27 @@
+import type { IUser } from '../@types/user';
 import './Navbar.scss';
 import { Link } from 'react-router';
+import { useState } from 'react';
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
-  isLogged: boolean;
   setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }
 
 function Navbar({
   setDisplayRegisterForm,
-  isLogged,
   setDisplayLoginForm,
+  isLogged,
+  setIsLogged,
+  setUser,
 }: INavbarProps) {
+
+  const [menuBurger, setMenuBurger] = useState(false);
+
+
   return (
     <nav className="navbar">
       <div id="logo">
@@ -26,7 +36,7 @@ function Navbar({
         placeholder="Recherche par titre, auteur, ISBN ..."
       />
       <div id="menu">
-        <ul className="hidden">
+        <ul className={menuBurger ? '' : 'hidden'}>
           <li>
             <Link to="/">Accueil</Link>
           </li>
@@ -39,11 +49,25 @@ function Navbar({
             <Link to="/myLibrary">Bibliothèque</Link>
           </li>
           {isLogged ? (
-            <li>
-              <Link to="#" className="button-connect">
-                Profil
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link to="#" className="button-connect">
+                  Profil
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="button-connect"
+                  onClick={() => {
+                    setIsLogged(false);
+                    setUser(undefined);
+                  }}
+                >
+                  Se déconnecter
+                </Link>
+              </li>
+            </>
           ) : (
             <>
               <li>
@@ -72,10 +96,17 @@ function Navbar({
           )}
         </ul>
       </div>
-      <Link to="" className="burger-menu">
+      <Link
+        to="#"
+        className="burger-menu"
+        onClick={(e) => {
+          e.preventDefault();
+          setMenuBurger(!menuBurger);
+        }}
+      >
         <img
           src="../public/Pictures/iconamoon--menu-burger-horizontal-fill.svg"
-          alt=""
+          alt="Menu"
         />
       </Link>
     </nav>

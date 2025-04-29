@@ -1,29 +1,39 @@
 import { Link } from 'react-router';
 import './RegisterForm.scss';
 import axios from 'axios';
+import { useState } from 'react';
 
 interface iRegisterFormProps {
   closeRegisterForm: () => void;
+  setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
+function RegisterForm({
+  closeRegisterForm,
+  setDisplayLoginForm,
+}: iRegisterFormProps) {
+  const [errors, setErrors] = useState({});
+
   async function handleSubmitRegister(event) {
     event.preventDefault();
     const formDatas = new FormData(event.target);
     try {
-      const httpResponse = await axios.post(
-        'http://localhost:3000/register',
-        formDatas,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      await axios.post('http://localhost:3000/register', formDatas, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
-      console.log(httpResponse.data);
+      });
+
       closeRegisterForm();
     } catch (error) {
-      console.error("Erreur lors de la création de l'utilisateur", error);
+      if (axios.isAxiosError(error) && error.response?.data.errors) {
+        const zodErrors = error.response.data.errors;
+        const formattedErrors: { [key: string]: string } = {};
+        for (const error of zodErrors) {
+          formattedErrors[error.field] = error.message;
+        }
+        setErrors(formattedErrors);
+      }
     }
   }
 
@@ -45,6 +55,10 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
             id="email"
             name="email"
           />
+          {errors.email && (
+            <p className="register-form-error">{errors.email}</p>
+          )}
+
           <label className="register-form-label" htmlFor="firstname">
             Prénom
           </label>
@@ -54,6 +68,10 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
             id="firstname"
             name="firstname"
           />
+          {errors.firstname && (
+            <p className="register-form-error">{errors.firstname}</p>
+          )}
+
           <label className="register-form-label" htmlFor="name">
             Nom
           </label>
@@ -63,6 +81,8 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
             id="name"
             name="name"
           />
+          {errors.name && <p className="register-form-error">{errors.name}</p>}
+
           <label className="register-form-label" htmlFor="password">
             Mot de passe
           </label>
@@ -72,6 +92,10 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
             id="password"
             name="password"
           />
+          {errors.password && (
+            <p className="register-form-error">{errors.password}</p>
+          )}
+
           <div className="register-form-div">
             <input
               className="register-form-input"
@@ -86,7 +110,14 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
           <button className="register-form-button" type="submit">
             S'inscrire
           </button>
-          <Link to="#" className="register-form-redirection">
+          <Link
+            to="#"
+            className="register-form-redirection"
+            onClick={() => {
+              closeRegisterForm();
+              setDisplayLoginForm(true);
+            }}
+          >
             Déjà inscrit ? Se connecter
           </Link>
         </form>
