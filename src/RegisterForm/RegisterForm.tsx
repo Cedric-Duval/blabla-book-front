@@ -5,9 +5,13 @@ import { useState } from 'react';
 
 interface iRegisterFormProps {
   closeRegisterForm: () => void;
+  setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
+function RegisterForm({
+  closeRegisterForm,
+  setDisplayLoginForm,
+}: iRegisterFormProps) {
   const [errors, setErrors] = useState({});
 
   async function handleSubmitRegister(event) {
@@ -106,7 +110,14 @@ function RegisterForm({ closeRegisterForm }: iRegisterFormProps) {
           <button className="register-form-button" type="submit">
             S'inscrire
           </button>
-          <Link to="#" className="register-form-redirection">
+          <Link
+            to="#"
+            className="register-form-redirection"
+            onClick={() => {
+              closeRegisterForm();
+              setDisplayLoginForm(true);
+            }}
+          >
             Déjà inscrit ? Se connecter
           </Link>
         </form>

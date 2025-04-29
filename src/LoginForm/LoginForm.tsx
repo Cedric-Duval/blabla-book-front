@@ -7,12 +7,14 @@ interface iRegisterFormProps {
   closeLoginForm: () => void;
   setUser: React.Dispatch<React.SetStateAction<undefined>>;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function LoginForm({
   closeLoginForm,
   setUser,
   setIsLogged,
+  setDisplayRegisterForm,
 }: iRegisterFormProps) {
   const [errors, setErrors] = useState({});
 
@@ -79,7 +81,14 @@ function LoginForm({
           <button className="login-form-button" type="submit">
             Se connecter
           </button>
-          <Link to="#" className="login-form-redirection">
+          <Link
+            to="#"
+            className="login-form-redirection"
+            onClick={() => {
+              closeLoginForm();
+              setDisplayRegisterForm(true);
+            }}
+          >
             Pas encore inscrit ? Se créer un compte
           </Link>
         </form>

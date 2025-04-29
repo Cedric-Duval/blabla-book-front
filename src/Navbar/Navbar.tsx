@@ -3,14 +3,14 @@ import { Link } from 'react-router';
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
-  isLogged: boolean;
   setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
 }
 
 function Navbar({
   setDisplayRegisterForm,
-  isLogged,
   setDisplayLoginForm,
+  isLogged,
 }: INavbarProps) {
   return (
     <nav className="navbar">

@@ -26,13 +26,17 @@ function App() {
   return (
     <div className="app">
       {displayRegisterForm && (
-        <RegisterForm closeRegisterForm={closeRegisterForm} />
+        <RegisterForm
+          closeRegisterForm={closeRegisterForm}
+          setDisplayLoginForm={setDisplayLoginForm}
+        />
       )}
       {displayLoginForm && (
         <LoginForm
           closeLoginForm={closeLoginForm}
           setUser={setUser}
           setIsLogged={setIsLogged}
+          setDisplayRegisterForm={setDisplayRegisterForm}
         />
       )}
 
