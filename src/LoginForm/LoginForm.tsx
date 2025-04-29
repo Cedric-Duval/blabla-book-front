@@ -32,8 +32,8 @@ function LoginForm({
           },
         },
       );
-
       setUser(httpResponse.data.currentUser);
+      localStorage.setItem('token', httpResponse.data.token);
       setIsLogged(true);
       closeLoginForm();
     } catch (error) {
