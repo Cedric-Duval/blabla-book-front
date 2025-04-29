@@ -2,6 +2,8 @@ import './Book.scss';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import axios from 'axios'
+import type { IBooks } from '../@types/books';
+
 
 function Book() {
 
@@ -9,7 +11,7 @@ function Book() {
   const bookId = params.id;
   // console.log(bookId);
 
-  const [book, setBook] = useState<IBook[]>([]);
+  const [book, setBook] = useState<IBooks | null>(null);
 
     useEffect(() => {
         const getBook = async () => {
@@ -18,22 +20,23 @@ function Book() {
                     `http://localhost:3000/book/${bookId}`,
                 );
                 setBook(response.data);
-            } catch (_error) {
+            } catch (error) {
+              console.log(error)
             }
         };
         getBook();
-    }, []);
+    }, [bookId]);
 
+    
     // console.log(book);
     
-
-
-
 
   return (
     <section id="book-section" className="section"> 
         <Link to="/books"><img id="left-arrow" src="../Pictures/humbleicons--arrow-left.png" alt="left-arrow" /></Link>
-        <h2>{book.title}</h2>
+        {book ? (
+          <>
+          <h2>{book.title}</h2>
         <div id="presentation">
           <div id="presentation-image">
             <img src={`${book.image}`} alt={`${book.title}`}/>
@@ -57,6 +60,9 @@ function Book() {
             <Link to=""><img id="add-button" src="../Pictures/ic--outline-plus.png" alt="left-arrow" /></Link>
 
           </div>
+          </>
+        ): <p>Chargement.... </p>}
+        
         
     </section>
   )
