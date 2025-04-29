@@ -1,8 +1,8 @@
 import './App.scss';
 import { useState } from 'react';
 import { Route, Routes } from 'react-router';
-import Books from './Books/Books';
 import Book from './Book/Book';
+import Books from './Books/Books';
 import Footer from './Footer/Footer';
 import Homepage from './Homepage/Homepage';
 import LoginForm from './LoginForm/LoginForm';
@@ -42,17 +42,9 @@ function App() {
         setDisplayLoginForm={setDisplayLoginForm}
       />
       <Routes>
-
-        <Route path="/" element={
-          <Homepage />
-        } />
-        <Route path="/books" element={
-          <Books />
-        } />
-        <Route path="/book/:id" element={
-          <Book />
-        } />
-
+        <Route path="/" element={<Homepage />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/book/:id" element={<Book />} />
       </Routes>
       <Footer />
     </div>
