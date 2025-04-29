@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import './Books.scss'
+import './Books.scss';
 import type { IBooks } from '../@types/books';
+import api from '../features/axiosApi';
 import axios from 'axios';
 import { Link } from 'react-router';
 
@@ -11,18 +12,15 @@ function Books() {
     // État pour gérer la recherche (titre + auteur)
     const [searchTerm, setSearchTerm] = useState<string>("");
 
-    useEffect(() => {
-        const getAllBooks = async () => {
-            try {
-                const response = await axios.get(
-                    "http://localhost:3000/books",
-                );
-                setAllBooks(response.data);
-            } catch (_error) {
-            }
-        };
-        getAllBooks();
-    }, []);
+  useEffect(() => {
+    const getAllBooks = async () => {
+      try {
+        const response = await api.get('/books');
+        setAllBooks(response.data);
+      } catch (_error) {}
+    };
+    getAllBooks();
+  }, []);
 
     // Fonction pour gérer le changement dans la barre de recherche, elle met à jour l'état searchTerm à chaque changement dans le champ de recherche.
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {

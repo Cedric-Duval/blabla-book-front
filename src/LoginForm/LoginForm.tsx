@@ -1,18 +1,24 @@
 import { Link } from 'react-router';
 import './LoginForm.scss';
 import axios from 'axios';
+import { useState } from 'react';
+import type { IUser } from '../@types/user';
 
 interface iRegisterFormProps {
   closeLoginForm: () => void;
-  setUser: React.Dispatch<React.SetStateAction<undefined>>;
+  setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function LoginForm({
   closeLoginForm,
   setUser,
   setIsLogged,
+  setDisplayRegisterForm,
 }: iRegisterFormProps) {
+  const [errors, setErrors] = useState({});
+
   async function handleSubmitLogin(event) {
     event.preventDefault();
     const formDatas = new FormData(event.target);
@@ -26,11 +32,19 @@ function LoginForm({
           },
         },
       );
-      setUser(httpResponse.data.user);
+      setUser(httpResponse.data.currentUser);
+      localStorage.setItem('token', httpResponse.data.token);
       setIsLogged(true);
       closeLoginForm();
     } catch (error) {
-      console.error("Erreur lors de l'identification", error);
+      if (axios.isAxiosError(error) && error.response?.data.errors) {
+        const zodErrors = error.response.data.errors;
+        const formattedErrors: { [key: string]: string } = {};
+        for (const error of zodErrors) {
+          formattedErrors[error.field] = error.message;
+        }
+        setErrors(formattedErrors);
+      }
     }
   }
 
@@ -48,6 +62,10 @@ function LoginForm({
             id="email"
             name="email"
           />
+          {errors.email && (
+            <p className="register-form-error">{errors.email}</p>
+          )}
+
           <label className="login-form-label" htmlFor="password">
             Mot de passe
           </label>
@@ -57,10 +75,21 @@ function LoginForm({
             id="password"
             name="password"
           />
+          {errors.password && (
+            <p className="register-form-error">{errors.password}</p>
+          )}
+
           <button className="login-form-button" type="submit">
             Se connecter
           </button>
-          <Link to="#" className="login-form-redirection">
+          <Link
+            to="#"
+            className="login-form-redirection"
+            onClick={() => {
+              closeLoginForm();
+              setDisplayRegisterForm(true);
+            }}
+          >
             Pas encore inscrit ? Se créer un compte
           </Link>
         </form>
