@@ -5,9 +5,11 @@ import Books from './Books/Books';
 import Book from './Book/Book';
 import Footer from './Footer/Footer';
 import Homepage from './Homepage/Homepage';
+import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
 import LoginForm from './LoginForm/LoginForm';
 import Navbar from './Navbar/Navbar';
 import RegisterForm from './RegisterForm/RegisterForm';
+
 
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
@@ -51,6 +53,9 @@ function App() {
         } />
         <Route path="/book/:id" element={
           <Book />
+        } />
+        <Route path="/myLibrary" element={
+          <PersonalLibrary />
         } />
 
       </Routes>
