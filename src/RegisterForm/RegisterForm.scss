@@ -14,8 +14,7 @@
     background-color: #C6AD8E;
     width: 25%;
     min-width: 500px;
-    height: 70%;
-    min-height: 550px;
+    max-height: 90%;
     padding: 3rem 5rem;
 
     &-form {
@@ -25,17 +24,17 @@
 
         &-title {
             font-size: 1.5rem;
-            padding-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
         }
 
         &-label {
-            padding-bottom: 0.5rem;;
+            padding-bottom: 0.5rem;
+            margin-top: 1.2rem;
         }
 
         &-input {
             border: none;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.2rem;
+            padding: 0.5rem;
         }
 
         &-div {
@@ -46,7 +45,7 @@
             height: 2rem;
             width: 50%;
             border: none;
-            margin-bottom: 1rem;
+            margin: 1rem 0;
         }
         
         &-redirection {
@@ -54,6 +53,11 @@
             font-size: 0.9rem;
             color: #F4F4F6;
             text-decoration: none;
+        }
+
+        &-error {
+            margin-top: 0.4rem;
+            color: rgb(196, 46, 46)
         }
     }
 

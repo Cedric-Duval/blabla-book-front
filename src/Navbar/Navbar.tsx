@@ -1,16 +1,21 @@
+import type { IUser } from '../@types/user';
 import './Navbar.scss';
 import { Link } from 'react-router';
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
-  isLogged: boolean;
   setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }
 
 function Navbar({
   setDisplayRegisterForm,
-  isLogged,
   setDisplayLoginForm,
+  isLogged,
+  setIsLogged,
+  setUser,
 }: INavbarProps) {
   return (
     <nav className="navbar">
@@ -39,11 +44,25 @@ function Navbar({
             <Link to="/myLibrary">Bibliothèque</Link>
           </li>
           {isLogged ? (
-            <li>
-              <Link to="#" className="button-connect">
-                Profil
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link to="#" className="button-connect">
+                  Profil
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="button-connect"
+                  onClick={() => {
+                    setIsLogged(false);
+                    setUser(undefined);
+                  }}
+                >
+                  Se déconnecter
+                </Link>
+              </li>
+            </>
           ) : (
             <>
               <li>
