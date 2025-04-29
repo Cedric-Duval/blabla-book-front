@@ -156,11 +156,12 @@ hr {
 // ------------- Call to action section -------------------
 
 #call-to-action-section{
-    background-image: url('../Pictures/biblio.jpeg');
+    background: url('../Pictures/img-footer.png') center/cover fixed;
     display: flex;
     flex-direction: column;
+    
 
-    & h2{
+    & h2 {
         text-align: center;
     }
     & button {
