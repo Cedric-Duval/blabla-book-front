@@ -28,7 +28,7 @@ function RegisterForm({
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
-        const formattedErrors = {};
+        const formattedErrors: { [key: string]: string } = {};
         for (const error of zodErrors) {
           formattedErrors[error.field] = error.message;
         }

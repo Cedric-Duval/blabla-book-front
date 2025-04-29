@@ -1,6 +1,7 @@
 import './App.scss';
 import { useState } from 'react';
 import { Route, Routes } from 'react-router';
+import type { IUser } from './@types/user';
 import Book from './Book/Book';
 import Books from './Books/Books';
 import Footer from './Footer/Footer';
@@ -12,7 +13,7 @@ import RegisterForm from './RegisterForm/RegisterForm';
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
   const [displayLoginForm, setDisplayLoginForm] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<IUser | undefined>();
   const [isLogged, setIsLogged] = useState(false);
 
   function closeRegisterForm() {
@@ -42,8 +43,10 @@ function App() {
 
       <Navbar
         setDisplayRegisterForm={setDisplayRegisterForm}
-        isLogged={isLogged}
         setDisplayLoginForm={setDisplayLoginForm}
+        isLogged={isLogged}
+        setIsLogged={setIsLogged}
+        setUser={setUser}
       />
       <Routes>
         <Route path="/" element={<Homepage />} />

@@ -2,10 +2,11 @@ import { Link } from 'react-router';
 import './LoginForm.scss';
 import axios from 'axios';
 import { useState } from 'react';
+import type { IUser } from '../@types/user';
 
 interface iRegisterFormProps {
   closeLoginForm: () => void;
-  setUser: React.Dispatch<React.SetStateAction<undefined>>;
+  setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -32,13 +33,13 @@ function LoginForm({
         },
       );
 
-      setUser(httpResponse.data.user);
+      setUser(httpResponse.data.currentUser);
       setIsLogged(true);
       closeLoginForm();
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
-        const formattedErrors = {};
+        const formattedErrors: { [key: string]: string } = {};
         for (const error of zodErrors) {
           formattedErrors[error.field] = error.message;
         }
