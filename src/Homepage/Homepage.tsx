@@ -114,7 +114,7 @@ function Homepage() {
             </section>
 
             <section id="call-to-action-section" className="">
-                <h2>Rejoinez notre communauté littéraire</h2>
+                <h2>Rejoignez notre communauté littéraire</h2>
                 <button type="button">Commencer ici</button>
             </section>
 
