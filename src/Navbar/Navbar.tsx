@@ -29,12 +29,15 @@ function Navbar({
           <img src="../Pictures/Logo.png" alt="" className="header-logo" />
         </Link>
       </div>
-      <input
-        type="text"
-        id="search"
-        name="search"
-        placeholder="Recherche par titre, auteur, ISBN ..."
-      />
+      {isLogged && (
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Recherche par titre, auteur, ISBN ..."
+        />
+      )}
+
       <div id="menu">
         <ul className={menuBurger ? '' : 'hidden'}>
           <li>

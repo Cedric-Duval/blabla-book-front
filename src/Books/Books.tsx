@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import './Books.scss';
 import type { IBooks } from '../@types/books';
 import api from '../features/axiosApi';
-import axios from 'axios';
 import { Link } from 'react-router';
 
 
