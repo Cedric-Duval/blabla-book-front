@@ -50,10 +50,10 @@ function Books() {
             {filteredBooks.length === 0 && <p className="no-results">Aucun livre ne correspond à votre recherche.</p>}
 
             <div className="books-list">
-                <ul >
+                <ul className='books-list-ul' >
                     {filteredBooks.map((books) => {
                         return (
-                            <li key={books.id}>
+                            <li key={books.id} className='books-list-li'>
                                 <Link to={`/book/${books.id}`}>
                                     <figure>
                                         <div id="book-img">

@@ -6,10 +6,13 @@
 
 
 #library-choice {
-    display: flex;
-    justify-content: space-around;
+    display: flex; 
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 3vh;
+    margin: 3vh auto;
+    font-family: "Inter";
+    max-width: 1400px;
+    gap: 2vh;
 
     ul {
         display: flex;
@@ -19,5 +22,6 @@
 
 .library-title{
     font-family: "Inter";
+    font-size: calc(1rem + 0.6vw);
     
 }

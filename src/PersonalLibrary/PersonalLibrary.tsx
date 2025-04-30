@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router';
 import '../Books/Books.scss'
 import './PersonalLibrary.scss'
- import axios from 'axios';
+import axios from 'axios';
+
+import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 
 function Books() {
@@ -49,10 +51,43 @@ function Books() {
         }
     }
 
+  
+    const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
+
+    // Si on clique sur le bouton du dropdown menu, celui-ci s'affiche en fonction du livre et de sa librarie
+    function displayMenu(event) {
+            // event.preventDefault();
+            event.stopPropagation();
+
+            //console.log(event);
+            console.log("Library id : " + event.target.dataset.libraryid + ", book id : " + event.target.dataset.id);
+            const bookId = Number(event.target.dataset.id);
+            const libraryId = Number(event.target.dataset.libraryid);
+
+            setDisplayDropdownMenu({ bookId, libraryId })
+    }
+
+    // Fermer le dropdown menu si on clique ailleurs
+    useEffect(() => {
+        function handleClickOutside() {
+            setDisplayDropdownMenu(null);
+        }
+        if (displayDropdownMenu !== null) {
+            document.addEventListener('click', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [displayDropdownMenu]);
+    
+
 
 
     return (
+        
         <section id="books-section" className="section">
+
+
             <div className='head-books'>
                 <h1>Ma bibliothèque</h1>
                 <input type="text"
@@ -78,17 +113,19 @@ function Books() {
                     <div className="books-list" key={library.id}>
 
                         <h3 className='library-title'>{library.name}</h3>
-                        <ul >
+                        <ul className='books-list-ul'>
                             {library.Books.map((book) => {
                                 return (
-                                    <li key={book.id}>
+                                    <li key={book.id} className='books-list-li'>
+
+                                        
                                         <Link to={`/book/${book.id}`}>
                                             <figure>
                                                 <div id="book-img">
                                                     <img
                                                         src={book.image} alt="book-image"
                                                     />
-                                                    <button type='button'> ... </button>
+                                                    
                                                 </div>
                                                 <hgroup>
                                                     <figcaption>{book.title}</figcaption>
@@ -97,6 +134,11 @@ function Books() {
 
                                             </figure>
                                         </Link>
+                                        <button type='button' data-id={book.id} data-libraryid={library.id} onClick={displayMenu}> ... </button>
+                                        
+                                        {/* Le DropdownMenu ne s'affiche que selon ces conditions */}
+                                        {displayDropdownMenu &&  displayDropdownMenu.bookId === book.id && 
+                                         displayDropdownMenu.libraryId === library.id && (<DropdownMenu libraryId={library.id} bookId={book.id} />)}
                                     </li>
                                 )
                             })}
