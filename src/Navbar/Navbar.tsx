@@ -1,6 +1,6 @@
 import type { IUser } from '../@types/user';
 import './Navbar.scss';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import type { IBooks } from '../@types/books';
 import axios from 'axios';

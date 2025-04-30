@@ -4,9 +4,11 @@ import './Homepage.scss';
 import axios from 'axios'
 import { Link } from 'react-router';
 
+interface HomepageProps {
+    setDisplayRegisterForm:  React.Dispatch<React.SetStateAction<boolean>>;
+  }
 
-
-function Homepage() {
+function Homepage({setDisplayRegisterForm}:HomepageProps) {
 
     const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
 
@@ -23,6 +25,10 @@ function Homepage() {
         getRandomBooks();
     }, []);
 
+    const clickButtonHomePage = () => {
+        setDisplayRegisterForm(true); 
+    };
+
 
     return (
         <div id="homepage">
@@ -34,7 +40,7 @@ function Homepage() {
                     </hgroup>
                     <p>Bienvenue dans l'univers des livres où chaque page tournée est une nouvelle aventure. Rejoignez notre communauté de lecteurs passionnés, partagez vos coups de cœur et découvrez des trésors littéraires qui vous attendent. Ne restez pas seul avec vos livres !</p>
 
-                    <button type="button" className="button">Commencer ici</button>
+                    <button type="button" className="button" onClick={clickButtonHomePage}>Commencer ici</button>
                 </div>
                 <div id="presentation-img">
                     <img src="../Pictures/pres.jpeg" alt="" />
@@ -115,7 +121,7 @@ function Homepage() {
 
             <section id="call-to-action-section" className="">
                 <h2>Rejoinez notre communauté littéraire</h2>
-                <button type="button">Commencer ici</button>
+                <button type="button" onClick={clickButtonHomePage}>Commencer ici</button>
             </section>
 
         </div>

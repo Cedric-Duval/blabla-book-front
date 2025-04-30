@@ -53,7 +53,7 @@ function App() {
       <Routes>
 
         <Route path="/" element={
-          <Homepage />
+          <Homepage setDisplayRegisterForm={setDisplayRegisterForm} />
         } />
         <Route path="/books" element={
           <Books />
