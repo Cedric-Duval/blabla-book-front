@@ -54,16 +54,17 @@ function Books() {
   
     const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
 
-    // Ouvre le dropdown menu si on clique sur le bouton 
+    // Si on clique sur le bouton du dropdown menu, celui-ci s'affiche en fonction du livre et de sa librarie
     function displayMenu(event) {
             // event.preventDefault();
             event.stopPropagation();
 
             //console.log(event);
-            console.log("Library id : " + event.target.dataset.libraryId + ", book id : " + event.target.dataset.id);
+            console.log("Library id : " + event.target.dataset.libraryid + ", book id : " + event.target.dataset.id);
             const bookId = Number(event.target.dataset.id);
-        
-            setDisplayDropdownMenu(bookId)
+            const libraryId = Number(event.target.dataset.libraryid);
+
+            setDisplayDropdownMenu({ bookId, libraryId })
     }
 
     // Fermer le dropdown menu si on clique ailleurs
@@ -133,8 +134,11 @@ function Books() {
 
                                             </figure>
                                         </Link>
-                                        <button type='button' data-id={book.id} data-libraryId={library.id} onClick={displayMenu}> ... </button>
-                                        {displayDropdownMenu === book.id && (<DropdownMenu />)}
+                                        <button type='button' data-id={book.id} data-libraryid={library.id} onClick={displayMenu}> ... </button>
+                                        
+                                        {/* Le DropdownMenu ne s'affiche que selon ces conditions */}
+                                        {displayDropdownMenu &&  displayDropdownMenu.bookId === book.id && 
+                                         displayDropdownMenu.libraryId === library.id && (<DropdownMenu libraryId={library.id} bookId={book.id} />)}
                                     </li>
                                 )
                             })}
