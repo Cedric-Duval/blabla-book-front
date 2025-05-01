@@ -1,7 +1,12 @@
 import type { IUser } from '../@types/user';
 import './Navbar.scss';
 import { Link } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { IBooks } from '../@types/books';
+import axios from 'axios';
+
+
+
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +25,33 @@ function Navbar({
 }: INavbarProps) {
 
   const [menuBurger, setMenuBurger] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState<IBooks[]>([]);
+
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      if (searchTerm.trim().length < 1) {
+        setSearchResults([]);
+        return;
+      }
+
+      try {
+        const res = await axios.get('http://localhost:3000/books');
+        const filtered = res.data.filter((book: IBooks) =>
+          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          book.isbn.toString().includes(searchTerm.toLowerCase())||
+          book.editor.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSearchResults(filtered.slice(0, 5));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchResults();
+  }, [searchTerm]);
 
 
   return (
@@ -30,12 +62,33 @@ function Navbar({
         </Link>
       </div>
       {isLogged ? (
-        <input
-          type="text"
-          id="search"
-          name="search"
-          placeholder="Recherche par titre, auteur, ISBN ..."
-        />
+        <div className="search-container">
+          <input
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Recherche par titre, auteur, ISBN ..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {searchTerm.length > 0 && searchResults.length > 0 && (
+            <ul className="search-result">
+              {searchResults.map((book) => (
+                <Link
+                  to={`/book/${book.id}`}
+                  key={book.id}
+                  className="book-result"
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSearchResults([]);
+                  }}
+                >
+                  {book.title} — {book.author}
+                </Link>
+              ))}
+            </ul>
+          )}
+        </div>
       ) : (
         <h1 className="title-blablabook">BlaBla Book</h1>
       )}

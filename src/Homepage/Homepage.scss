@@ -171,4 +171,15 @@ hr {
             border: none;
             padding: 15px 40px;
     }
+
+    .button {
+        background-color: v.$secondary-color;
+        margin: 1rem 0;
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        text-decoration: none;
+        font-family: "Inter";
+        font-size: small;
+    }
 }

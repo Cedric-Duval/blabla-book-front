@@ -3,10 +3,16 @@ import type { IBooks } from '../@types/books';
 import './Homepage.scss';
 import axios from 'axios'
 import { Link } from 'react-router';
+import type { IUser } from '../@types/user';
 
+interface HomepageProps {
+    setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
+    isLogged: boolean;
+    setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>
+    user: IUser | undefined;
+}
 
-
-function Homepage() {
+function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm }: HomepageProps) {
 
     const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
 
@@ -23,6 +29,17 @@ function Homepage() {
         getRandomBooks();
     }, []);
 
+    const clickButtonHomePage = () => {
+        setDisplayRegisterForm(true);
+    };
+
+     const handleBookClick = (e: React.MouseEvent) => {
+         if (!isLogged) {
+             e.preventDefault();
+             setDisplayLoginForm(true);
+         }
+     }; 
+
 
     return (
         <div id="homepage">
@@ -34,7 +51,7 @@ function Homepage() {
                     </hgroup>
                     <p>Bienvenue dans l'univers des livres où chaque page tournée est une nouvelle aventure. Rejoignez notre communauté de lecteurs passionnés, partagez vos coups de cœur et découvrez des trésors littéraires qui vous attendent. Ne restez pas seul avec vos livres !</p>
 
-                    <button type="button" className="button">Commencer ici</button>
+                    <button type="button" className="button" onClick={clickButtonHomePage}>Commencer ici</button>
                 </div>
                 <div id="presentation-img">
                     <img src="../Pictures/pres.jpeg" alt="" />
@@ -66,7 +83,8 @@ function Homepage() {
                             {randomBooks.map((randombook) => {
                                 return (
                                     <li key={randombook.id}>
-                                        <Link to={`/book/${randombook.id}`}>
+                                        <Link to={ isLogged ? `/book/${randombook.id}`  : '#' }
+                                         onClick={handleBookClick} >
                                             <figure>
                                                 <div id="book-img">
                                                     <img
@@ -114,8 +132,21 @@ function Homepage() {
             </section>
 
             <section id="call-to-action-section" className="">
-                <h2>Rejoignez notre communauté littéraire</h2>
-                <button type="button">Commencer ici</button>
+                {isLogged && user?.firstname ? (
+                    <h2>Bienvenue chez BlaBla Book, {user.firstname} !</h2>
+                ) : (
+                    <h2>Rejoignez notre communauté littéraire</h2>
+                )}
+
+                {isLogged ? (
+                    <Link to="/myLibrary" className="button">
+                        Accéder à ma bibliothèque
+                    </Link>
+                ) : (
+                    <button type="button" onClick={clickButtonHomePage} className="button">
+                        Commencer ici
+                    </button>
+                )}             
             </section>
 
         </div>
