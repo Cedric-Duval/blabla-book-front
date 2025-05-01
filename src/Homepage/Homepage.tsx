@@ -146,7 +146,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
                     <button type="button" onClick={clickButtonHomePage} className="button">
                         Commencer ici
                     </button>
-                )}
+                )}             
             </section>
 
         </div>
