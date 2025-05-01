@@ -3,12 +3,16 @@ import type { IBooks } from '../@types/books';
 import './Homepage.scss';
 import axios from 'axios'
 import { Link } from 'react-router';
+import type { IUser } from '../@types/user';
 
 interface HomepageProps {
-    setDisplayRegisterForm:  React.Dispatch<React.SetStateAction<boolean>>;
-  }
+    setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
+    isLogged: boolean;
+    setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>
+    user: IUser | undefined;
+}
 
-function Homepage({setDisplayRegisterForm}:HomepageProps) {
+function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm }: HomepageProps) {
 
     const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
 
@@ -26,8 +30,15 @@ function Homepage({setDisplayRegisterForm}:HomepageProps) {
     }, []);
 
     const clickButtonHomePage = () => {
-        setDisplayRegisterForm(true); 
+        setDisplayRegisterForm(true);
     };
+
+     const handleBookClick = (e: React.MouseEvent) => {
+         if (!isLogged) {
+             e.preventDefault();
+             setDisplayLoginForm(true);
+         }
+     }; 
 
 
     return (
@@ -72,7 +83,8 @@ function Homepage({setDisplayRegisterForm}:HomepageProps) {
                             {randomBooks.map((randombook) => {
                                 return (
                                     <li key={randombook.id}>
-                                        <Link to={`/book/${randombook.id}`}>
+                                        <Link to={ isLogged ? `/book/${randombook.id}`  : '#' }
+                                         onClick={handleBookClick} >
                                             <figure>
                                                 <div id="book-img">
                                                     <img
@@ -120,8 +132,21 @@ function Homepage({setDisplayRegisterForm}:HomepageProps) {
             </section>
 
             <section id="call-to-action-section" className="">
-                <h2>Rejoinez notre communauté littéraire</h2>
-                <button type="button" onClick={clickButtonHomePage}>Commencer ici</button>
+                {isLogged && user?.firstname ? (
+                    <h2>Bienvenue chez BlaBla Book, {user.firstname} !</h2>
+                ) : (
+                    <h2>Rejoignez notre communauté littéraire</h2>
+                )}
+
+                {isLogged ? (
+                    <Link to="/myLibrary" className="button">
+                        Accéder à ma bibliothèque
+                    </Link>
+                ) : (
+                    <button type="button" onClick={clickButtonHomePage} className="button">
+                        Commencer ici
+                    </button>
+                )}
             </section>
 
         </div>
