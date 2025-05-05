@@ -1,30 +1,45 @@
-.context-menu {
-    position: fixed;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    display: none;
-    z-index: 1000;
-  
-  
+
+#context-menu {
+  background: none;
+
+  & .register {
+    position: relative;
+  }
+
+  & img {
+    width: 50px;
+    box-shadow: none;
+    
+    
+  }
+  & .cloneBtn-personnalLibrary { 
+    position: absolute;
+    top: 0;
+    right: 0; 
+   }
+
   & .context-menu-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  & .option {
-    cursor: pointer;
-    min-width: 150px;
-    padding: 8px 15px;
-  }
-  
-  & li:hover {
-    background: #f0f0f0;
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: center;
+    
+
+      
+    & li {
+      width: 150px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      & a, p {
+        margin: 0 auto;
+        text-align: center;
+      }
+      
+    }
+    
   }
 }
 
-// Pour affiche le menu, à retirer 
-#context-menu {
-    display: block;  
-}

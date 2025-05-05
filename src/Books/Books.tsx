@@ -36,7 +36,7 @@ function Books() {
     return (
 
 
-        <section id="books-section" className="section">
+        <section id="books-section" className="section books-section">
             <div className='head-books'>
                 <h1>Tous nos livres</h1>
                 <input
