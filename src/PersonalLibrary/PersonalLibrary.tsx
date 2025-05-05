@@ -2,28 +2,23 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router';
 import '../Books/Books.scss'
 import './PersonalLibrary.scss'
-import axios from 'axios';
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 import api from '../features/axiosApi';
+import type { ILibrary } from '../@types/books';
 
 
 function PersonalLibrary() {
-
-    const userId = 1;
     const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
+    const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
 
 
-    const [myLibraries, setMyLibraries] = useState([]);
+    // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
+
     useEffect(() => {
         const getmyLibraries = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:3000/user/${userId}/libraries/books`,
-                );
+                const response = await api.get('/libraries/books');
                 setMyLibraries(response.data);
-                // console.log(response.data);
-                // console.log(response.data[0]);
-                // console.log(response.data[0].Books);
 
             } catch (error) {
                 console.log(error);
@@ -32,11 +27,9 @@ function PersonalLibrary() {
         };
         getmyLibraries();
     }, []);
-    // Ajouter manuellement une bibliothèque pour le user 1
-    // INSERT INTO "library" ("name", "user_id") VALUES ('nom bibliothèque', 1);
 
 
-// -------------- FONCTION DE CREATION DE BIBLITOTHEQUE -----------------------------
+    // -------------- FONCTION DE CREATION DE BIBLITOTHEQUE -----------------------------
 
     async function handleLibraryCreation(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -46,13 +39,15 @@ function PersonalLibrary() {
         const newLibraryName = formData.get('newLibraryName') as string;
 
         try {
-            const response = await api.post('http://localhost:3000/library', {
+            const response = await api.post('/library', {
                 name: newLibraryName,
             });
+            const newLibrary = response.data;
 
-            console.log('Bibliothèque créée :', response.data);
+            setMyLibraries((previousLibraries) => [...previousLibraries, { ...newLibrary, Books: [] }]);
 
             form.reset();
+            console.log('Bibliothèque créée :', newLibrary);
         } catch (error) {
             console.error('Erreur lors de la création de la bibliothèque :', error);
         }
@@ -90,15 +85,10 @@ function PersonalLibrary() {
 
 
     return (
-
-
-
         <section id="personalLibrary-section" className="section books-section">
 
             {/* Le DropdownMenu de myLibrary */}
             {displayDropdownMenu && (<DropdownMenu />)}
-
-
 
             <div className='head-books'>
                 <h1>Ma bibliothèque</h1>

@@ -9,3 +9,9 @@ export type IBooks = {
     editor: string
     publication_year: number;
 }
+
+export type ILibrary = {
+    id: number;
+    name: string;
+    Books: Book[];
+  };
