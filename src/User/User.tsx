@@ -5,30 +5,19 @@ import api from '../features/axiosApi';
 import axios from 'axios';
 import { Link } from 'react-router';
 
+interface IUserProps {
+    user?: IUser;
+    setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+}
 
 
 
+function UserPage({
+    user,
+    setUser
+}: IUserProps) {
 
-function UserPage() {
-
-    const [userData, setUserData] = useState([]);
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-
-            try {
-                const httpResponse = await api.get('/user');
-       
-                setUserData(httpResponse.data);
-                console.log(userData);
-    
-            } catch (error) {
-                console.error("Erreur lors de la récupération des informations utilisateur:", error);
-            };
-        };
-
-        fetchUserData();
-    }, []);
+    console.log(user);
 
 return (
     <div>
@@ -42,7 +31,7 @@ return (
                     type="text"
                     id='name'
                     name='name'
-                    defaultValue={userData.name}
+                    defaultValue={user.name}
                 />
                 <label className='user-update-form-label' htmlFor="firstname">
                     Prénom
@@ -51,7 +40,7 @@ return (
                     type="text"
                     id='firstname'
                     name='firstname'
-                    defaultValue={userData.firstname}
+                    defaultValue={user.firstname}
                 />
                 <label className='user-update-form-label' htmlFor="email">
                     Email
@@ -60,7 +49,7 @@ return (
                     type="email"
                     id='email'
                     name='email'
-                    defaultValue={userData.email}
+                    defaultValue={user.email}
 
                 />
                 <label className='user-update-form-label' htmlFor="old-password">

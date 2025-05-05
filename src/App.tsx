@@ -90,7 +90,10 @@ function App() {
         } />
 
         <Route path="/user" element={
-          <UserPage />
+          <UserPage
+            user={user}
+            setUser={setUser}
+          />
         } />
 
         <Route path="/confidentality" element ={
