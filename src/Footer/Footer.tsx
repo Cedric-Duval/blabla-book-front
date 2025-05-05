@@ -1,13 +1,13 @@
+import { Link } from 'react-router';
 import '../Footer/Footer.scss'
 
 function Footer() {
     return (
         <div className="footer">
             <div className="footer-top">
-                <a href="#">Mentions Légales</a>
-                <a href="#">Confidentialité</a>
-                <a href="#">Cookies</a>
-                <a href="#">Contact</a>
+                <Link to="legal-notice">Mentions Légales</Link>
+                <Link to="/confidentality"> Confidentialité </Link>
+                <Link to="/contact">Contact</Link>
             </div>
 
             <div className="footer-bottom">

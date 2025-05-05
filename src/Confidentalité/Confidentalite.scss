@@ -1,0 +1,21 @@
+@use '../styles/variables' as v;
+@use '../styles/section';
+
+
+.privacy-policy {
+    padding: 2rem;
+    line-height: 1.6;
+  }
+  
+  .privacy-policy .container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+
+  
+  .privacy-policy a {
+    color: #457b9d;
+    text-decoration: underline;
+  }
+  

@@ -1,12 +1,9 @@
 import type { IUser } from '../@types/user';
 import './Navbar.scss';
-import { Link } from 'react-router';
-import { useEffect, useState } from 'react';
-import type { IBooks } from '../@types/books';
 import axios from 'axios';
-
-
-
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
+import type { IBooks } from '../@types/books';
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,11 +20,9 @@ function Navbar({
   setIsLogged,
   setUser,
 }: INavbarProps) {
-
   const [menuBurger, setMenuBurger] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<IBooks[]>([]);
-
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -38,11 +33,13 @@ function Navbar({
 
       try {
         const res = await axios.get('http://localhost:3000/books');
+
         const filtered = res.data.filter((book: IBooks) =>
           book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          book.isbn.toString().includes(searchTerm.toLowerCase())||
+          book.isbn.toString().includes(searchTerm.toLowerCase()) ||
           book.editor.toLowerCase().includes(searchTerm.toLowerCase())
+
         );
         setSearchResults(filtered.slice(0, 5));
       } catch (error) {
@@ -53,6 +50,9 @@ function Navbar({
     fetchResults();
   }, [searchTerm]);
 
+  const closeMenuBurger = () => {
+    setMenuBurger(false);
+  };
 
   return (
     <nav className="navbar">
@@ -96,20 +96,31 @@ function Navbar({
       <div id="menu">
         <ul className={menuBurger ? '' : 'hidden'}>
           <li>
-            <Link to="/">Accueil</Link>
+            <Link to="/" onClick={closeMenuBurger}>Accueil</Link>
           </li>
 
           <li>
-            <Link to="/books">Livres</Link>
+            <Link
+              to={isLogged ? "/books" : "#"}
+              onClick={(e) => {
+                if (!isLogged) {
+                  e.preventDefault();
+                  setDisplayLoginForm(true);
+                }
+                closeMenuBurger();
+              }}
+            >
+              Livres
+            </Link>
           </li>
 
           <li>
-            <Link to="/myLibrary">Bibliothèque</Link>
+            <Link to="/myLibrary" onClick={closeMenuBurger}>Bibliothèque</Link>
           </li>
           {isLogged ? (
             <>
               <li>
-                <Link to="#" className="button-connect">
+                <Link to="#" className="button-connect" onClick={closeMenuBurger} >
                   Profil
                 </Link>
               </li>
@@ -118,11 +129,13 @@ function Navbar({
                   to="#"
                   className="button-connect"
                   onClick={() => {
+                    localStorage.removeItem('token');
                     setIsLogged(false);
                     setUser(undefined);
+                    closeMenuBurger();
                   }}
                 >
-                  Se déconnecter
+                  Déconnexion
                 </Link>
               </li>
             </>
@@ -134,6 +147,7 @@ function Navbar({
                   className="button-connect"
                   onClick={() => {
                     setDisplayLoginForm(true);
+                    closeMenuBurger();
                   }}
                 >
                   Se connecter
@@ -145,6 +159,7 @@ function Navbar({
                   className="create-account"
                   onClick={() => {
                     setDisplayRegisterForm(true);
+                    closeMenuBurger();
                   }}
                 >
                   Créer un compte
