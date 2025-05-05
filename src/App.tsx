@@ -53,7 +53,10 @@ function App() {
       <Routes>
 
         <Route path="/" element={
-          <Homepage setDisplayRegisterForm={setDisplayRegisterForm} isLogged={isLogged} setDisplayLoginForm={setDisplayLoginForm} user={user}  />
+          <Homepage setDisplayRegisterForm={setDisplayRegisterForm}
+           isLogged={isLogged} 
+           setDisplayLoginForm={setDisplayLoginForm}
+            user={user} />
         } />
         <Route path="/books" element={
           <Books />
@@ -64,7 +67,7 @@ function App() {
         <Route path="/myLibrary" element={
           <PersonalLibrary />
         } />
-        
+
       </Routes>
       <Footer />
     </div>

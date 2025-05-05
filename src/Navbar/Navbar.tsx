@@ -41,7 +41,7 @@ function Navbar({
         const filtered = res.data.filter((book: IBooks) =>
           book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          book.isbn.toString().includes(searchTerm.toLowerCase())||
+          book.isbn.toString().includes(searchTerm.toLowerCase()) ||
           book.editor.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setSearchResults(filtered.slice(0, 5));
@@ -53,6 +53,9 @@ function Navbar({
     fetchResults();
   }, [searchTerm]);
 
+  const closeMenuBurger = () => {
+    setMenuBurger(false);
+  };
 
   return (
     <nav className="navbar">
@@ -96,20 +99,31 @@ function Navbar({
       <div id="menu">
         <ul className={menuBurger ? '' : 'hidden'}>
           <li>
-            <Link to="/">Accueil</Link>
+            <Link to="/" onClick={closeMenuBurger}>Accueil</Link>
           </li>
 
           <li>
-            <Link to="/books">Livres</Link>
+            <Link
+              to={isLogged ? "/books" : "#"}
+              onClick={(e) => {
+                if (!isLogged) {
+                  e.preventDefault();
+                  setDisplayLoginForm(true);
+                }
+                closeMenuBurger();
+              }}
+            >
+              Livres
+            </Link>
           </li>
 
           <li>
-            <Link to="/myLibrary">Bibliothèque</Link>
+            <Link to="/myLibrary" onClick={closeMenuBurger}>Bibliothèque</Link>
           </li>
           {isLogged ? (
             <>
               <li>
-                <Link to="#" className="button-connect">
+                <Link to="#" className="button-connect" onClick={closeMenuBurger} >
                   Profil
                 </Link>
               </li>
@@ -120,9 +134,10 @@ function Navbar({
                   onClick={() => {
                     setIsLogged(false);
                     setUser(undefined);
+                    closeMenuBurger();
                   }}
                 >
-                  Se déconnecter
+                  Déconnexion
                 </Link>
               </li>
             </>
@@ -134,6 +149,7 @@ function Navbar({
                   className="button-connect"
                   onClick={() => {
                     setDisplayLoginForm(true);
+                    closeMenuBurger();
                   }}
                 >
                   Se connecter
@@ -145,6 +161,7 @@ function Navbar({
                   className="create-account"
                   onClick={() => {
                     setDisplayRegisterForm(true);
+                    closeMenuBurger();
                   }}
                 >
                   Créer un compte
