@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import '../Footer/Footer.scss'
 
 function Footer() {
@@ -5,7 +6,7 @@ function Footer() {
         <div className="footer">
             <div className="footer-top">
                 <a href="#">Mentions Légales</a>
-                <a href="#">Confidentialité</a>
+                <Link to="/confidentality"> Confidentialité </Link>
                 <a href="#">Cookies</a>
                 <a href="#">Contact</a>
             </div>
