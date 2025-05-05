@@ -7,9 +7,10 @@ import axios from 'axios';
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 
-function Books() {
+function PersonalLibrary() {
 
     const userId = 1;
+    const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
 
 
     const [myLibraries, setMyLibraries] = useState([]);
@@ -52,9 +53,8 @@ function Books() {
     }
 
   
-    const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
 
-    // Si on clique sur le bouton du dropdown menu, celui-ci s'affiche en fonction du livre et de sa librarie
+    // Si on clique sur le bouton du dropdown menu, celui-ci s'affiche avec le livre et librarie
     function displayMenu(event) {
             // event.preventDefault();
             event.stopPropagation();
@@ -68,25 +68,31 @@ function Books() {
     }
 
     // Fermer le dropdown menu si on clique ailleurs
-    useEffect(() => {
-        function handleClickOutside() {
-            setDisplayDropdownMenu(null);
-        }
-        if (displayDropdownMenu !== null) {
-            document.addEventListener('click', handleClickOutside);
-        }
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [displayDropdownMenu]);
+    // useEffect(() => {
+    //     function handleClickOutside() {
+    //         setDisplayDropdownMenu(null);
+    //     }
+    //     if (displayDropdownMenu !== null) {
+    //         document.addEventListener('click', handleClickOutside);
+    //     }
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside);
+    //     };
+    // }, [displayDropdownMenu]);
     
 
 
 
     return (
-        
-        <section id="books-section" className="section">
+ 
 
+        
+        <section id="personalLibrary-section" className="section books-section">
+
+            {/* Le DropdownMenu de myLibrary */}
+            {displayDropdownMenu && (<DropdownMenu />)}
+
+            
 
             <div className='head-books'>
                 <h1>Ma bibliothèque</h1>
@@ -136,9 +142,7 @@ function Books() {
                                         </Link>
                                         <button type='button' data-id={book.id} data-libraryid={library.id} onClick={displayMenu}> ... </button>
                                         
-                                        {/* Le DropdownMenu ne s'affiche que selon ces conditions */}
-                                        {displayDropdownMenu &&  displayDropdownMenu.bookId === book.id && 
-                                         displayDropdownMenu.libraryId === library.id && (<DropdownMenu libraryId={library.id} bookId={book.id} />)}
+                                        
                                     </li>
                                 )
                             })}
@@ -148,7 +152,8 @@ function Books() {
                 )
             })}
         </section>
+     
     )
 }
 
-export default Books;
+export default PersonalLibrary;
