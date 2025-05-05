@@ -10,6 +10,7 @@ import LoginForm from './LoginForm/LoginForm';
 import Navbar from './Navbar/Navbar';
 import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
 import RegisterForm from './RegisterForm/RegisterForm';
+import Error from './Error404/Error404';
 import api from './features/axiosApi';
 
 function App() {
@@ -82,6 +83,10 @@ function App() {
         } />
         <Route path="/myLibrary" element={
           <PersonalLibrary />
+        } />
+
+        <Route path="*" element={
+          <Error />
         } />
 
       </Routes>
