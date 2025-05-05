@@ -14,6 +14,7 @@ import Error from './Error404/Error404';
 import api from './features/axiosApi';
 import Confidentalite from './Confidentalité/Confidentalite';
 import MentionLegale from './MentionLegales/MentionLegale';
+import Contact from './Contact/Contact';
 
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
@@ -92,6 +93,10 @@ function App() {
         } />
         <Route path="/legal-notice" element ={
           <MentionLegale />
+        } />
+
+        <Route path="/contact" element ={
+          <Contact />
         } />
 
         <Route path="*" element={
