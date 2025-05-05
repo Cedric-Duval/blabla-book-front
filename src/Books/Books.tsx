@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import './Books.scss';
-import { Link } from 'react-router';
 import type { IBooks } from '../@types/books';
 import api from '../features/axiosApi';
+import { Link } from 'react-router';
+
 
 function Books() {
-  // État pour afficher tous les livres
-  const [allBooks, setAllBooks] = useState<IBooks[]>([]);
-  // État pour gérer la recherche (titre + auteur)
-  const [searchTerm, setSearchTerm] = useState<string>('');
+    // État pour afficher tous les livres
+    const [allBooks, setAllBooks] = useState<IBooks[]>([]);
+    // État pour gérer la recherche (titre + auteur)
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const getAllBooks = async () => {
@@ -33,6 +34,7 @@ function Books() {
 
 
     return (
+
       <section id="books-section" className="section books-section">
         <div className="head-books">
           <h1>Tous nos livres</h1>
