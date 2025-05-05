@@ -10,14 +10,12 @@ function MentionLegale (){
 
     <h2>1. Éditeur du site</h2>
     <p>
-      Le site <strong>BlaBlaBook</strong> est édité par :
+      Le site <strong>BlaBlaBook</strong> est édité par l’association fictive BlaBlaBook, régie par la loi du 1er juillet 1901.
       <br />
-      <strong>Raison sociale :</strong> BlaBlaBook<br />
-      <strong>Forme juridique :</strong> Stagiaire <br />
-      <strong>Adresse :</strong> 123 rue des Livres, 75000 Paris, France<br />
+      <strong>Nom de l’association :</strong> BlaBlaBook<br />
+      <strong>Siège social :</strong> 123 rue des Livres, 75000 Paris, France<br />
       <strong>Email :</strong> <a href="mailto:contact@blablabook.fr">contact@blablabook.fr</a><br />
-      <strong>Numéro SIRET :</strong> XXXXXXXX<br />
-      <strong>Directeur de la publication :</strong> BlablaBook
+      <strong>Responsables de la publication :</strong> Cédric, Titouan, William et Dylan, membres de l’association
     </p>
 
     <h2>2. Hébergeur</h2>
@@ -26,7 +24,7 @@ function MentionLegale (){
       <strong>BlaBlaBook</strong><br />
       123 rue des Livres, 75000 Paris, France<br />
       <strong>Téléphone :</strong> XX XX XX XX XX<br />
-      <strong>Site web :</strong> <a href="[URL hébergeur]" target="_blank">XXXX</a>
+      <strong>Site web :</strong> <a href="[URL hébergeur]">XXXX</a>
     </p>
 
     <h2>3. Informations Techniques</h2>
