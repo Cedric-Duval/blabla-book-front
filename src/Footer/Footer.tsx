@@ -5,7 +5,7 @@ function Footer() {
     return (
         <div className="footer">
             <div className="footer-top">
-                <a href="#">Mentions Légales</a>
+                <Link to="legal-notice">Mentions Légales</Link>
                 <Link to="/confidentality"> Confidentialité </Link>
                 <a href="#">Cookies</a>
                 <a href="#">Contact</a>
