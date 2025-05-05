@@ -2,69 +2,70 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router';
 import '../Books/Books.scss'
 import './PersonalLibrary.scss'
-import axios from 'axios';
-
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
+import api from '../features/axiosApi';
+import type { ILibrary } from '../@types/books';
 
 
 function PersonalLibrary() {
-
-    const userId = 1;
     const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
+    const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
 
 
-    const [myLibraries, setMyLibraries] = useState([]);
+    // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
+
     useEffect(() => {
         const getmyLibraries = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:3000/user/${userId}/libraries/books`,
-                );
+                const response = await api.get('/libraries/books');
                 setMyLibraries(response.data);
-                // console.log(response.data);
-                // console.log(response.data[0]);
-                // console.log(response.data[0].Books);
 
             } catch (error) {
                 console.log(error);
-                
+
             }
         };
         getmyLibraries();
     }, []);
-    // Ajouter manuellement une bibliothèque pour le user 1
-    // INSERT INTO "library" ("name", "user_id") VALUES ('nom bibliothèque', 1);
- 
 
 
-    async function handleLibraryCreation(formData) {
-        const formDataValue = formData.get('newLibraryName') as string;
+    // -------------- FONCTION DE CREATION DE BIBLITOTHEQUE -----------------------------
+
+    async function handleLibraryCreation(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+        const newLibraryName = formData.get('newLibraryName') as string;
+
         try {
-            console.log(formDataValue);
+            const response = await api.post('/library', {
+                name: newLibraryName,
+            });
+            const newLibrary = response.data;
 
-            // Requête POST axios avec :
-            // library_id: libraryId,
-            // book_id: bookId,
-            
+            setMyLibraries((previousLibraries) => [...previousLibraries, { ...newLibrary, Books: [] }]);
+
+            form.reset();
+            console.log('Bibliothèque créée :', newLibrary);
         } catch (error) {
-            console.log(error);
-            
+            console.error('Erreur lors de la création de la bibliothèque :', error);
         }
     }
 
-  
+
 
     // Si on clique sur le bouton du dropdown menu, celui-ci s'affiche avec le livre et librarie
     function displayMenu(event) {
-            // event.preventDefault();
-            event.stopPropagation();
+        // event.preventDefault();
+        event.stopPropagation();
 
-            //console.log(event);
-            console.log("Library id : " + event.target.dataset.libraryid + ", book id : " + event.target.dataset.id);
-            const bookId = Number(event.target.dataset.id);
-            const libraryId = Number(event.target.dataset.libraryid);
+        //console.log(event);
+        console.log("Library id : " + event.target.dataset.libraryid + ", book id : " + event.target.dataset.id);
+        const bookId = Number(event.target.dataset.id);
+        const libraryId = Number(event.target.dataset.libraryid);
 
-            setDisplayDropdownMenu({ bookId, libraryId })
+        setDisplayDropdownMenu({ bookId, libraryId })
     }
 
     // Fermer le dropdown menu si on clique ailleurs
@@ -79,26 +80,21 @@ function PersonalLibrary() {
     //         document.removeEventListener('click', handleClickOutside);
     //     };
     // }, [displayDropdownMenu]);
-    
+
 
 
 
     return (
- 
-
-        
         <section id="personalLibrary-section" className="section books-section">
 
             {/* Le DropdownMenu de myLibrary */}
             {displayDropdownMenu && (<DropdownMenu />)}
 
-            
-
             <div className='head-books'>
                 <h1>Ma bibliothèque</h1>
                 <input type="text"
-                placeholder="Recherche parmis vos livres" />
-            </div> 
+                    placeholder="Recherche parmis vos livres" />
+            </div>
 
             <div id="library-choice">
                 <ul>
@@ -106,15 +102,22 @@ function PersonalLibrary() {
                     <NavLink to=""><li>Lus</li></NavLink>
                     <NavLink to=""><li>A lire</li></NavLink>
                 </ul>
-                <form action={handleLibraryCreation} >
-                    <input type="text" id="newLibraryName" name="newLibraryName" placeholder='Créer une bibliothèque' />
+
+                <form onSubmit={handleLibraryCreation}>
+                    <input
+                        type="text"
+                        id="newLibraryName"
+                        name="newLibraryName"
+                        placeholder="Créer une bibliothèque"
+                        required
+                    />
                     <button type="submit">Créer</button>
                 </form>
             </div>
 
 
             {myLibraries.map((library) => {
-                return(
+                return (
 
                     <div className="books-list" key={library.id}>
 
@@ -124,14 +127,14 @@ function PersonalLibrary() {
                                 return (
                                     <li key={book.id} className='books-list-li'>
 
-                                        
+
                                         <Link to={`/book/${book.id}`}>
                                             <figure>
                                                 <div id="book-img">
                                                     <img
                                                         src={book.image} alt="book-image"
                                                     />
-                                                    
+
                                                 </div>
                                                 <hgroup>
                                                     <figcaption>{book.title}</figcaption>
@@ -141,18 +144,18 @@ function PersonalLibrary() {
                                             </figure>
                                         </Link>
                                         <button type='button' data-id={book.id} data-libraryid={library.id} onClick={displayMenu}> ... </button>
-                                        
-                                        
+
+
                                     </li>
                                 )
                             })}
 
                         </ul>
-                    </div> 
+                    </div>
                 )
             })}
         </section>
-     
+
     )
 }
 
