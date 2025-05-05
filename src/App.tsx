@@ -67,20 +67,23 @@ function App() {
         setUser={setUser}
       />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Homepage
-              setDisplayRegisterForm={setDisplayRegisterForm}
-              isLogged={isLogged}
-              setDisplayLoginForm={setDisplayLoginForm}
-              user={user}
-            />
-          }
-        />
-        <Route path="/books" element={<Books />} />
-        <Route path="/book/:id" element={<Book />} />
-        <Route path="/myLibrary" element={<PersonalLibrary />} />
+
+        <Route path="/" element={
+          <Homepage setDisplayRegisterForm={setDisplayRegisterForm}
+           isLogged={isLogged} 
+           setDisplayLoginForm={setDisplayLoginForm}
+            user={user} />
+        } />
+        <Route path="/books" element={
+          <Books />
+        } />
+        <Route path="/book/:id" element={
+          <Book />
+        } />
+        <Route path="/myLibrary" element={
+          <PersonalLibrary />
+        } />
+
       </Routes>
       <Footer />
     </div>
