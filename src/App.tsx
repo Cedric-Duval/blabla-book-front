@@ -12,6 +12,7 @@ import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
 import RegisterForm from './RegisterForm/RegisterForm';
 import Error from './Error404/Error404';
 import api from './features/axiosApi';
+import Confidentalite from './Confidentalité/Confidentalite';
 
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
@@ -83,6 +84,10 @@ function App() {
         } />
         <Route path="/myLibrary" element={
           <PersonalLibrary />
+        } />
+
+        <Route path="/confidentality" element ={
+          <Confidentalite />
         } />
 
         <Route path="*" element={
