@@ -9,24 +9,14 @@ import api from '../features/axiosApi';
 interface PersonalLibraryProps {
     setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentBook: React.Dispatch<React.SetStateAction<ILibrary | null | undefined>>;
+    myLibraries: ILibrary[];
+    setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 }
 
 
-function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLibraryProps) {
-    const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
+function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook, myLibraries, setMyLibraries }: PersonalLibraryProps) {
     const [librariesStatus, setLibrariesStatus] = useState('all');
 
-
-    function handleReadBooks() {
-
-        //console.log(myLibraries[1].Books[0].LibraryBook.read);
-
-        // for (const library of myLibraries) {
-        //   const readBooks = library.Books.filter((book) => book.LibraryBook.read);
-        //   console.log(readBooks);
-        // }
-
-    };
 
     // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
 
@@ -36,8 +26,8 @@ function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLib
                 const response = await api.get('/libraries/books');
                 setMyLibraries(response.data);
 
-            } catch (_error) {
-                _error
+            } catch (error) {
+                error
             }
         };
         getmyLibraries();
@@ -146,10 +136,3 @@ function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLib
 }
 
 export default PersonalLibrary;
-
-//console.log(myLibraries[1].Books[0].LibraryBook.read);
-
-// for (const library of myLibraries) {
-//   const readBooks = library.Books.filter((book) => book.LibraryBook.read);
-//   console.log(readBooks);
-// }

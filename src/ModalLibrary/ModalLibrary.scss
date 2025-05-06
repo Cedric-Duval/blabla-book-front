@@ -1,6 +1,10 @@
 @use '../styles/variables' as v;
 @use '../styles/section';
 
+.selected {
+  color: aqua;
+}
+
 .library {
   position: relative;
   background-color: v.$secondary-color;

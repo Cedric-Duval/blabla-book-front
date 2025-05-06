@@ -1,7 +1,7 @@
 import './App.scss';
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
-import type { ILibrary } from './@types/books';
+import type { IBooks, ILibrary } from './@types/books';
 import type { IUser } from './@types/user';
 import Book from './Book/Book';
 import Books from './Books/Books';
@@ -16,7 +16,7 @@ import ModalLibrary from './ModalLibrary/ModalLibrary';
 import Navbar from './Navbar/Navbar';
 import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
 import RegisterForm from './RegisterForm/RegisterForm';
-import UserPage from './User/User';
+import User from './User/User';
 import api from './features/axiosApi';
 
 function App() {
@@ -25,7 +25,8 @@ function App() {
   const [displayModalLibrary, setDisplayModalLibrary] = useState(false);
   const [user, setUser] = useState<IUser | undefined>();
   const [isLogged, setIsLogged] = useState(false);
-  const [currentBook, setCurrentBook] = useState<ILibrary | null>();
+  const [currentBook, setCurrentBook] = useState<IBooks | null>();
+  const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
 
 
   useEffect(() => {
@@ -75,7 +76,8 @@ function App() {
       {displayModalLibrary && (
         <ModalLibrary
           closeModalLibrary={closeModalLibrary}
-          currentBook={currentBook} />)}
+          currentBook={currentBook}
+          setMyLibraries={setMyLibraries} />)}
 
       <Navbar
         setDisplayRegisterForm={setDisplayRegisterForm}
@@ -101,11 +103,14 @@ function App() {
         <Route path="/myLibrary" element={
           <PersonalLibrary
             setDisplayModalLibrary={setDisplayModalLibrary}
-            setCurrentBook={setCurrentBook} />
+            setCurrentBook={setCurrentBook}
+            myLibraries={myLibraries}
+            setMyLibraries={setMyLibraries}
+             />
         } />
 
         <Route path="/user" element={
-          <UserPage
+          <User
             user={user}
             setUser={setUser}
           />

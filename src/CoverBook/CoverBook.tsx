@@ -4,7 +4,7 @@ import type { IBooks } from '../@types/books';
 import type { ILibrary } from '../@types/books';
 
 interface CoverBookProps {
-    book: IBooks;
+    book:  IBooks | null | undefined;
     setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentBook: React.Dispatch<React.SetStateAction<ILibrary | null | undefined>>;
 }
@@ -20,7 +20,6 @@ function CoverBook({ book, setDisplayModalLibrary, setCurrentBook }: CoverBookPr
                         setDisplayModalLibrary(true);
                         event.preventDefault();
                         setCurrentBook(book);
-                        console.log(book);
                     }}> ... </button>
                     <img
                         src={book.image} alt="book-image"

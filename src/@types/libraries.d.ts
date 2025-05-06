@@ -1,4 +1,4 @@
-import { IBooks } from "./books"
+import type { IBooks } from "./books"
 
 export type ILibraries = {
     id: number,
