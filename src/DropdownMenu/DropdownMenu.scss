@@ -22,11 +22,12 @@
     display: flex;  
     flex-wrap: wrap;
     justify-content: center;
+    padding-right: 40px;
     
 
       
     & li {
-      width: 150px;
+      width: 120px;
       margin: 0 auto;
       padding: 20px;
       display: flex;

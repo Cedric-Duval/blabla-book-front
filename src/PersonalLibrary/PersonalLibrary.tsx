@@ -68,27 +68,12 @@ function PersonalLibrary() {
         setDisplayDropdownMenu({ bookId, libraryId })
     }
 
-    // Fermer le dropdown menu si on clique ailleurs
-    // useEffect(() => {
-    //     function handleClickOutside() {
-    //         setDisplayDropdownMenu(null);
-    //     }
-    //     if (displayDropdownMenu !== null) {
-    //         document.addEventListener('click', handleClickOutside);
-    //     }
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside);
-    //     };
-    // }, [displayDropdownMenu]);
-
-
-
 
     return (
         <section id="personalLibrary-section" className="section books-section">
 
             {/* Le DropdownMenu de myLibrary */}
-            {displayDropdownMenu && (<DropdownMenu />)}
+            {displayDropdownMenu && (<DropdownMenu setDisplayDropdownMenu={setDisplayDropdownMenu} />)}
 
             <div className='head-books'>
                 <h1>Ma bibliothèque</h1>
