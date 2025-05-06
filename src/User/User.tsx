@@ -12,34 +12,45 @@ interface IUserProps {
     setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }
 
-async function handleUserDatasUpdate(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    try {
-        const response = await api.patch()
-    }
-}
-
-
 
 function User({
     user,
     setUser
 }: IUserProps) {
+    
+    async function handleUserDatasUpdate(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+    
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+    
+         try {
+             const response = await api.patch('/user', {
+                 name: formData.get('name'),
+                 firstname: formData.get('firstname'),
+                 email: formData.get('email')
+             });
+             const newUser = response.data;
+    
+             console.log(user);
+             console.log(newUser);
+    
+    
+        } catch (_error) {
+            console.log(_error);
+        }
+    }
 
     console.log(user);
     console.log(user?.Libraries);
     user?.Libraries?.forEach((library) => {
         console.log(`Books in Library ${library.name}:`, library.Books);
-      });
+    });
 
 return (
     <div id='user-profile'>
         <section id='user-data-section'>
-            <form action="">
+            <form onSubmit={handleUserDatasUpdate}>
                 <p id='user-update-form-title'>Mes informations</p>
                 <label className='user-update-form-label' htmlFor="name">
                     Nom
@@ -109,27 +120,29 @@ return (
             <p id='user-libraries-section-title'>Mes bibliothèques</p>
 
             <ul id='libraries-list'>
-                {user?.Libraries.map((Library) => {
-                    return (
-                        <li key={Library.id}>
-                            <Link to={`/library/${Library.id}`}>
-                                <figure>
-                                    {Library.Books[0]?.image && (
-                                    
-                                        <div className="book-img">
-                                            <img
-                                                src={Library.Books[0].image} alt="book-image"
-                                            />
-                                        </div>
-                                    )}
-                                    <hgroup>
-                                        <figcaption className='library-name'>{Library.name}</figcaption>
-                                    </hgroup>
-                                </figure>
-                            </Link>
-                        </li>
-                    )
-                })}
+                {user?.Libraries && (
+                    user?.Libraries.map((Library) => {
+                        return (
+                            <li key={Library.id}>
+                                <Link to={`/library/${Library.id}`}>
+                                    <figure>
+                                        {Library.Books[0]?.image && (
+                                        
+                                            <div className="book-img">
+                                                <img
+                                                    src={Library.Books[0].image} alt="book-image"
+                                                />
+                                            </div>
+                                        )}
+                                        <hgroup>
+                                            <figcaption className='library-name'>{Library.name}</figcaption>
+                                        </hgroup>
+                                    </figure>
+                                </Link>
+                            </li>
+                        )
+                    })
+                )}
 
             </ul>
 

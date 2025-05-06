@@ -15,7 +15,7 @@ import api from './features/axiosApi';
 import Confidentalite from './Confidentalité/Confidentalite';
 import MentionLegale from './MentionLegales/MentionLegale';
 import Contact from './Contact/Contact';
-import UserPage from './User/User';
+import User from './User/User';
 
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
