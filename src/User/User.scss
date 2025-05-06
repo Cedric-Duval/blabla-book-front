@@ -1,0 +1,101 @@
+@use '../styles/variables' as v;
+@use '../styles/section';
+
+#user-profile {
+    display: flex;
+
+    font-family: "Inter";
+
+    & #user-data-section {
+        width: 50%;
+
+        display: flex;
+
+        & #user-update-form-title {
+            font-weight: bold;
+        }
+    
+        & form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            margin: auto;
+            height: 90%;
+            width: 90%;
+
+            & label {
+                width: 100%;
+            }
+
+            & input {
+                width: 80%;
+                margin: 1.5% 0% 1.5% 0;
+            }
+
+            & .user-update-form-button {
+                all: unset;
+                background-color: v.$secondary-color;
+                height: 7vh;
+                width: 8vw;
+                border-radius: 50px;
+                text-align: center;
+                color: v.$base-color;
+                margin: 1% 0% 2.5% 0%;
+            }
+
+            & .user-delete-button {
+                all: unset;
+                background-color: v.$red-color;
+                height: 7vh;
+                width: 20vw;
+                border-radius: 50px;
+                text-align: center;
+                color: v.$base-color;
+            }
+        }     
+    }
+    
+    & #user-libraries-section {  
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        height: 90%;
+        width: 50%;
+
+        & #user-libraries-section-title {
+            font-weight: bold;
+        }
+
+        & #libraries-list {
+
+            display: flex;
+            margin: 0 auto;
+            gap: calc(1vh + 2vw);
+            flex-wrap: wrap;
+
+            & figure {
+
+                width: 20%;
+
+                & .book-img {
+                    
+                    & img {
+                        position: relative;
+                        width: 100%;
+                    }
+                }
+                
+                & a {
+                    text-decoration: none;
+                    color: v.$police-color;
+                    width: 20%;
+                }
+            }
+                
+        }        
+    }
+
+
+}

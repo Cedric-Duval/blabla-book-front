@@ -160,44 +160,45 @@ hr {
     padding: 2rem;
     background-color: v.$primary-color;
     
-  }
   
-  .left-paragraph,
+  
+  & .left-paragraph,
   .right-paragraph {
-    max-width: 45%;
+    max-width: 650px;
+    text-align: center;
+    padding: 3vh;
   }
   
-  .divider {
+  & .divider {
     width: 2px;
     background-color: v.$secondary-color;
   }
 
-  .section h3 {
+  & h3 {
     text-align: center;
   }
 
-  .left-paragraph p,
-.right-paragraph p {
-  text-align: center;
+
 }
   
-  @media (max-width: 800px) {
-    .section {
+@media (max-width: 1429px) {
+    #paragraphs-section {
       flex-direction: column;
       align-items: center;
-    }
+    
   
-    .divider {
-      width: 80%;
-      height: 2px;
-      margin: 1.5rem auto;
+        & .divider {
+        width: 60vw;
+        height: 2px;
+        margin: 1.5rem auto;
+        }
+    
+        & .left-paragraph,
+        .right-paragraph {
+        max-width: 700px;
+        }
     }
-  
-    .left-paragraph,
-    .right-paragraph {
-      max-width: 90%;
-    }
-  }
+}
 
 
 //--------------- Section 5 ------------------------------
@@ -218,11 +219,13 @@ hr {
 
         }
     }
+
+    & .section5-text {  
+        max-width: 470px;
+    }
 }
 
-.section5-text {  
-    max-width: 470px;
-}
+
 
 
 
@@ -246,7 +249,7 @@ hr {
         padding: 15px 40px;
     }
 
-    .button {
+    & .button {
         background-color: v.$secondary-color;
         margin: 1rem 0;
         color: white;

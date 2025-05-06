@@ -107,6 +107,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
             </section>
 
             <section id="paragraphs-section" className="section">
+                
                 <div className="left-paragraph">
                     <h3>Un espace dédié à chaque ouvrage</h3>
                     <p>Chaque fiche livre vous donne un aperçu complet des informations essentielles : titre, auteur, résumé, genre. Vous pourrez ainsi en savoir plus sur un ouvrage avant de l’ajouter à votre bibliothèque.

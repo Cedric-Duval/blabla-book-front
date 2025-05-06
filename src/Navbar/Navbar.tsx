@@ -120,7 +120,7 @@ function Navbar({
           {isLogged ? (
             <>
               <li>
-                <Link to="#" className="button-connect" onClick={closeMenuBurger} >
+                <Link to="/user" className="button-connect" onClick={closeMenuBurger} >
                   Profil
                 </Link>
               </li>

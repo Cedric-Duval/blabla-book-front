@@ -2,20 +2,25 @@
 @use '../styles/section';
 
 
-.privacy-policy {
+#privacy-policy-section {
     padding: 2rem;
     line-height: 1.6;
-  }
   
-  .privacy-policy .container {
+  & .privacy-container {
     max-width: 800px;
     margin: auto;
-  }
-  
 
-  
-  .privacy-policy a {
+    & h2 {
+      font-family: "Inter";
+      font-weight: bold;
+      font-size: calc(1rem + 0.5vw);
+      margin-bottom: 0;
+    }
+  }
+
+  & a {
     color: #457b9d;
     text-decoration: underline;
   }
-  
+}
+

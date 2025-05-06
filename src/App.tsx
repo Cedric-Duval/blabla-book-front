@@ -16,6 +16,7 @@ import ModalLibrary from './ModalLibrary/ModalLibrary';
 import Navbar from './Navbar/Navbar';
 import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
 import RegisterForm from './RegisterForm/RegisterForm';
+import UserPage from './User/User';
 import api from './features/axiosApi';
 
 function App() {
@@ -103,7 +104,14 @@ function App() {
             setCurrentBook={setCurrentBook} />
         } />
 
-        <Route path="/confidentality" element={
+        <Route path="/user" element={
+          <UserPage
+            user={user}
+            setUser={setUser}
+          />
+        } />
+
+        <Route path="/confidentality" element ={
           <Confidentalite />
         } />
         <Route path="/legal-notice" element={

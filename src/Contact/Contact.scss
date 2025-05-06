@@ -3,22 +3,26 @@
 
 
 
-.contact-page {
+#contact-page-section {
     background-color: v.$primary-color;
     text-align: center;
     min-height: 82vh;
-  }
   
-  .contact-container {
+  
+  & .contact-container {
     max-width: 600px;
     margin: auto;
     background: white;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    & h1 {
+      margin-bottom: 4vh;
+    }
   }
   
-  .contact-email a {
+  & a {
     margin: 1rem 0;
     font-size: 1.2rem;
     font-weight: bold;
@@ -26,7 +30,7 @@
     color: black;
   }
   
-  .contact-email a:hover {
+  & a:hover {
     text-decoration: underline;
   }
-  
+}
