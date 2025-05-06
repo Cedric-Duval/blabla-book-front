@@ -1,16 +1,32 @@
-import { useEffect, useState } from 'react';
-import { NavLink, Link } from 'react-router';
+import { useEffect, useState, } from 'react';
+import { Link, NavLink } from 'react-router';
 import '../Books/Books.scss'
 import './PersonalLibrary.scss'
-import DropdownMenu from '../DropdownMenu/DropdownMenu';
-import api from '../features/axiosApi';
 import type { ILibrary } from '../@types/books';
+import CoverBook from '../coverBook/coverBook';
+import api from '../features/axiosApi';
+
+interface PersonalLibraryProps {
+    setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentBook: React.Dispatch<React.SetStateAction<ILibrary | null | undefined>>;
+}
 
 
-function PersonalLibrary() {
-    const [displayDropdownMenu, setDisplayDropdownMenu] = useState(null);
+function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLibraryProps) {
     const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
+    const [librariesStatus, setLibrariesStatus] = useState('all');
 
+
+    function handleReadBooks() {
+
+        //console.log(myLibraries[1].Books[0].LibraryBook.read);
+
+        // for (const library of myLibraries) {
+        //   const readBooks = library.Books.filter((book) => book.LibraryBook.read);
+        //   console.log(readBooks);
+        // }
+
+    };
 
     // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
 
@@ -20,9 +36,8 @@ function PersonalLibrary() {
                 const response = await api.get('/libraries/books');
                 setMyLibraries(response.data);
 
-            } catch (error) {
-                console.log(error);
-
+            } catch (_error) {
+                _error
             }
         };
         getmyLibraries();
@@ -47,33 +62,14 @@ function PersonalLibrary() {
             setMyLibraries((previousLibraries) => [...previousLibraries, { ...newLibrary, Books: [] }]);
 
             form.reset();
-            console.log('Bibliothèque créée :', newLibrary);
-        } catch (error) {
-            console.error('Erreur lors de la création de la bibliothèque :', error);
+        } catch (_error) {
         }
-    }
-
-
-
-    // Si on clique sur le bouton du dropdown menu, celui-ci s'affiche avec le livre et librarie
-    function displayMenu(event) {
-        // event.preventDefault();
-        event.stopPropagation();
-
-        //console.log(event);
-        console.log("Library id : " + event.target.dataset.libraryid + ", book id : " + event.target.dataset.id);
-        const bookId = Number(event.target.dataset.id);
-        const libraryId = Number(event.target.dataset.libraryid);
-
-        setDisplayDropdownMenu({ bookId, libraryId })
     }
 
 
     return (
         <section id="personalLibrary-section" className="section books-section">
 
-            {/* Le DropdownMenu de myLibrary */}
-            {displayDropdownMenu && (<DropdownMenu setDisplayDropdownMenu={setDisplayDropdownMenu} />)}
 
             <div className='head-books'>
                 <h1>Ma bibliothèque</h1>
@@ -83,9 +79,18 @@ function PersonalLibrary() {
 
             <div id="library-choice">
                 <ul>
-                    <NavLink to=""><li>Tous</li></NavLink>
-                    <NavLink to=""><li>Lus</li></NavLink>
-                    <NavLink to=""><li>A lire</li></NavLink>
+                    <NavLink to="" onClick={(event) => {
+                        event.preventDefault();
+                        setLibrariesStatus('all');
+                    }}><li>Tous</li></NavLink>
+                    <NavLink to="" onClick={(event) => {
+                        event.preventDefault();
+                        setLibrariesStatus('read');
+                    }}><li>Lus</li></NavLink>
+                    <NavLink to="" onClick={(event) => {
+                        event.preventDefault();
+                        setLibrariesStatus('toRead');
+                    }}><li>A lire</li></NavLink>
                 </ul>
 
                 <form onSubmit={handleLibraryCreation}>
@@ -108,31 +113,27 @@ function PersonalLibrary() {
 
                         <h3 className='library-title'>{library.name}</h3>
                         <ul className='books-list-ul'>
-                            {library.Books.map((book) => {
+
+                            {librariesStatus === 'all' && library.Books.map((book) => {
                                 return (
-                                    <li key={book.id} className='books-list-li'>
-
-
-                                        <Link to={`/book/${book.id}`}>
-                                            <figure>
-                                                <div id="book-img">
-                                                    <img
-                                                        src={book.image} alt="book-image"
-                                                    />
-
-                                                </div>
-                                                <hgroup>
-                                                    <figcaption>{book.title}</figcaption>
-                                                    <h5>{book.author}</h5>
-                                                </hgroup>
-
-                                            </figure>
-                                        </Link>
-                                        <button type='button' data-id={book.id} data-libraryid={library.id} onClick={displayMenu}> ... </button>
-
-
-                                    </li>
+                                    <CoverBook key={book.id} book={book} setDisplayModalLibrary={setDisplayModalLibrary} setCurrentBook={setCurrentBook} />
                                 )
+                            })}
+
+                            {librariesStatus === 'read' && library.Books.map((book) => {
+                                if (book.LibraryBook.read) {
+                                    return (
+                                        <CoverBook key={book.id} book={book} setDisplayModalLibrary={setDisplayModalLibrary} setCurrentBook={setCurrentBook} />
+                                    )
+                                }
+                            })}
+
+                            {librariesStatus === 'toRead' && library.Books.map((book) => {
+                                if (!book.LibraryBook.read) {
+                                    return (
+                                        <CoverBook key={book.id} book={book} setDisplayModalLibrary={setDisplayModalLibrary} setCurrentBook={setCurrentBook} />
+                                    )
+                                }
                             })}
 
                         </ul>
@@ -145,3 +146,10 @@ function PersonalLibrary() {
 }
 
 export default PersonalLibrary;
+
+//console.log(myLibraries[1].Books[0].LibraryBook.read);
+
+// for (const library of myLibraries) {
+//   const readBooks = library.Books.filter((book) => book.LibraryBook.read);
+//   console.log(readBooks);
+// }
