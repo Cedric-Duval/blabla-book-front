@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './User.scss'
+import type { IBooks } from '../@types/books';
+import type { ILibraries } from '../@types/libraries';
 import type { IUser } from '../@types/user';
 import api from '../features/axiosApi';
 import axios from 'axios';
@@ -19,13 +21,15 @@ function UserPage({
 
     console.log(user);
     console.log(user?.Libraries);
-    console.log(user?.Libraries.Books);
+    user?.Libraries?.forEach((library) => {
+        console.log(`Books in Library ${library.name}:`, library.Books);
+      });
 
 return (
-    <div>
+    <div id='user-profile'>
         <section id='user-data-section'>
             <form action="">
-                <p className='user-update-form-title'>Mes informations</p>
+                <p id='user-update-form-title'>Mes informations</p>
                 <label className='user-update-form-label' htmlFor="name">
                     Nom
                 </label>
@@ -91,10 +95,27 @@ return (
 
 
         <section id='user-libraries-section'>
-            <p>Mes bibliothèques</p>
+            <p id='user-libraries-section-title'>Mes bibliothèques</p>
 
             <ul id='libraries-list'>
-                
+                {user?.Libraries.map((Library) => {
+                    return (
+                        <li key={Library.id}>
+                            <Link to={`/library/${Library.id}`}>
+                                <figure>
+                                    <div id="book-img">
+                                        <img
+                                            src={Library.Books[0].image} alt="book-image"
+                                        />
+                                    </div>
+                                    <hgroup>
+                                        <figcaption>{Library.name}</figcaption>
+                                    </hgroup>
+                                </figure>
+                            </Link>
+                        </li>
+                    )
+                })}
 
             </ul>
 
