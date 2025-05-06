@@ -1,0 +1,58 @@
+@use '../styles/variables' as v;
+@use '../styles/section';
+
+#user-profile {
+    display: flex;
+
+    font-family: "Inter";
+
+    & #user-data-section {
+        width: 50%;
+
+        display: flex;
+
+        & #user-update-form-title {
+            font-weight: bold;
+        }
+    
+        & form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            & label {
+                width: 50%;
+            }
+
+            & input {
+                width: 50%;
+                margin: 1%;
+            }
+        }
+        
+    }
+    
+    & #user-libraries-section {  
+        width: 50%;
+
+        & #user-libraries-section-title {
+            font-weight: bold;
+        }
+
+        & #libraries-list {
+    
+            & #book-img {
+    
+                & img {
+                    position: relative;
+                    width: 20%;
+                    margin: 0 auto;
+                }
+            }
+    
+        }
+    }
+
+
+}
