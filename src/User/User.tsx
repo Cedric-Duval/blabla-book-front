@@ -103,13 +103,13 @@ return (
                         <li key={Library.id}>
                             <Link to={`/library/${Library.id}`}>
                                 <figure>
-                                    <div id="book-img">
+                                    <div className="book-img">
                                         <img
                                             src={Library.Books[0].image} alt="book-image"
                                         />
                                     </div>
                                     <hgroup>
-                                        <figcaption>{Library.name}</figcaption>
+                                        <figcaption className='library-name'>{Library.name}</figcaption>
                                     </hgroup>
                                 </figure>
                             </Link>
