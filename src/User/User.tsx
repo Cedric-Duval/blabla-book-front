@@ -18,6 +18,8 @@ function UserPage({
 }: IUserProps) {
 
     console.log(user);
+    console.log(user?.Libraries);
+    console.log(user?.Libraries.Books);
 
 return (
     <div>
@@ -91,8 +93,10 @@ return (
         <section id='user-libraries-section'>
             <p>Mes bibliothèques</p>
 
-            <Link to='/library/:id'>
-            </Link>
+            <ul id='libraries-list'>
+                
+
+            </ul>
 
         </section>
 
