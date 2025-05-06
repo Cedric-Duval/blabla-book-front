@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router';
 import '../Books/Books.scss'
 import './PersonalLibrary.scss'
 import type { ILibrary } from '../@types/books';
+import CoverBook from '../coverBook/coverBook';
 import api from '../features/axiosApi';
 
 interface PersonalLibraryProps {
@@ -13,12 +14,12 @@ interface PersonalLibraryProps {
 
 function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLibraryProps) {
     const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
-    const [currentLibraries, setCurrentLibrairies] = useState<ILibrary[]>([]);
+    const [librariesStatus, setLibrariesStatus] = useState('all');
 
 
     function handleReadBooks() {
 
-        console.log(myLibraries[1].Books[0].LibraryBook.read);
+        //console.log(myLibraries[1].Books[0].LibraryBook.read);
 
         // for (const library of myLibraries) {
         //   const readBooks = library.Books.filter((book) => book.LibraryBook.read);
@@ -34,7 +35,6 @@ function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLib
             try {
                 const response = await api.get('/libraries/books');
                 setMyLibraries(response.data);
-                setCurrentLibrairies(response.data);
 
             } catch (_error) {
                 _error
@@ -79,11 +79,18 @@ function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLib
 
             <div id="library-choice">
                 <ul>
-                    <NavLink to=""><li>Tous</li></NavLink>
                     <NavLink to="" onClick={(event) => {
                         event.preventDefault();
-                        handleReadBooks()}}><li>Lus</li></NavLink>
-                    <NavLink to=""><li>A lire</li></NavLink>
+                        setLibrariesStatus('all');
+                    }}><li>Tous</li></NavLink>
+                    <NavLink to="" onClick={(event) => {
+                        event.preventDefault();
+                        setLibrariesStatus('read');
+                    }}><li>Lus</li></NavLink>
+                    <NavLink to="" onClick={(event) => {
+                        event.preventDefault();
+                        setLibrariesStatus('toRead');
+                    }}><li>A lire</li></NavLink>
                 </ul>
 
                 <form onSubmit={handleLibraryCreation}>
@@ -99,45 +106,34 @@ function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLib
             </div>
 
 
-            {currentLibraries.map((library) => {
+            {myLibraries.map((library) => {
                 return (
 
                     <div className="books-list" key={library.id}>
 
                         <h3 className='library-title'>{library.name}</h3>
                         <ul className='books-list-ul'>
-                            
-                            {library.Books.map((book) => {
+
+                            {librariesStatus === 'all' && library.Books.map((book) => {
                                 return (
-                                    <li key={book.id} className='books-list-li library-menu-list'>
-
-
-                                        <Link to={`/book/${book.id}`}>
-                                            <figure>
-                                                <div id="book-img">
-                                                    <button className="test-btn" type='button' onClick={(event) => {
-                                                        setDisplayModalLibrary(true);
-                                                        event.preventDefault();
-                                                        setCurrentBook(book);
-                                                        console.log(book);
-                                                    }}> ... </button>
-                                                    <img
-                                                        src={book.image} alt="book-image"
-                                                    />
-
-                                                </div>
-                                                <hgroup>
-                                                    <figcaption>{book.title}</figcaption>
-                                                    <h5>{book.author}</h5>
-                                                </hgroup>
-
-                                            </figure>
-                                        </Link>
-
-
-
-                                    </li>
+                                    <CoverBook key={book.id} book={book} setDisplayModalLibrary={setDisplayModalLibrary} setCurrentBook={setCurrentBook} />
                                 )
+                            })}
+
+                            {librariesStatus === 'read' && library.Books.map((book) => {
+                                if (book.LibraryBook.read) {
+                                    return (
+                                        <CoverBook key={book.id} book={book} setDisplayModalLibrary={setDisplayModalLibrary} setCurrentBook={setCurrentBook} />
+                                    )
+                                }
+                            })}
+
+                            {librariesStatus === 'toRead' && library.Books.map((book) => {
+                                if (!book.LibraryBook.read) {
+                                    return (
+                                        <CoverBook key={book.id} book={book} setDisplayModalLibrary={setDisplayModalLibrary} setCurrentBook={setCurrentBook} />
+                                    )
+                                }
                             })}
 
                         </ul>
@@ -150,3 +146,10 @@ function PersonalLibrary({ setDisplayModalLibrary, setCurrentBook }: PersonalLib
 }
 
 export default PersonalLibrary;
+
+//console.log(myLibraries[1].Books[0].LibraryBook.read);
+
+// for (const library of myLibraries) {
+//   const readBooks = library.Books.filter((book) => book.LibraryBook.read);
+//   console.log(readBooks);
+// }
