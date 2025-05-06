@@ -12,9 +12,20 @@ interface IUserProps {
     setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }
 
+async function handleUserDatasUpdate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+        const response = await api.patch()
+    }
+}
 
 
-function UserPage({
+
+function User({
     user,
     setUser
 }: IUserProps) {
@@ -103,11 +114,14 @@ return (
                         <li key={Library.id}>
                             <Link to={`/library/${Library.id}`}>
                                 <figure>
-                                    <div className="book-img">
-                                        <img
-                                            src={Library.Books[0].image} alt="book-image"
-                                        />
-                                    </div>
+                                    {Library.Books[0]?.image && (
+                                    
+                                        <div className="book-img">
+                                            <img
+                                                src={Library.Books[0].image} alt="book-image"
+                                            />
+                                        </div>
+                                    )}
                                     <hgroup>
                                         <figcaption className='library-name'>{Library.name}</figcaption>
                                     </hgroup>
@@ -133,4 +147,4 @@ return (
 };
 
 
-export default UserPage;
+export default User;

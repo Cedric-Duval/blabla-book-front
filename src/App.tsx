@@ -90,7 +90,7 @@ function App() {
         } />
 
         <Route path="/user" element={
-          <UserPage
+          <User
             user={user}
             setUser={setUser}
           />
