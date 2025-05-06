@@ -4,8 +4,8 @@ import './Confidentalite.scss'
 function Confidentalite (){
     return (
 
-<section className="privacy-policy">
-  <div className="container">
+<section id="privacy-policy-section">
+  <div className="privacy-container">
     <h1>Politique de Confidentialité</h1>
     <p>Date de dernière mise à jour : 5 mai 2025</p>
 

@@ -3,8 +3,8 @@ import './MentionLegale.scss'
 
 function MentionLegale (){
     return (
-<section className="legal-notice">
-  <div className="container">
+<section id="legal-notice-section">
+  <div className="legal-container">
     <h1>Mentions légales</h1>
     <p>Date de mise à jour : 5 mai 2025</p>
 

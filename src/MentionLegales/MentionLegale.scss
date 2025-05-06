@@ -2,17 +2,23 @@
 @use '../styles/section';
 
 
-.legal-notice {
+#legal-notice-section {
     padding: 2rem;
     line-height: 1.6;
-  }
   
-  .legal-notice .container {
+  & h2 {
+    font-family: "Inter";
+    font-weight: bold;
+    font-size: calc(1rem + 0.5vw);
+    margin-bottom: 0;
+  }
+
+  & .legal-container {
     max-width: 800px;
     margin: auto;
   }
   
-  .legal-notice a {
+  & a {
     color: #457b9d;
   }
-  
+}
