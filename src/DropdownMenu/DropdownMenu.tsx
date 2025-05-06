@@ -2,8 +2,14 @@ import './DropdownMenu.scss'
 import { Link } from 'react-router';
 
 
-function DropdownMenu({ libraryId, bookId }) {
+function DropdownMenu({ setDisplayDropdownMenu, libraryId, bookId }) {
 
+
+    function closePersonnalLibraryModal(event) {
+        event.preventDefault();
+        setDisplayDropdownMenu(null);
+    }
+    
 
     return (
         <div id="context-menu" className="context-menu hidden-background">
@@ -14,8 +20,7 @@ function DropdownMenu({ libraryId, bookId }) {
                     <li><Link to="#"><img src="../public/Pictures/stash--star-duotone.svg" alt="" /></Link><p>Noter</p></li>
                     <li><Link to="#"><img src="../public/Pictures/mdi--dialogue-outline.svg" alt="" /></Link><p>Laisser un avis</p></li>        
                 </ul>
-                <Link to="#" className='cloneBtn-personnalLibrary'><img src="../public/Pictures/gridicons--cross.svg" alt="close-button" /></Link>
-
+                <Link to="#" onClick={closePersonnalLibraryModal} className='cloneBtn-personnalLibrary'><img src="../public/Pictures/gridicons--cross.svg" alt="close-button" /></Link>
             </div>
         </div>
     )
