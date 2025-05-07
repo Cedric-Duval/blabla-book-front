@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 import './CoverBook.scss';
 import type { IBooks } from '../@types/books';
-import type { ILibrary } from '../@types/books';
 
 interface CoverBookProps {
   book: IBooks;
@@ -28,9 +27,7 @@ function CoverBook({
                   event.preventDefault();
                   setCurrentBook(book);
                 }}
-              >
-                {' '}
-                ...{' '}
+              >...
               </button>
               <img src={book.image} alt="book-image" />
             </div>
