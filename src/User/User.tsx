@@ -17,6 +17,13 @@ function User({
     user,
     setUser
 }: IUserProps) {
+
+    async function getUser() {
+        try {
+          const response = await api.get('/user');
+          setUser(response.data);
+        } catch (_error) { }
+      }
     
     async function handleUserDatasUpdate(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -34,6 +41,8 @@ function User({
     
              console.log(user);
              console.log(newUser);
+
+             getUser();
     
     
         } catch (_error) {
