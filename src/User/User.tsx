@@ -30,17 +30,17 @@ function User({
     
         const form = event.currentTarget;
         const formData = new FormData(form);
+        
     
          try {
-             const response = await api.patch('/user', {
+             await api.patch('/user', {
                  name: formData.get('name'),
                  firstname: formData.get('firstname'),
-                 email: formData.get('email')
+                 email: formData.get('email'),
+                 currentPassword: formData.get('current-password'),
+                 newPassword: formData.get('new-password'),
+                 confirmPassword: formData.get('confirm-password')
              });
-             const newUser = response.data;
-    
-             console.log(user);
-             console.log(newUser);
 
              getUser();
     
@@ -49,12 +49,6 @@ function User({
             console.log(_error);
         }
     }
-
-    console.log(user);
-    console.log(user?.Libraries);
-    user?.Libraries?.forEach((library) => {
-        console.log(`Books in Library ${library.name}:`, library.Books);
-    });
 
 return (
     <div id='user-profile'>
@@ -94,8 +88,8 @@ return (
                 </label>
                 <input className='user-update-form-input' 
                     type="password"
-                    id='old-password'
-                    name='old-password' 
+                    id='current-password'
+                    name='current-password' 
                 />
                 <label className='user-update-form-label' htmlFor="new-password">
                     Nouveau mot de passe
@@ -110,8 +104,8 @@ return (
                 </label>
                 <input className='user-update-form-input' 
                     type="password"
-                    id='renew-password'
-                    name='renew-password' 
+                    id='confirm-password'
+                    name='confirm-password' 
                 />
                 <button className='user-update-form-button' type='submit'>
                     Modifier
