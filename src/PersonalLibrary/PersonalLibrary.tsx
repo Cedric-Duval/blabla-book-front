@@ -3,7 +3,7 @@ import { NavLink } from 'react-router';
 import '../Books/Books.scss';
 import './PersonalLibrary.scss';
 import type { IBooks, ILibrary } from '../@types/books';
-import CoverBook from '../coverBook/coverBook';
+import CoverBook from '../CoverBook/CoverBook';
 import api from '../features/axiosApi';
 
 interface PersonalLibraryProps {
