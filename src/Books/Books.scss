@@ -103,6 +103,15 @@
                 padding: 0;
                 line-height: 1;
             }
+            
+            & #read-notRead {
+                position: absolute;
+                bottom: -5px;
+                right: -5px;
+                & img { 
+                    box-shadow: none;
+                }
+            }
         }
 
         & hgroup {
