@@ -33,7 +33,7 @@ function PersonalLibrary({
       }
     };
     getmyLibraries();
-  }, [setMyLibraries]);
+  }, []);
 
   // -------------- FONCTION DE CREATION DE BIBLITOTHEQUE -----------------------------
 
@@ -58,7 +58,7 @@ function PersonalLibrary({
       ]);
 
       form.reset();
-    } catch (_error) {}
+    } catch (_error) { }
   }
 
   return (
