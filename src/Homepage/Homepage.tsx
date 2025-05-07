@@ -39,7 +39,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
             <section id="hero-section" className="section">
                 <div id="presentation">
                     <hgroup>
-                        <h4>Partagez votre passion avec</h4>
+                        <h4>PARTAGEZ VOTRE PASSION AVEC</h4>
                         <h1>Blabla Book</h1>
                     </hgroup>
                     <p>Bienvenue dans l'univers des livres où chaque page tournée est une nouvelle aventure. Rejoignez notre communauté de lecteurs passionnés, partagez vos coups de cœur et découvrez des trésors littéraires qui vous attendent. Ne restez pas seul avec vos livres !</p>
@@ -55,10 +55,10 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
             <section id="personal-library-section" className="section">
                 <div className='personal-library-container'>
                     <hgroup>
-                        <h4>LOREM IPSUM DOLOR SIT</h4>
-                        <h2>Votre bibliothèque personnelle</h2>
+                        <h4>PRENEZ PLAISIR À CRÉER</h4>
+                        <h2>Vos bibliothèques personnelles</h2>
                     </hgroup>
-                    <p>Chaque utilisateur peut créer sa propre bibliothèque, ajouter les livres déjà lus ou ceux qu’il souhaite lire, et garder une trace de ses découvertes. Vous pouvez consulter les informations de chaque ouvrage, ajouter des commentaires ou des notes, et ainsi construire une mémoire vivante de votre parcours de lecteur.</p>
+                    <p>Chaque utilisateur peut créer ses propres bibliothèques, ajouter les livres déjà lus ou ceux qu’il souhaite lire, et garder une trace de ses découvertes. Vous pouvez consulter les informations de chaque ouvrage, ajouter des commentaires ou des notes, et ainsi construire une mémoire vivante de votre parcours de lecteur.</p>
                     <p>Vous avez oublié si vous avez déjà lu ce roman il y a deux ans ? Avec BlaBlaBook, ce genre d’incertitude n’existe plus. Tout est centralisé, organisé et accessible depuis votre espace personnel.</p>
 
                     <hr />
@@ -69,7 +69,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
                 <div>
                     <hgroup className='books-title'>
                         <h3>Besoin d’inspiration ?</h3>
-                        <p>Laisse-toi surprendre par notre sélection du jour.</p>
+                        <p>Laissez-vous surprendre par notre sélection du jour.</p>
                     </hgroup>
                     <div>
                         <ul id="books-list">
