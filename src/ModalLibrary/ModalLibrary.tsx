@@ -64,7 +64,7 @@ function ModalLibrary({
               src="../public/Pictures/ph--book-open.svg"
               alt=""
             />
-            <p className="library-menu-li-text">Livre lus</p>
+            <p className="library-menu-li-text">Livre lu</p>
           </li>
           <li
             className={

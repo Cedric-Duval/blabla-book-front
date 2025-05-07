@@ -3,69 +3,77 @@
 
 #user-profile {
     display: flex;
-
+    flex-wrap: wrap;
     font-family: "Inter";
+    max-width: 1500px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5vw;
+
 
     & #user-data-section {
-        width: 50%;
+        min-width: 250px;
 
         display: flex;
 
         & #user-update-form-title {
             font-weight: bold;
+            font-size: calc(1.3rem + 0.5vw);
+            margin: 0 auto;
+            margin-bottom: 4.5vh;
+            
         }
     
         & form {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
-            margin: auto;
-            height: 90%;
-            width: 90%;
+            align-items: flex-start; 
+            width: 40vh;
+            min-width: 160px;
 
             & label {
                 width: 100%;
             }
 
             & input {
-                width: 80%;
-                margin: 1.5% 0% 1.5% 0;
+                width: 100%;
+                margin: 0.3vh 0% 1.8vh 0;
             }
 
             & .user-update-form-button {
                 all: unset;
-                background-color: v.$secondary-color;
-                height: 7vh;
-                width: 8vw;
-                border-radius: 50px;
+                background-color: v.$secondary-color; 
                 text-align: center;
                 color: v.$base-color;
-                margin: 1% 0% 2.5% 0%;
+                margin: 1vh 0 4vh 0;
+
+                padding: 15px 40px; 
+                cursor: pointer;
             }
 
             & .user-delete-button {
                 all: unset;
                 background-color: v.$red-color;
-                height: 7vh;
-                width: 20vw;
-                border-radius: 50px;
+                padding: 15px 40px; 
                 text-align: center;
                 color: v.$base-color;
+                cursor: pointer;
             }
         }     
     }
     
     & #user-libraries-section {  
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        height: 90%;
-        width: 50%;
+        flex-direction: column; 
+        justify-content: center; 
+        max-width: 800px;
 
         & #user-libraries-section-title {
             font-weight: bold;
+            font-size: calc(1.3rem + 0.5vw);
+            margin-bottom: 4.5vh;
         }
 
         & #libraries-list {
@@ -74,10 +82,42 @@
             margin: 0 auto;
             gap: calc(1vh + 2vw);
             flex-wrap: wrap;
+            padding-left: 0px;
+            justify-content: center;
+
+            & li{
+                width: 150px; 
+                
+
+
+                & .library-update {
+                    all: unset;
+                    width: 100%;
+                    background-color: v.$secondary-color; 
+                    text-align: center;
+                    color: v.$base-color;
+                    margin: 1vh 0 2vh 0; 
+                    padding: 5px 0; 
+                    cursor: pointer;
+                }
+    
+                & .library-delete {
+                    all: unset;
+                    width: 100%;
+                    background-color: v.$red-color;
+                    padding: 5px 0; 
+                    text-align: center;
+                    color: v.$base-color;
+                    cursor: pointer;
+                }
+            }
+
+            & a {
+                text-decoration: none;
+            }
 
             & figure {
-
-                width: 20%;
+ 
 
                 & .book-img {
                     
@@ -87,10 +127,11 @@
                     }
                 }
                 
-                & a {
-                    text-decoration: none;
+                & figcaption {
+                    font-size: calc(1rem + 0.5vw);
                     color: v.$police-color;
-                    width: 20%;
+                    font-family: "Inter";
+                    text-align: center;
                 }
             }            
         }        
