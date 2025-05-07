@@ -1,0 +1,122 @@
+import { useState } from 'react';
+import type { IBooks, ILibrary } from '../@types/books';
+import './ModalBooks.scss';
+import api from '../features/axiosApi';
+
+type IModalBooksProps = {
+    closeModalBook: () => void;
+    currentBook: IBooks | null | undefined;
+    setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
+    myLibraries: ILibrary[];
+};
+
+function ModalBooks({
+    closeModalBook,
+    currentBook,
+    myLibraries
+}: IModalBooksProps) {
+    const [menuDeroulant, setMenuDeroulant] = useState<string | null>(null);
+
+    const handleClick = (type: 'read' | 'toRead') => {
+        setMenuDeroulant(menu => (menu === type ? null : type));
+    };
+
+    const handleSelectLibrary = async (
+        event: React.ChangeEvent<HTMLSelectElement>,
+        type: 'read' | 'toRead'
+    ) => {
+        const selectedLibraryId = Number.parseInt(event.target.value);
+
+        if (!selectedLibraryId || !currentBook) return;
+
+        const selectedLibrary = myLibraries.find(lib => lib.id === selectedLibraryId);
+        const bookExists = selectedLibrary?.Books.some(book => book.id === currentBook.id);
+
+        if (bookExists) {
+            alert('Ce livre est déjà présent dans cette bibliothèque.');
+            return;
+        }
+
+        try {
+            await api.post(`/library/${selectedLibraryId}/book/${currentBook.id}`, {
+                read: type === 'read',
+            });
+
+            /* setMenuDeroulant(null); */
+            closeModalBook();
+        } catch (error) {
+            console.error("Erreur lors de l'ajout du livre à la bibliothèque :", error);
+        }
+    };
+
+    return (
+        <div className="hidden-background" onClick={closeModalBook}>
+            <div className="library" onClick={(e) => e.stopPropagation()}>
+                <div onClick={closeModalBook} className="library-closeBtn">
+                    <img
+                        src="../public/Pictures/gridicons--cross.svg"
+                        alt="close-button"
+                    />
+                </div>
+                <ul className="library-menu">
+                    <li className="library-menu-li" onClick={() => handleClick('read')}>
+                        <img
+                            className="library-menu-li-img"
+                            src="../public/Pictures/ph--book-open.svg"
+                            alt=""
+                        />
+                        <p className="library-menu-li-text">Livre lus</p>
+                        {menuDeroulant === 'read' && (
+                            <select className="library-select" onClick={(e) => e.stopPropagation()} onChange={(e) => handleSelectLibrary(e, 'read')} >
+                                <option value="">Choisir une bibliothèque</option>
+                                {myLibraries.map((library) => (
+                                    <option key={library.id} value={library.id}>
+                                        {library.name}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
+                    </li>
+
+                    <li className="library-menu-li" onClick={() => handleClick('toRead')} onChange={(e) => handleSelectLibrary(e, 'toRead')}>
+                        <img
+                            className="library-menu-li-img"
+                            src="../public/Pictures/tdesign--time.svg"
+                            alt=""
+                        />
+                        <p className="library-menu-li-text">A lire</p>
+                        {menuDeroulant === 'toRead' && (
+                            <select className="library-select" onClick={(e) => e.stopPropagation()}>
+                                <option value="">Choisir une bibliothèque</option>
+                                {myLibraries.map((library) => (
+                                    <option key={library.id} value={library.id}>
+                                        {library.name}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
+                    </li>
+
+                    <li className="library-menu-li">
+                        <img
+                            className="library-menu-li-img"
+                            src="../public/Pictures/stash--star-duotone.svg"
+                            alt=""
+                        />
+                        <p className="library-menu-li-text">Noter</p>
+                    </li>
+                    <li className="library-menu-li">
+                        <img
+                            className="library-menu-li-img"
+                            src="../public/Pictures/mdi--dialogue-outline.svg"
+                            alt=""
+                        />
+                        <p className="library-menu-li-text">Laisser un avis</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
+}
+
+export default ModalBooks;

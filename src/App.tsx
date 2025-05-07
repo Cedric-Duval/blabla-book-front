@@ -12,6 +12,7 @@ import Footer from './Footer/Footer';
 import Homepage from './Homepage/Homepage';
 import LoginForm from './LoginForm/LoginForm';
 import MentionLegale from './MentionLegales/MentionLegale';
+import ModalBooks from './ModalBooks/ModalBooks';
 import ModalLibrary from './ModalLibrary/ModalLibrary';
 import Navbar from './Navbar/Navbar';
 import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
@@ -23,6 +24,7 @@ function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
   const [displayLoginForm, setDisplayLoginForm] = useState(false);
   const [displayModalLibrary, setDisplayModalLibrary] = useState(false);
+  const [displayModalBook, setDisplayModalBook] = useState(false);
   const [user, setUser] = useState<IUser | undefined>();
   const [isLogged, setIsLogged] = useState(false);
   const [currentBook, setCurrentBook] = useState<IBooks | null>();
@@ -57,6 +59,10 @@ function App() {
     setDisplayModalLibrary(false)
   }
 
+  function closeModalBook() {
+    setDisplayModalBook(false)
+  }
+
   return (
     <div className="app">
       {displayRegisterForm && (
@@ -79,6 +85,13 @@ function App() {
           currentBook={currentBook}
           setMyLibraries={setMyLibraries} />)}
 
+      {displayModalBook && (
+        <ModalBooks
+          closeModalBook={closeModalBook}
+          currentBook={currentBook}
+          setMyLibraries={setMyLibraries} 
+          myLibraries={myLibraries} />)}
+
       <Navbar
         setDisplayRegisterForm={setDisplayRegisterForm}
         setDisplayLoginForm={setDisplayLoginForm}
@@ -95,7 +108,10 @@ function App() {
             user={user} />
         } />
         <Route path="/books" element={
-          <Books />
+          <Books 
+          setDisplayModalBook={setDisplayModalBook}
+          setCurrentBook={setCurrentBook}
+           />
         } />
         <Route path="/book/:id" element={
           <Book />
