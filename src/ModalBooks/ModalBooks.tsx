@@ -42,7 +42,8 @@ function ModalBooks({
                 read: type === 'read',
             });
 
-            setMenuDeroulant(null);
+            /* setMenuDeroulant(null); */
+            closeModalBook();
         } catch (error) {
             console.error("Erreur lors de l'ajout du livre à la bibliothèque :", error);
         }

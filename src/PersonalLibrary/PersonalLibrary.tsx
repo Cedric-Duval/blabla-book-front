@@ -65,7 +65,6 @@ function PersonalLibrary({
     <section id="personalLibrary-section" className="section books-section">
       <div className="head-books">
         <h1>Ma bibliothèque</h1>
-        <input type="text" placeholder="Recherche parmis vos livres" />
       </div>
 
       <div id="library-choice">

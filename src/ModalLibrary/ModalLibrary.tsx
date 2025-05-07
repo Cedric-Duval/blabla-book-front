@@ -20,6 +20,20 @@ function ModalLibrary({
     setMyLibraries(response.data);
   }
 
+  // ------------ FONCTION DE SUPPRESSION D'UN LIVRE D'UNE BIBLIOTHEQUE -----------------
+
+  async function deleteBookFromLibrary() {
+    try {
+      const response = await api.delete(
+        `/library/${currentBook?.LibraryBook.library_id}/book/${currentBook?.id}`
+      );
+      setMyLibraries(response.data);
+      closeModalLibrary();
+    } catch (error) {
+      console.error('Erreur lors de la suppression du livre', error);
+    }
+  }
+
   return (
     <div className="hidden-background" onClick={closeModalLibrary}>
       <div className="library">
@@ -74,13 +88,19 @@ function ModalLibrary({
             />
             <p className="library-menu-li-text">A lire </p>
           </li>
-          <li className="library-menu-li">
+          <li
+            className="library-menu-li"
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteBookFromLibrary();
+            }}
+          >
             <img
               className="library-menu-li-img"
-              src="../public/Pictures/stash--star-duotone.svg"
+              src="../public/Pictures/tabler--trash.svg"
               alt=""
             />
-            <p className="library-menu-li-text">Noter</p>
+            <p className="library-menu-li-text">Supprimer</p>
           </li>
           <li className="library-menu-li">
             <img
