@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router';
+import { NavLink } from 'react-router';
 import '../Books/Books.scss';
 import './PersonalLibrary.scss';
-import type { ILibrary } from '../@types/books';
-import CoverBook from '../CoverBook/CoverBook';
+import type { IBooks, ILibrary } from '../@types/books';
+import CoverBook from '../coverBook/coverBook';
 import api from '../features/axiosApi';
 
 interface PersonalLibraryProps {
   setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<
-    React.SetStateAction<ILibrary | null | undefined>
-  >;
+  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
   myLibraries: ILibrary[];
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 }
@@ -35,7 +33,7 @@ function PersonalLibrary({
       }
     };
     getmyLibraries();
-  }, []);
+  }, [setMyLibraries]);
 
   // -------------- FONCTION DE CREATION DE BIBLITOTHEQUE -----------------------------
 

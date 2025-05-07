@@ -6,9 +6,7 @@ import type { ILibrary } from '../@types/books';
 interface CoverBookProps {
   book: IBooks;
   setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<
-    React.SetStateAction<ILibrary | null | undefined>
-  >;
+  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>
 }
 
 function CoverBook({
