@@ -127,7 +127,7 @@ function Navbar({
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/"
                   className="button-connect"
                   onClick={() => {
                     localStorage.removeItem('token');
