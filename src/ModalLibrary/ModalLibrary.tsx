@@ -1,10 +1,10 @@
-import type { ILibrary } from '../@types/books';
+import type { IBooks, ILibrary } from '../@types/books';
 import api from '../features/axiosApi';
 import './ModalLibrary.scss';
 
 type IModalLibraryProps = {
   closeModalLibrary: () => void;
-  currentBook: ILibrary | null | undefined;
+  currentBook: IBooks | null | undefined;
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 };
 
