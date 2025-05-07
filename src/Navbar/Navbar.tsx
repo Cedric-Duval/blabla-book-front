@@ -24,6 +24,7 @@ function Navbar({
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<IBooks[]>([]);
 
+
   useEffect(() => {
     const fetchResults = async () => {
       if (searchTerm.trim().length < 1) {
@@ -58,7 +59,7 @@ function Navbar({
     <nav className="navbar">
       <div id="logo">
         <Link to="">
-          <img src="../Pictures/Logo.png" alt="" className="header-logo" />
+          <img src="../Pictures/Logo2.png" alt="" className="header-logo" />
         </Link>
       </div>
       {isLogged ? (
@@ -177,10 +178,14 @@ function Navbar({
           setMenuBurger(!menuBurger);
         }}
       >
-        <img
-          src="../public/Pictures/iconamoon--menu-burger-horizontal-fill.svg"
+        {!menuBurger && <img
+          src="../public/Pictures/burgerMenu.svg"
           alt="Menu"
-        />
+        />}
+        {menuBurger && <img
+          src="../public/Pictures/burgerCross.svg"
+          alt="Menu"
+        />}
       </Link>
     </nav>
   );
