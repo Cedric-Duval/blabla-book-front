@@ -100,7 +100,7 @@ return (
                     name='new-password' 
                 />
                 <label className='user-update-form-label' htmlFor="renew-password">
-                    Ressaisir le nouveau mot de passe
+                    Confirmer le mot de passe
                 </label>
                 <input className='user-update-form-input' 
                     type="password"
@@ -110,7 +110,7 @@ return (
                 <button className='user-update-form-button' type='submit'>
                     Modifier
                 </button>
-                <button className='user-delete-button'>
+                <button type="button" className='user-delete-button'>
                     Supprimer mon compte
                 </button>
             </form>
@@ -118,7 +118,7 @@ return (
         </section>
 
 
-
+        {/* Affichage des librairies du User */}
         <section id='user-libraries-section'>
             <p id='user-libraries-section-title'>Mes bibliothèques</p>
 
@@ -127,7 +127,7 @@ return (
                     user?.Libraries.map((Library) => {
                         return (
                             <li key={Library.id}>
-                                <Link to={`/library/${Library.id}`}>
+                                <Link to={`/myLibrary`}>
                                     <figure>
                                         {Library.Books[0]?.image && (
                                         
@@ -137,11 +137,17 @@ return (
                                                 />
                                             </div>
                                         )}
-                                        <hgroup>
-                                            <figcaption className='library-name'>{Library.name}</figcaption>
-                                        </hgroup>
+                                        
+                                        <figcaption className='library-name'>{Library.name}</figcaption>
+                                     
                                     </figure>
                                 </Link>
+                                <button className='library-update' type='submit'>
+                                    Modifier
+                                </button>
+                                <button type="button" className='library-delete'>
+                                    Supprimer
+                                </button>
                             </li>
                         )
                     })
