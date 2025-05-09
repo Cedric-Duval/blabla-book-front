@@ -8,7 +8,9 @@ import api from '../features/axiosApi';
 
 interface PersonalLibraryProps {
   setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
+  setCurrentBook: React.Dispatch<
+    React.SetStateAction<IBooks | null | undefined>
+  >;
   myLibraries: ILibrary[];
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 }
@@ -58,18 +60,17 @@ function PersonalLibrary({
       ]);
 
       form.reset();
-    } catch (_error) { }
+    } catch (_error) {}
   }
 
   return (
-    <section id="personalLibrary-section" className="section books-section">
-      <div className="head-books">
-        <h1>Ma bibliothèque</h1>
-      </div>
+    <section className="section personal-library">
+      <div className="personal-library-header">
+        <h1 className="personal-library-header-titre">Mes bibliothèques</h1>
 
-      <div id="library-choice">
-        <ul>
+        <ul className="personal-library-header-list">
           <NavLink
+            className="personal-library-header-list-link"
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -79,6 +80,7 @@ function PersonalLibrary({
             <li>Tous</li>
           </NavLink>
           <NavLink
+            className="personal-library-header-list-link"
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -88,6 +90,7 @@ function PersonalLibrary({
             <li>Lus</li>
           </NavLink>
           <NavLink
+            className="personal-library-header-list-link"
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -97,22 +100,26 @@ function PersonalLibrary({
             <li>A lire</li>
           </NavLink>
         </ul>
-
-        <form onSubmit={handleLibraryCreation}>
-          <input
-            type="text"
-            id="newLibraryName"
-            name="newLibraryName"
-            placeholder="Créer une bibliothèque"
-            required
-          />
-          <button type="submit">Créer</button>
-        </form>
+        <div className="personal-library-header-filter">
+          <form onSubmit={handleLibraryCreation}>
+            <input
+              type="text"
+              id="newLibraryName"
+              name="newLibraryName"
+              placeholder="Créer une bibliothèque"
+              required
+            />
+            <button type="submit">Créer</button>
+          </form>
+        </div>
       </div>
 
       {myLibraries.map((library) => {
         return (
-          <div className="books-list" key={library.id}>
+          <div
+            className="books-list personal-library-libraries"
+            key={library.id}
+          >
             <h3 className="library-title">{library.name}</h3>
             <ul className="books-list-ul">
               {librariesStatus === 'all' &&

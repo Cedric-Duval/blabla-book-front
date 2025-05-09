@@ -3,22 +3,71 @@
 
 
 
+.personal-library {
+    padding: 0;
+    background-color: v.$base-color;
 
+    &-header {
+        background-color: v.$base-color;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem 0;
 
-#library-choice {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 3vh auto;
-    font-family: "Inter";
-    max-width: 1400px;
-    gap: 2vh;
-
-    ul {
         display: flex;
-        gap: 3vw;
+        flex-direction: column;
+        align-items: center;
+
+        &-list {
+            font-family: "Inter";
+            padding: 0;
+
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            
+            &-link {
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: v.$secondary-color;
+                text-decoration: none;
+                padding: 1.2rem 0;
+            }
+        }
+
+        &-filter {
+            display: none;
+        }
     }
+
+    &-libraries {
+        background-color:v.$primary-color;
+        width: 100%;
+        margin: 0.5rem auto;
+        padding-bottom: 4rem;
+
+        .library-title {
+            font-size: 2rem;;
+            padding: 2rem 0;
+            color: v.$marron-color;
+            margin: 0 auto;
+            text-align: center;
+        }
+    
+        .books-list-ul {
+            padding: 0;
+            margin: 0 auto;
+        }
+    }
+
+
 }
+
+
+
+
+
+
 
 .library-title {
     font-family: "Inter";

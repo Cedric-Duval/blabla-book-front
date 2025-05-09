@@ -49,7 +49,7 @@
     }
     & .books-list-ul {
         display: grid; // Organisation en grille
-        grid-template-columns: repeat(6, 1fr); // 5 colonnes par ligne
+        grid-template-columns: repeat(6, 1fr); // 6 colonnes par ligne
         gap: 15px;
         max-width: 1400px;
         margin: 0 auto;
