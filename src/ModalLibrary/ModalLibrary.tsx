@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { IBooks, ILibrary } from '../@types/books';
 import api from '../features/axiosApi';
 import './ModalLibrary.scss';
@@ -13,6 +14,9 @@ function ModalLibrary({
   currentBook,
   setMyLibraries,
 }: IModalLibraryProps) {
+  const [menuDeroulant, setMenuDeroulant] = useState(false);
+
+
   async function editBookStatus() {
     const response = await api.patch(
       `/library/${currentBook?.LibraryBook.library_id}/book/${currentBook?.id}`,
@@ -102,13 +106,24 @@ function ModalLibrary({
             />
             <p className="library-menu-li-text">Supprimer</p>
           </li>
-          <li className="library-menu-li">
+          <li
+            className="library-menu-li"
+            onClick={(event) => { event.stopPropagation(); setMenuDeroulant(!menuDeroulant); }} >
             <img
               className="library-menu-li-img"
-              src="../public/Pictures/mdi--dialogue-outline.svg"
+              src="../public/Pictures/material-symbols--change-circle-rounded.svg"
               alt=""
             />
-            <p className="library-menu-li-text">Laisser un avis</p>
+            <p className="library-menu-li-text">Changer de bibliothèque</p>
+            {menuDeroulant && (
+              <div className="library-dropdown" onClick={(e) => e.stopPropagation()}>
+                <select>
+                  <option value="1">Bibliothèque 1</option>
+                  <option value="2">Bibliothèque 2</option>
+                  <option value="3">Bibliothèque 3</option>
+                </select>
+              </div>
+            )}
           </li>
         </ul>
       </div>
