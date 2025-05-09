@@ -7,12 +7,14 @@ type IModalLibraryProps = {
   closeModalLibrary: () => void;
   currentBook: IBooks | null | undefined;
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
+  myLibraries: ILibrary[];
 };
 
 function ModalLibrary({
   closeModalLibrary,
   currentBook,
   setMyLibraries,
+  myLibraries,
 }: IModalLibraryProps) {
   const [menuDeroulant, setMenuDeroulant] = useState(false);
 
@@ -118,9 +120,13 @@ function ModalLibrary({
             {menuDeroulant && (
               <div className="library-dropdown" onClick={(e) => e.stopPropagation()}>
                 <select>
-                  <option value="1">Bibliothèque 1</option>
-                  <option value="2">Bibliothèque 2</option>
-                  <option value="3">Bibliothèque 3</option>
+                  {myLibraries
+                    .filter(lib => lib.id !== currentBook?.LibraryBook.library_id)
+                    .map((library) => (
+                      <option key={library.id} value={library.id}>
+                        {library.name}
+                      </option>
+                    ))}
                 </select>
               </div>
             )}
