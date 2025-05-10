@@ -8,7 +8,9 @@ import api from '../features/axiosApi';
 
 interface PersonalLibraryProps {
   setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
+  setCurrentBook: React.Dispatch<
+    React.SetStateAction<IBooks | null | undefined>
+  >;
   myLibraries: ILibrary[];
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 }
@@ -20,6 +22,9 @@ function PersonalLibrary({
   setMyLibraries,
 }: PersonalLibraryProps) {
   const [librariesStatus, setLibrariesStatus] = useState('all');
+  const [displayFilter, setDisplayFilter] = useState(true);
+  const [currentLibraries, setCurrentLibraries] = useState(myLibraries);
+  const [currentGenres, setCurrentGenres] = useState([]);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
 
@@ -28,6 +33,8 @@ function PersonalLibrary({
       try {
         const response = await api.get('/libraries/books');
         setMyLibraries(response.data);
+        setCurrentLibraries(response.data);
+        genresFilter(response.data);
       } catch (error) {
         error;
       }
@@ -58,18 +65,67 @@ function PersonalLibrary({
       ]);
 
       form.reset();
-    } catch (_error) { }
+    } catch (_error) {}
+  }
+
+  // -------------- FONCTIONS DE FILTRE -----------------------------
+  function handleFilterLibraries(event: React.ChangeEvent<HTMLSelectElement>) {
+    const libraryId = event.target.value;
+    if (libraryId === 'all') {
+      setCurrentLibraries(myLibraries);
+      return;
+    }
+    const filteredLibrary = [
+      myLibraries.find((library) => library.id === Number(libraryId)),
+    ];
+    setCurrentLibraries(filteredLibrary);
+  }
+
+  function handleFilterGenres(event: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedGenre = event.target.value;
+
+    if (selectedGenre === 'all') {
+      setCurrentLibraries(myLibraries);
+      return;
+    }
+
+    const filteredLibrary = myLibraries.map((library) => {
+      const filteredBooks = library.Books.filter((book) =>
+        book.Genres.some((genre) => genre.name === selectedGenre),
+      );
+
+      return {
+        ...library,
+        Books: filteredBooks,
+      };
+    });
+
+    setCurrentLibraries(filteredLibrary);
+  }
+
+  function genresFilter(libraries) {
+    const allGenres = libraries.flatMap((library) =>
+      library.Books.flatMap((book) => book.Genres.map((genre) => genre.name)),
+    );
+
+    //Set => rend les valeurs uniques --- sort => tri par ordre alphabétique
+    const uniqueGenres = [...new Set(allGenres)].sort();
+
+    setCurrentGenres(uniqueGenres);
   }
 
   return (
-    <section id="personalLibrary-section" className="section books-section">
-      <div className="head-books">
-        <h1>Ma bibliothèque</h1>
-      </div>
+    <section className="section personal-library">
+      <div className="personal-library-header">
+        <h1 className="personal-library-header-titre">Mes bibliothèques</h1>
 
-      <div id="library-choice">
-        <ul>
+        <ul className="personal-library-header-list">
           <NavLink
+            className={
+              librariesStatus === 'all'
+                ? 'personal-library-header-list-link selected-status'
+                : 'personal-library-header-list-link'
+            }
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -79,6 +135,11 @@ function PersonalLibrary({
             <li>Tous</li>
           </NavLink>
           <NavLink
+            className={
+              librariesStatus === 'read'
+                ? 'personal-library-header-list-link selected-status'
+                : 'personal-library-header-list-link'
+            }
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -88,6 +149,11 @@ function PersonalLibrary({
             <li>Lus</li>
           </NavLink>
           <NavLink
+            className={
+              librariesStatus === 'toRead'
+                ? 'personal-library-header-list-link selected-status'
+                : 'personal-library-header-list-link'
+            }
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -96,23 +162,69 @@ function PersonalLibrary({
           >
             <li>A lire</li>
           </NavLink>
+          <button
+            className="personal-library-header-list-btn"
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              setDisplayFilter(!displayFilter);
+            }}
+          >
+            ...
+          </button>
         </ul>
+        {displayFilter && (
+          <div className="personal-library-header-filter">
+            <div className="personal-library-header-filter-libraries">
+              <p className="filter-label">Filtrer par bibliothèque :</p>
+              <select
+                onClick={(event) => event.stopPropagation}
+                onChange={(event) => handleFilterLibraries(event)}
+              >
+                <option value="all">Toutes</option>
+                {myLibraries.map((library) => (
+                  <option key={library.id} value={library.id}>
+                    {library.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <form onSubmit={handleLibraryCreation}>
-          <input
-            type="text"
-            id="newLibraryName"
-            name="newLibraryName"
-            placeholder="Créer une bibliothèque"
-            required
-          />
-          <button type="submit">Créer</button>
-        </form>
+            <div className="personal-library-header-filter-genres">
+              <p className="filter-label">Filtrer par genre :</p>
+              <select
+                onClick={(event) => event.stopPropagation}
+                onChange={(event) => handleFilterGenres(event)}
+              >
+                <option value="all">Tous</option>
+                {currentGenres.map((genre) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <form onSubmit={handleLibraryCreation}>
+              <input
+                type="text"
+                id="newLibraryName"
+                name="newLibraryName"
+                placeholder="Créer une bibliothèque"
+                required
+              />
+              <button type="submit">Créer</button>
+            </form>
+          </div>
+        )}
       </div>
 
-      {myLibraries.map((library) => {
+      {currentLibraries.map((library) => {
         return (
-          <div className="books-list" key={library.id}>
+          <div
+            className="books-list personal-library-libraries"
+            key={library.id}
+          >
             <h3 className="library-title">{library.name}</h3>
             <ul className="books-list-ul">
               {librariesStatus === 'all' &&
