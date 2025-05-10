@@ -24,6 +24,7 @@ function PersonalLibrary({
   const [librariesStatus, setLibrariesStatus] = useState('all');
   const [displayFilter, setDisplayFilter] = useState(true);
   const [currentLibraries, setCurrentLibraries] = useState(myLibraries);
+  const [currentGenres, setCurrentGenres] = useState([]);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
 
@@ -33,6 +34,7 @@ function PersonalLibrary({
         const response = await api.get('/libraries/books');
         setMyLibraries(response.data);
         setCurrentLibraries(response.data);
+        genresFilter(response.data);
       } catch (error) {
         error;
       }
@@ -69,17 +71,47 @@ function PersonalLibrary({
   // -------------- FONCTIONS DE FILTRE -----------------------------
   function handleFilterLibraries(event: React.ChangeEvent<HTMLSelectElement>) {
     const libraryId = event.target.value;
-
     if (libraryId === 'all') {
       setCurrentLibraries(myLibraries);
       return;
     }
-
     const filteredLibrary = [
       myLibraries.find((library) => library.id === Number(libraryId)),
     ];
+    setCurrentLibraries(filteredLibrary);
+  }
+
+  function handleFilterGenres(event: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedGenre = event.target.value;
+
+    if (selectedGenre === 'all') {
+      setCurrentLibraries(myLibraries);
+      return;
+    }
+
+    const filteredLibrary = myLibraries.map((library) => {
+      const filteredBooks = library.Books.filter((book) =>
+        book.Genres.some((genre) => genre.name === selectedGenre),
+      );
+
+      return {
+        ...library,
+        Books: filteredBooks,
+      };
+    });
 
     setCurrentLibraries(filteredLibrary);
+  }
+
+  function genresFilter(libraries) {
+    const allGenres = libraries.flatMap((library) =>
+      library.Books.flatMap((book) => book.Genres.map((genre) => genre.name)),
+    );
+
+    //Set => rend les valeurs uniques --- sort => tri par ordre alphabétique
+    const uniqueGenres = [...new Set(allGenres)].sort();
+
+    setCurrentGenres(uniqueGenres);
   }
 
   return (
@@ -143,18 +175,36 @@ function PersonalLibrary({
         </ul>
         {displayFilter && (
           <div className="personal-library-header-filter">
-            <select
-              className="personal-library-header-filter-libraries"
-              onClick={(event) => event.stopPropagation}
-              onChange={(event) => handleFilterLibraries(event)}
-            >
-              <option value="all">Toutes</option>
-              {myLibraries.map((library) => (
-                <option key={library.id} value={library.id}>
-                  {library.name}
-                </option>
-              ))}
-            </select>
+            <div className="personal-library-header-filter-libraries">
+              <p className="filter-label">Filtrer par bibliothèque :</p>
+              <select
+                onClick={(event) => event.stopPropagation}
+                onChange={(event) => handleFilterLibraries(event)}
+              >
+                <option value="all">Toutes</option>
+                {myLibraries.map((library) => (
+                  <option key={library.id} value={library.id}>
+                    {library.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="personal-library-header-filter-genres">
+              <p className="filter-label">Filtrer par genre :</p>
+              <select
+                onClick={(event) => event.stopPropagation}
+                onChange={(event) => handleFilterGenres(event)}
+              >
+                <option value="all">Tous</option>
+                {currentGenres.map((genre) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <form onSubmit={handleLibraryCreation}>
               <input
                 type="text"
