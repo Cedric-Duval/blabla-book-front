@@ -22,6 +22,8 @@ function PersonalLibrary({
   setMyLibraries,
 }: PersonalLibraryProps) {
   const [librariesStatus, setLibrariesStatus] = useState('all');
+  const [displayFilter, setDisplayFilter] = useState(true);
+  const [currentLibraries, setCurrentLibraries] = useState(myLibraries);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
 
@@ -30,6 +32,7 @@ function PersonalLibrary({
       try {
         const response = await api.get('/libraries/books');
         setMyLibraries(response.data);
+        setCurrentLibraries(response.data);
       } catch (error) {
         error;
       }
@@ -63,6 +66,22 @@ function PersonalLibrary({
     } catch (_error) {}
   }
 
+  // -------------- FONCTIONS DE FILTRE -----------------------------
+  function handleFilterLibraries(event: React.ChangeEvent<HTMLSelectElement>) {
+    const libraryId = event.target.value;
+
+    if (libraryId === 'all') {
+      setCurrentLibraries(myLibraries);
+      return;
+    }
+
+    const filteredLibrary = [
+      myLibraries.find((library) => library.id === Number(libraryId)),
+    ];
+
+    setCurrentLibraries(filteredLibrary);
+  }
+
   return (
     <section className="section personal-library">
       <div className="personal-library-header">
@@ -70,7 +89,11 @@ function PersonalLibrary({
 
         <ul className="personal-library-header-list">
           <NavLink
-            className="personal-library-header-list-link"
+            className={
+              librariesStatus === 'all'
+                ? 'personal-library-header-list-link selected-status'
+                : 'personal-library-header-list-link'
+            }
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -80,7 +103,11 @@ function PersonalLibrary({
             <li>Tous</li>
           </NavLink>
           <NavLink
-            className="personal-library-header-list-link"
+            className={
+              librariesStatus === 'read'
+                ? 'personal-library-header-list-link selected-status'
+                : 'personal-library-header-list-link'
+            }
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -90,7 +117,11 @@ function PersonalLibrary({
             <li>Lus</li>
           </NavLink>
           <NavLink
-            className="personal-library-header-list-link"
+            className={
+              librariesStatus === 'toRead'
+                ? 'personal-library-header-list-link selected-status'
+                : 'personal-library-header-list-link'
+            }
             to=""
             onClick={(event) => {
               event.preventDefault();
@@ -99,22 +130,46 @@ function PersonalLibrary({
           >
             <li>A lire</li>
           </NavLink>
+          <button
+            className="personal-library-header-list-btn"
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              setDisplayFilter(!displayFilter);
+            }}
+          >
+            ...
+          </button>
         </ul>
-        <div className="personal-library-header-filter">
-          <form onSubmit={handleLibraryCreation}>
-            <input
-              type="text"
-              id="newLibraryName"
-              name="newLibraryName"
-              placeholder="Créer une bibliothèque"
-              required
-            />
-            <button type="submit">Créer</button>
-          </form>
-        </div>
+        {displayFilter && (
+          <div className="personal-library-header-filter">
+            <select
+              className="personal-library-header-filter-libraries"
+              onClick={(event) => event.stopPropagation}
+              onChange={(event) => handleFilterLibraries(event)}
+            >
+              <option value="all">Toutes</option>
+              {myLibraries.map((library) => (
+                <option key={library.id} value={library.id}>
+                  {library.name}
+                </option>
+              ))}
+            </select>
+            <form onSubmit={handleLibraryCreation}>
+              <input
+                type="text"
+                id="newLibraryName"
+                name="newLibraryName"
+                placeholder="Créer une bibliothèque"
+                required
+              />
+              <button type="submit">Créer</button>
+            </form>
+          </div>
+        )}
       </div>
 
-      {myLibraries.map((library) => {
+      {currentLibraries.map((library) => {
         return (
           <div
             className="books-list personal-library-libraries"

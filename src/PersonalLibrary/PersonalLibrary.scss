@@ -4,7 +4,7 @@
 
 
 .personal-library {
-    padding: 0;
+    padding: 0 0 0.5rem 0;
     background-color: v.$base-color;
 
     &-header {
@@ -33,20 +33,43 @@
                 text-decoration: none;
                 padding: 1.2rem 0;
             }
+
+            &-btn {
+                background-color: v.$secondary-color;
+                border: none;
+                color: white;
+                border-radius: 50%;
+                width: 25px;
+                height: 25px;
+                margin: 1rem 0;
+            
+                display: flex;
+                justify-content: center;
+            }
+
+            .selected-status {
+                text-decoration: underline;
+                color: #d1bda5
+            }
         }
 
         &-filter {
-            display: none;
+            width: 80%;
+            margin-top: 1rem;
+
+            display: flex;
+            justify-content: center;
         }
     }
 
     &-libraries {
         background-color:v.$primary-color;
         width: 100%;
-        margin: 0.5rem auto;
+        margin: 0.5rem auto 0 auto;
         padding-bottom: 4rem;
 
         .library-title {
+            font-family: "Inter";
             font-size: 2rem;;
             padding: 2rem 0;
             color: v.$marron-color;
@@ -63,17 +86,6 @@
 
 }
 
-
-
-
-
-
-
-.library-title {
-    font-family: "Inter";
-    font-size: calc(1rem + 0.6vw);
-
-}
 
 .test-btn {
     background-color: v.$secondary-color;
