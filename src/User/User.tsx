@@ -35,6 +35,8 @@ function User({ user, setUser }: IUserProps) {
   ) {
     event.preventDefault();
 
+    setErrors({});
+
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -124,9 +126,6 @@ function User({ user, setUser }: IUserProps) {
             id="new-password"
             name="new-password"
           />
-          {errors.confirmPassword && (
-            <p className="register-form-error">{errors.confirmPassword}</p>
-          )}
           <label className="user-update-form-label" htmlFor="renew-password">
             Confirmer le mot de passe
           </label>
