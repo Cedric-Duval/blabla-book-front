@@ -13,6 +13,13 @@ interface IUserProps {
 }
 
 function User({ user, setUser }: IUserProps) {
+
+
+  // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
+  const [editingLibraryId, setEditingLibraryId] = useState(null);
+  // On stocke la valeur de l’input du formulaire
+  const [newLibraryName, setNewLibraryName] = useState('');
+  
   async function getUser() {
     try {
       const response = await api.get('/user');
@@ -63,9 +70,11 @@ function User({ user, setUser }: IUserProps) {
     }
   }
 
-  async function renameLibrary(event: React.FormEvent<HTMLFormElement>, id) {
 
-    
+
+  
+
+  async function renameLibrary(event: React.FormEvent<HTMLFormElement>, id) {
     try {
       event.preventDefault();
       const form = event.currentTarget;
@@ -183,22 +192,32 @@ function User({ user, setUser }: IUserProps) {
                       </figcaption>
                     </figure>
                   </Link>
+                  {editingLibraryId === Library.id ? (
                   <form onSubmit={(event) => {
-                    renameLibrary(event, Library.id)
+                    event.preventDefault();
+                    renameLibrary(event, Library.id, newLibraryName);
+                    setEditingLibraryId(null);
                   }}>
                     <input
                         type="text"
-                        id="library-rename-input"
                         name="library-rename-input"
                         placeholder={Library.name}
+                        value={newLibraryName}
+                        onChange={(e) => setNewLibraryName(e.target.value)}
                         required/>
                     <button className="library-rename" type="submit">
                       Valider
                     </button>
                   </form>
-                  <button className="library-update" type="button">
+                  ) : (
+                  <button className="library-update" type="button" onClick={() => {
+                      setEditingLibraryId(Library.id);
+                      setNewLibraryName(Library.name);
+                    }}
+                  >
                     Modifier
                   </button>
+                  )}
                   
                   <button type="button" className="library-delete" onClick={(event) => {
                     event.stopPropagation();
