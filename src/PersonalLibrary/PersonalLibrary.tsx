@@ -13,6 +13,8 @@ interface PersonalLibraryProps {
   >;
   myLibraries: ILibrary[];
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
+  currentLibraries: ILibrary[];
+  setCurrentLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 }
 
 function PersonalLibrary({
@@ -20,10 +22,11 @@ function PersonalLibrary({
   setCurrentBook,
   myLibraries,
   setMyLibraries,
+  currentLibraries,
+  setCurrentLibraries,
 }: PersonalLibraryProps) {
   const [librariesStatus, setLibrariesStatus] = useState('all');
   const [displayFilter, setDisplayFilter] = useState(true);
-  const [currentLibraries, setCurrentLibraries] = useState(myLibraries);
   const [currentGenres, setCurrentGenres] = useState([]);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
