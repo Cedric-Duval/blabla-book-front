@@ -16,14 +16,14 @@ function User({ user, setUser }: IUserProps) {
   async function getUser() {
     try {
       const response = await api.get('/user');
-      console.log(response.data);
+      //console.log(response.data);
       setUser(response.data);
     } catch (_error) {}
   }
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [user]);
 
   async function handleUserDatasUpdate(
     event: React.FormEvent<HTMLFormElement>,
@@ -52,6 +52,44 @@ function User({ user, setUser }: IUserProps) {
   if (!user) {
     return <div>Chargement de vos données...</div>;
   }
+
+  async function deleteLibrary(id) {
+    try {
+      const response = await api.delete(
+        `/library/${id}`
+      );      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function renameLibrary(event: React.FormEvent<HTMLFormElement>, id) {
+
+    
+    try {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+
+      // console.log(form);
+      // console.log(formData.get('library-rename-input'));
+
+      const response = await api.patch(
+        `/library/${id}`,
+        {
+          name: formData.get('library-rename-input'),
+        }
+      ); 
+
+  
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+
+
 
   return (
     <div id="user-profile">
@@ -145,10 +183,27 @@ function User({ user, setUser }: IUserProps) {
                       </figcaption>
                     </figure>
                   </Link>
-                  <button className="library-update" type="submit">
+                  <form onSubmit={(event) => {
+                    renameLibrary(event, Library.id)
+                  }}>
+                    <input
+                        type="text"
+                        id="library-rename-input"
+                        name="library-rename-input"
+                        placeholder={Library.name}
+                        required/>
+                    <button className="library-rename" type="submit">
+                      Valider
+                    </button>
+                  </form>
+                  <button className="library-update" type="button">
                     Modifier
                   </button>
-                  <button type="button" className="library-delete">
+                  
+                  <button type="button" className="library-delete" onClick={(event) => {
+                    event.stopPropagation();
+                    deleteLibrary(Library.id);
+                    }}>
                     Supprimer
                   </button>
                 </li>
