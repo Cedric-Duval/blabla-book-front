@@ -116,7 +116,18 @@ function Navbar({
           </li>
 
           <li>
-            <Link to="/myLibrary" onClick={closeMenuBurger}>Bibliothèque</Link>
+            <Link
+              to={isLogged ? "/myLibrary" : "#"}
+              onClick={(e) => {
+                if (!isLogged) {
+                  e.preventDefault();
+                  setDisplayLoginForm(true);
+                }
+                closeMenuBurger();
+              }}
+            >
+              Bibliothèque
+            </Link>
           </li>
           {isLogged ? (
             <>
