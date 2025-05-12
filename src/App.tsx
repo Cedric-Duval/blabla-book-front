@@ -29,7 +29,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [currentBook, setCurrentBook] = useState<IBooks | null>();
   const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
-
+  const [currentLibraries, setCurrentLibraries] = useState(myLibraries);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,7 +38,7 @@ function App() {
       try {
         const response = await api.get('/user');
         setUser(response.data);
-      } catch (_error) { }
+      } catch (_error) {}
     }
 
     if (token) {
@@ -56,11 +56,11 @@ function App() {
   }
 
   function closeModalLibrary() {
-    setDisplayModalLibrary(false)
+    setDisplayModalLibrary(false);
   }
 
   function closeModalBook() {
-    setDisplayModalBook(false)
+    setDisplayModalBook(false);
   }
 
   return (
@@ -84,14 +84,19 @@ function App() {
           closeModalLibrary={closeModalLibrary}
           currentBook={currentBook}
           setMyLibraries={setMyLibraries}
-          myLibraries={myLibraries} />)}
+          myLibraries={myLibraries}
+          setCurrentLibraries={setCurrentLibraries}
+        />
+      )}
 
       {displayModalBook && (
         <ModalBooks
           closeModalBook={closeModalBook}
           currentBook={currentBook}
-          setMyLibraries={setMyLibraries} 
-          myLibraries={myLibraries} />)}
+          setMyLibraries={setMyLibraries}
+          myLibraries={myLibraries}
+        />
+      )}
 
       <Navbar
         setDisplayRegisterForm={setDisplayRegisterForm}
@@ -101,53 +106,49 @@ function App() {
         setUser={setUser}
       />
       <Routes>
+        <Route
+          path="/"
+          element={
+            <Homepage
+              setDisplayRegisterForm={setDisplayRegisterForm}
+              isLogged={isLogged}
+              setDisplayLoginForm={setDisplayLoginForm}
+              user={user}
+            />
+          }
+        />
+        <Route
+          path="/books"
+          element={
+            <Books
+              setDisplayModalBook={setDisplayModalBook}
+              setCurrentBook={setCurrentBook}
+            />
+          }
+        />
+        <Route path="/book/:id" element={<Book />} />
+        <Route
+          path="/myLibrary"
+          element={
+            <PersonalLibrary
+              setDisplayModalLibrary={setDisplayModalLibrary}
+              setCurrentBook={setCurrentBook}
+              myLibraries={myLibraries}
+              setMyLibraries={setMyLibraries}
+              currentLibraries={currentLibraries}
+              setCurrentLibraries={setCurrentLibraries}
+            />
+          }
+        />
 
-        <Route path="/" element={
-          <Homepage setDisplayRegisterForm={setDisplayRegisterForm}
-            isLogged={isLogged}
-            setDisplayLoginForm={setDisplayLoginForm}
-            user={user} />
-        } />
-        <Route path="/books" element={
-          <Books 
-          setDisplayModalBook={setDisplayModalBook}
-          setCurrentBook={setCurrentBook}
-           />
-        } />
-        <Route path="/book/:id" element={
-          <Book />
-        } />
-        <Route path="/myLibrary" element={
-          <PersonalLibrary
-            setDisplayModalLibrary={setDisplayModalLibrary}
-            setCurrentBook={setCurrentBook}
-            myLibraries={myLibraries}
-            setMyLibraries={setMyLibraries}
-             />
-        } />
+        <Route path="/user" element={<User user={user} setUser={setUser} />} />
 
-        <Route path="/user" element={
-          <User
-            user={user}
-            setUser={setUser}
-          />
-        } />
+        <Route path="/confidentality" element={<Confidentalite />} />
+        <Route path="/legal-notice" element={<MentionLegale />} />
 
-        <Route path="/confidentality" element ={
-          <Confidentalite />
-        } />
-        <Route path="/legal-notice" element={
-          <MentionLegale />
-        } />
+        <Route path="/contact" element={<Contact />} />
 
-        <Route path="/contact" element={
-          <Contact />
-        } />
-
-        <Route path="*" element={
-          <Error />
-        } />
-
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </div>
