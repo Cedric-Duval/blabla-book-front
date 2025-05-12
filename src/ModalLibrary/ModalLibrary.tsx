@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { IBooks, ILibrary } from '../@types/books';
 import api from '../features/axiosApi';
 import './ModalLibrary.scss';
@@ -6,13 +7,18 @@ type IModalLibraryProps = {
   closeModalLibrary: () => void;
   currentBook: IBooks | null | undefined;
   setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
+  myLibraries: ILibrary[];
 };
 
 function ModalLibrary({
   closeModalLibrary,
   currentBook,
   setMyLibraries,
+  myLibraries,
 }: IModalLibraryProps) {
+  const [menuDeroulant, setMenuDeroulant] = useState(false);
+
+
   async function editBookStatus() {
     const response = await api.patch(
       `/library/${currentBook?.LibraryBook.library_id}/book/${currentBook?.id}`,
@@ -33,6 +39,24 @@ function ModalLibrary({
       console.error('Erreur lors de la suppression du livre', error);
     }
   }
+
+
+  // ------------ FONCTION DE CHANGEMENT DE BIBLIOTHEQUE ------------------
+
+  async function changeLibrary(newLibraryId: number) {
+    try {
+      console.log(currentBook?.LibraryBook.library_id)
+      console.log(currentBook?.id)
+      console.log(newLibraryId)
+      const response = await api.patch(
+        `/library/${currentBook?.LibraryBook.library_id}/book/${currentBook?.id}/newLibrary/${newLibraryId}`);
+      setMyLibraries(response.data);
+      closeModalLibrary();
+    } catch (error) {
+      console.error('Erreur lors du changement de bibliothèque', error);
+    }
+  }
+
 
   return (
     <div className="hidden-background" onClick={closeModalLibrary}>
@@ -102,13 +126,34 @@ function ModalLibrary({
             />
             <p className="library-menu-li-text">Supprimer</p>
           </li>
-          <li className="library-menu-li">
+          <li
+            className="library-menu-li"
+            onClick={(event) => { event.stopPropagation(); setMenuDeroulant(!menuDeroulant); }} >
             <img
               className="library-menu-li-img"
-              src="../public/Pictures/mdi--dialogue-outline.svg"
+              src="../public/Pictures/material-symbols--change-circle-rounded.svg"
               alt=""
             />
-            <p className="library-menu-li-text">Laisser un avis</p>
+            <p className="library-menu-li-text">Changer de bibliothèque</p>
+            {menuDeroulant && (
+              <div className="library-change" onClick={(e) => e.stopPropagation()}>
+                <select
+                  onChange={(e) => {
+                    const newLibraryId = parseInt(e.target.value);
+                    changeLibrary(newLibraryId);
+                  }}
+                >
+                  <option value="">Choisir une bibliothèque</option>
+                  {myLibraries
+                    .filter(lib => lib.id !== currentBook?.LibraryBook.library_id)
+                    .map((library) => (
+                      <option key={library.id} value={library.id}>
+                        {library.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            )}
           </li>
         </ul>
       </div>

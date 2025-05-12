@@ -83,7 +83,8 @@ function App() {
         <ModalLibrary
           closeModalLibrary={closeModalLibrary}
           currentBook={currentBook}
-          setMyLibraries={setMyLibraries} />)}
+          setMyLibraries={setMyLibraries}
+          myLibraries={myLibraries} />)}
 
       {displayModalBook && (
         <ModalBooks
