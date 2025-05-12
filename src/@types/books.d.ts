@@ -8,6 +8,7 @@ export type IBooks = {
     pages: number;
     editor: string
     publication_year: number;
+    Genres : IGenre[];
 }
 
 export type ILibrary = {
@@ -15,3 +16,8 @@ export type ILibrary = {
     name: string;
     Books: Book[];
   };
+
+  export type IGenre = {
+    name: string;
+    id: number;
+  }

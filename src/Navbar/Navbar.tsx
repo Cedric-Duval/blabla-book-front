@@ -40,7 +40,7 @@ function Navbar({
           book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.isbn.toString().includes(searchTerm.toLowerCase()) ||
           book.editor.toLowerCase().includes(searchTerm.toLowerCase())
-
+    
         );
         setSearchResults(filtered.slice(0, 5));
       } catch (error) {
