@@ -126,7 +126,7 @@ function App() {
             />
           }
         />
-        <Route path="/book/:id" element={<Book />} />
+        <Route path="/book/:id" element={<Book setDisplayModalBook={setDisplayModalBook}  />} />
         <Route
           path="/myLibrary"
           element={
