@@ -13,6 +13,11 @@ interface IUserProps {
 }
 
 function User({ user, setUser }: IUserProps) {
+    const [errors, setErrors] = useState({});
+
+
+
+
   async function getUser() {
     try {
       const response = await api.get('/user');
@@ -44,9 +49,19 @@ function User({ user, setUser }: IUserProps) {
       });
 
       getUser();
-    } catch (_error) {
-      console.log(_error);
-    }
+    } catch (error) {
+      console.log(error);
+        if (axios.isAxiosError(error) && error.response?.data.errors) {
+          const zodErrors = error.response.data.errors;
+          const formattedErrors: { [key: string]: string } = {};
+          for (const error of zodErrors) {
+            formattedErrors[error.field] = error.error;
+          }
+          console.log(formattedErrors);
+          setErrors(formattedErrors);
+          console.log(errors)
+        }
+      }
   }
 
   if (!user) {
@@ -97,6 +112,9 @@ function User({ user, setUser }: IUserProps) {
             id="current-password"
             name="current-password"
           />
+          {errors.password && (
+            <p className="register-form-error">{errors.password}</p>
+          )}
           <label className="user-update-form-label" htmlFor="new-password">
             Nouveau mot de passe
           </label>
@@ -106,6 +124,9 @@ function User({ user, setUser }: IUserProps) {
             id="new-password"
             name="new-password"
           />
+          {errors.confirmPassword && (
+            <p className="register-form-error">{errors.confirmPassword}</p>
+          )}
           <label className="user-update-form-label" htmlFor="renew-password">
             Confirmer le mot de passe
           </label>
@@ -115,6 +136,9 @@ function User({ user, setUser }: IUserProps) {
             id="confirm-password"
             name="confirm-password"
           />
+          {errors.confirmPassword && (
+            <p className="register-form-error">{errors.confirmPassword}</p>
+          )}
           <button className="user-update-form-button" type="submit">
             Modifier
           </button>
