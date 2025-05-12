@@ -30,7 +30,7 @@ function User({ user, setUser }: IUserProps) {
 
   useEffect(() => {
     getUser();
-  }, [user]);
+  }, []);
 
   async function handleUserDatasUpdate(
     event: React.FormEvent<HTMLFormElement>,
@@ -65,6 +65,7 @@ function User({ user, setUser }: IUserProps) {
       const response = await api.delete(
         `/library/${id}`
       );      
+      getUser();
     } catch (error) {
       console.log(error);
     }
@@ -89,6 +90,7 @@ function User({ user, setUser }: IUserProps) {
           name: formData.get('library-rename-input'),
         }
       ); 
+      getUser();
 
   
     } catch (error) {
@@ -101,7 +103,7 @@ function User({ user, setUser }: IUserProps) {
 
 
   return (
-    <div id="user-profile">
+    <div id="user-profile"> 
       <section id="user-data-section">
         <form onSubmit={handleUserDatasUpdate}>
           <p id="user-update-form-title">Mes informations</p>
@@ -215,7 +217,7 @@ function User({ user, setUser }: IUserProps) {
                       setNewLibraryName(Library.name);
                     }}
                   >
-                    Modifier
+                    Renommer
                   </button>
                   )}
                   
