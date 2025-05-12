@@ -66,6 +66,10 @@ function PersonalLibrary({
         ...previousLibraries,
         { ...newLibrary, Books: [] },
       ]);
+      setCurrentLibraries((previousLibraries) => [
+        ...previousLibraries,
+        { ...newLibrary, Books: [] },
+      ]);
 
       form.reset();
     } catch (_error) {}
