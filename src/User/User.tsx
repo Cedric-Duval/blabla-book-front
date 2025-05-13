@@ -18,6 +18,7 @@ interface IUserProps {
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+
 function User({ 
   user, 
   setUser,
@@ -29,7 +30,11 @@ function User({
     const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
     const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
     const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
-
+    
+    // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
+    const [editingLibraryId, setEditingLibraryId] = useState(null);
+    // On stocke la valeur de l’input du formulaire
+    const [newLibraryName, setNewLibraryName] = useState('');
 
   async function getUser() {
     try {
@@ -103,6 +108,48 @@ function User({
   if (!user) {
     return <div>Chargement de vos données...</div>;
   }
+
+  async function deleteLibrary(id) {
+    try {
+      const response = await api.delete(
+        `/library/${id}`
+      );      
+      getUser();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
+  
+
+  async function renameLibrary(event: React.FormEvent<HTMLFormElement>, id) {
+    try {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+
+      // console.log(form);
+      // console.log(formData.get('library-rename-input'));
+
+      const response = await api.patch(
+        `/library/${id}`,
+        {
+          name: formData.get('library-rename-input'),
+        }
+      ); 
+      getUser();
+
+  
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+
+
 
   return (
     <div id="user-profile">
@@ -222,10 +269,37 @@ function User({
                       </figcaption>
                     </figure>
                   </Link>
-                  <button className="library-update" type="submit">
-                    Modifier
+                  {editingLibraryId === Library.id ? (
+                  <form onSubmit={(event) => {
+                    event.preventDefault();
+                    renameLibrary(event, Library.id, newLibraryName);
+                    setEditingLibraryId(null);
+                  }}>
+                    <input
+                        type="text"
+                        name="library-rename-input"
+                        placeholder={Library.name}
+                        value={newLibraryName}
+                        onChange={(e) => setNewLibraryName(e.target.value)}
+                        required/>
+                    <button className="library-rename" type="submit">
+                      Valider
+                    </button>
+                  </form>
+                  ) : (
+                  <button className="library-update" type="button" onClick={() => {
+                      setEditingLibraryId(Library.id);
+                      setNewLibraryName(Library.name);
+                    }}
+                  >
+                    Renommer
                   </button>
-                  <button type="button" className="library-delete">
+                  )}
+                  
+                  <button type="button" className="library-delete" onClick={(event) => {
+                    event.stopPropagation();
+                    deleteLibrary(Library.id);
+                    }}>
                     Supprimer
                   </button>
                 </li>
