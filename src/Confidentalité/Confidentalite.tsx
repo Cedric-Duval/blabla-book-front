@@ -1,9 +1,11 @@
-import './Confidentalite.scss'
+import './Confidentalite.scss';
+import ScrollTop from '../ScrollTop';
 
 
 function Confidentalite (){
     return (
-
+<>
+<ScrollTop />
 <section id="privacy-policy-section">
   <div className="privacy-container">
     <h1>Politique de Confidentialité</h1>
@@ -64,8 +66,9 @@ function Confidentalite (){
     <p>Pour toute question, vous pouvez nous contacter à : <a href="mailto:contact@blablabook.fr">contact@blablabook.fr</a></p>
   </div>
 </section>
+</>
     
-    )
+    );
 }
 
 export default Confidentalite;
