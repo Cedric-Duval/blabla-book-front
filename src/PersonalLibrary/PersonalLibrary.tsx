@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import '../Books/Books.scss';
 import './PersonalLibrary.scss';
 import type { IBooks, ILibrary } from '../@types/books';
@@ -273,6 +273,17 @@ function PersonalLibrary({
                     );
                   }
                 })}
+              <li className="books-list-li library-menu-list">
+                <Link to="/books">
+                  <figure>
+                    <div className="addbook-box">
+                      <p className="addbook-box-btn">+</p>
+                      <h5 className="addbook-box-text">Ajouter un livre</h5>
+                      <div />
+                    </div>
+                  </figure>
+                </Link>
+              </li>
             </ul>
           </div>
         );
