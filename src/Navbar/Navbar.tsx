@@ -137,6 +137,11 @@ function Navbar({
                 </Link>
               </li>
               <li>
+                <Link to="/admin" >
+                  Admin
+                </Link>
+              </li>
+              <li>
                 <Link
                   to="/"
                   className="button-connect"

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
 import type { IBooks, ILibrary } from './@types/books';
 import type { IUser } from './@types/user';
+import Admin from './Admin/Admin';
 import Book from './Book/Book';
 import Books from './Books/Books';
 import Confidentalite from './Confidentalité/Confidentalite';
@@ -142,6 +143,7 @@ function App() {
         />
 
         <Route path="/user" element={<User user={user} setUser={setUser} />} />
+        <Route path="/admin" element={<Admin />} />
 
         <Route path="/confidentality" element={<Confidentalite />} />
         <Route path="/legal-notice" element={<MentionLegale />} />
