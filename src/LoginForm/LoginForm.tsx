@@ -41,7 +41,7 @@ function LoginForm({
         const zodErrors = error.response.data.errors;
         const formattedErrors: { [key: string]: string } = {};
         for (const error of zodErrors) {
-          formattedErrors[error.field] = error.message;
+          formattedErrors[error.field] = error.error;
         }
         setErrors(formattedErrors);
       }

@@ -1,29 +1,44 @@
 import { useEffect, useState } from 'react';
-import './User.scss';
-import axios from 'axios';
 import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+import api from '../features/axiosApi';
 import type { IBooks } from '../@types/books';
 import type { ILibraries } from '../@types/libraries';
 import type { IUser } from '../@types/user';
-import api from '../features/axiosApi';
+import './User.scss';
+import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
+import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
+import ConfirmDeleteUserModal from './ConfirmDeleteUserModal/ConfirmDeleteUserModal';
+
 
 interface IUserProps {
   user?: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function User({ user, setUser }: IUserProps) {
 
+function User({ 
+  user, 
+  setUser,
+  setIsLogged 
+}: IUserProps) {
 
-  // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
-  const [editingLibraryId, setEditingLibraryId] = useState(null);
-  // On stocke la valeur de l’input du formulaire
-  const [newLibraryName, setNewLibraryName] = useState('');
-  
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
+    const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
+    const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
+    
+    // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
+    const [editingLibraryId, setEditingLibraryId] = useState(null);
+    // On stocke la valeur de l’input du formulaire
+    const [newLibraryName, setNewLibraryName] = useState('');
+
   async function getUser() {
     try {
       const response = await api.get('/user');
-      //console.log(response.data);
       setUser(response.data);
     } catch (_error) {}
   }
@@ -32,13 +47,38 @@ function User({ user, setUser }: IUserProps) {
     getUser();
   }, []);
 
+  function closeUpdateUserModal() {
+    setDisplayUpdateUserModal(false);
+  }
+
+  function openDeleteUserModal() {
+    setDisplayDeleteUserModal(true);
+  }
+
+  function closeDeleteUserModal() {
+    setDisplayDeleteUserModal(false);
+  }
+
+  //Close the confirmation of user data deletion and redirect the user to the homepage
+  function closeConfirmDeleteUserModal() {
+    localStorage.removeItem('token');
+    setIsLogged(false);
+    setUser(undefined);
+    setDisplayConfirmDeleteUserModal(false);
+    navigate('/');
+  }
+
   async function handleUserDatasUpdate(
     event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
 
+    setErrors({});
+
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    console.log(form);
 
     try {
       await api.patch('/user', {
@@ -49,11 +89,20 @@ function User({ user, setUser }: IUserProps) {
         newPassword: formData.get('new-password'),
         confirmPassword: formData.get('confirm-password'),
       });
-
+      
+      form.reset();
       getUser();
-    } catch (_error) {
-      console.log(_error);
-    }
+      setDisplayUpdateUserModal(true);
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.data.errors) {
+          const zodErrors = error.response.data.errors;
+          const formattedErrors: { [key: string]: string } = {};
+          for (const error of zodErrors) {
+            formattedErrors[error.field] = error.error;
+          }
+          setErrors(formattedErrors);
+        }
+      }
   }
 
   if (!user) {
@@ -103,7 +152,27 @@ function User({ user, setUser }: IUserProps) {
 
 
   return (
-    <div id="user-profile"> 
+    <div id="user-profile">
+      {displayUpdateUserModal && (
+        <UpdateUserModal
+          closeUpdateUserModal={closeUpdateUserModal}
+          setDisplayUpdateUserModal={setDisplayUpdateUserModal}
+        />
+      )}
+      {displayDeleteUserModal && (
+        <DeleteUserModal
+          closeDeleteUserModal={closeDeleteUserModal}
+          setDisplayDeleteUserModal={setDisplayDeleteUserModal}
+          setDisplayConfirmDeleteUserModal={setDisplayConfirmDeleteUserModal}
+          errors={errors}
+          setErrors={setErrors}
+        />
+      )}
+      {displayConfirmDeleteUserModal && (
+        <ConfirmDeleteUserModal
+          closeConfirmDeleteUserModal={closeConfirmDeleteUserModal}
+        />
+      )}
       <section id="user-data-section">
         <form onSubmit={handleUserDatasUpdate}>
           <p id="user-update-form-title">Mes informations</p>
@@ -146,6 +215,9 @@ function User({ user, setUser }: IUserProps) {
             id="current-password"
             name="current-password"
           />
+          {errors.password && (
+            <p className="register-form-error">{errors.password}</p>
+          )}
           <label className="user-update-form-label" htmlFor="new-password">
             Nouveau mot de passe
           </label>
@@ -164,10 +236,13 @@ function User({ user, setUser }: IUserProps) {
             id="confirm-password"
             name="confirm-password"
           />
+          {errors.confirmPassword && (
+            <p className="register-form-error">{errors.confirmPassword}</p>
+          )}
           <button className="user-update-form-button" type="submit">
             Modifier
           </button>
-          <button type="button" className="user-delete-button">
+          <button type="button" className="user-delete-button" onClick={openDeleteUserModal}>
             Supprimer mon compte
           </button>
         </form>

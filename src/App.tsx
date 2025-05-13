@@ -143,8 +143,19 @@ function App() {
           }
         />
 
-        <Route path="/user" element={<User user={user} setUser={setUser} />} />
+        <Route 
+          path="/user" 
+          element={
+            <User 
+              user={user} 
+              setUser={setUser}
+              setIsLogged={setIsLogged}
+            />
+          } 
+        />
+        
         <Route path="/admin" element={<Admin />} />
+
 
         <Route path="/confidentality" element={<Confidentalite />} />
         <Route path="/legal-notice" element={<MentionLegale />} />
