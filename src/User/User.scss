@@ -2,35 +2,6 @@
 @use '../styles/section';
 
 
-.hidden-background {
-    color: #F4F4F6;
-    background: rgba(0, 0, 0, 0.7);
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-
-    & .update-modal {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #C6AD8E;
-        width: 25%;
-        min-width: 500px;
-        padding: 3rem 5rem;
-
-        & #validation-icon {
-            width: 20%;
-            margin-bottom: 7%;
-        }
-    }
-}
-
-
-
 #user-profile {
     display: flex;
     flex-wrap: wrap;

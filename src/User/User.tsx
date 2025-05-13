@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import './User.scss';
-import axios from 'axios';
 import { Link } from 'react-router';
+import axios from 'axios';
+import api from '../features/axiosApi';
 import type { IBooks } from '../@types/books';
 import type { ILibraries } from '../@types/libraries';
 import type { IUser } from '../@types/user';
-import api from '../features/axiosApi';
+import './User.scss';
+import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
+import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
+
 
 interface IUserProps {
   user?: IUser;
@@ -14,13 +17,13 @@ interface IUserProps {
 
 function User({ user, setUser }: IUserProps) {
     const [errors, setErrors] = useState({});
-    const [displayUpdateModal, setDisplayUpdateModal] = useState(false);
+    const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
+    const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
 
 
   async function getUser() {
     try {
       const response = await api.get('/user');
-      console.log(response.data);
       setUser(response.data);
     } catch (_error) {}
   }
@@ -29,8 +32,16 @@ function User({ user, setUser }: IUserProps) {
     getUser();
   }, []);
 
-  function closeUpdateModal() {
-    setDisplayUpdateModal(false);
+  function closeUpdateUserModal() {
+    setDisplayUpdateUserModal(false);
+  }
+
+  function openDeleteUserModal() {
+    setDisplayDeleteUserModal(true);
+  }
+
+  function closeDeleteUserModal() {
+    setDisplayDeleteUserModal(false);
   }
 
   async function handleUserDatasUpdate(
@@ -43,6 +54,8 @@ function User({ user, setUser }: IUserProps) {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    console.log(form);
+
     try {
       await api.patch('/user', {
         name: formData.get('name'),
@@ -54,7 +67,7 @@ function User({ user, setUser }: IUserProps) {
       });
       
       getUser();
-      setDisplayUpdateModal(true);
+      setDisplayUpdateUserModal(true);
     } catch (error) {
         if (axios.isAxiosError(error) && error.response?.data.errors) {
           const zodErrors = error.response.data.errors;
@@ -73,13 +86,17 @@ function User({ user, setUser }: IUserProps) {
 
   return (
     <div id="user-profile">
-      {displayUpdateModal && (
-        <div className='hidden-background' onClick={closeUpdateModal}>
-          <div className='update-modal'>
-            <img id='validation-icon'src="./Pictures/check.png" alt="Icone de validation" />
-            <div>Vos informations ont bien été mises à jour</div>
-          </div>
-        </div>
+      {displayUpdateUserModal && (
+        <UpdateUserModal
+          closeUpdateUserModal={closeUpdateUserModal}
+          setDisplayUpdateUserModal={setDisplayUpdateUserModal}
+        />
+      )}
+      {displayDeleteUserModal && (
+        <DeleteUserModal
+          closeDeleteUserModal={closeDeleteUserModal}
+          setDisplayDeleteUserModal={setDisplayDeleteUserModal}
+        />
       )}
       <section id="user-data-section">
         <form onSubmit={handleUserDatasUpdate}>
@@ -150,7 +167,7 @@ function User({ user, setUser }: IUserProps) {
           <button className="user-update-form-button" type="submit">
             Modifier
           </button>
-          <button type="button" className="user-delete-button">
+          <button type="button" className="user-delete-button" onClick={openDeleteUserModal}>
             Supprimer mon compte
           </button>
         </form>
