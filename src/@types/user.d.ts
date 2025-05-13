@@ -1,5 +1,5 @@
-import { ILibraries } from "./libraries";
-import { IBooks } from "./books";
+import type { ILibraries } from "./libraries";
+import type { IBooks } from "./books";
 
 export type IUser = {
   id: number;
