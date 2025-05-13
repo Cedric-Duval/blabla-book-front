@@ -14,8 +14,7 @@ interface IUserProps {
 
 function User({ user, setUser }: IUserProps) {
     const [errors, setErrors] = useState({});
-
-
+    const [displayUpdateModal, setDisplayUpdateModal] = useState(false);
 
 
   async function getUser() {
@@ -29,6 +28,10 @@ function User({ user, setUser }: IUserProps) {
   useEffect(() => {
     getUser();
   }, []);
+
+  function closeUpdateModal() {
+    setDisplayUpdateModal(false);
+  }
 
   async function handleUserDatasUpdate(
     event: React.FormEvent<HTMLFormElement>,
@@ -49,19 +52,17 @@ function User({ user, setUser }: IUserProps) {
         newPassword: formData.get('new-password'),
         confirmPassword: formData.get('confirm-password'),
       });
-
+      
       getUser();
+      setDisplayUpdateModal(true);
     } catch (error) {
-      console.log(error);
         if (axios.isAxiosError(error) && error.response?.data.errors) {
           const zodErrors = error.response.data.errors;
           const formattedErrors: { [key: string]: string } = {};
           for (const error of zodErrors) {
             formattedErrors[error.field] = error.error;
           }
-          console.log(formattedErrors);
           setErrors(formattedErrors);
-          console.log(errors)
         }
       }
   }
@@ -72,6 +73,14 @@ function User({ user, setUser }: IUserProps) {
 
   return (
     <div id="user-profile">
+      {displayUpdateModal && (
+        <div className='hidden-background' onClick={closeUpdateModal}>
+          <div className='update-modal'>
+            <img id='validation-icon'src="./Pictures/check.png" alt="Icone de validation" />
+            <div>Vos informations ont bien été mises à jour</div>
+          </div>
+        </div>
+      )}
       <section id="user-data-section">
         <form onSubmit={handleUserDatasUpdate}>
           <p id="user-update-form-title">Mes informations</p>
