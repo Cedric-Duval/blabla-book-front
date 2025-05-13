@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
 import api from '../features/axiosApi';
 import type { IBooks } from '../@types/books';
@@ -8,17 +9,26 @@ import type { IUser } from '../@types/user';
 import './User.scss';
 import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
 import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
+import ConfirmDeleteUserModal from './ConfirmDeleteUserModal/ConfirmDeleteUserModal';
 
 
 interface IUserProps {
   user?: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function User({ user, setUser }: IUserProps) {
+function User({ 
+  user, 
+  setUser,
+  setIsLogged 
+}: IUserProps) {
+
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
     const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
+    const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
 
 
   async function getUser() {
@@ -44,6 +54,15 @@ function User({ user, setUser }: IUserProps) {
     setDisplayDeleteUserModal(false);
   }
 
+  //Close the confirmation of user data deletion and redirect the user to the homepage
+  function closeConfirmDeleteUserModal() {
+    localStorage.removeItem('token');
+    setIsLogged(false);
+    setUser(undefined);
+    setDisplayConfirmDeleteUserModal(false);
+    navigate('/');
+  }
+
   async function handleUserDatasUpdate(
     event: React.FormEvent<HTMLFormElement>,
   ) {
@@ -66,6 +85,7 @@ function User({ user, setUser }: IUserProps) {
         confirmPassword: formData.get('confirm-password'),
       });
       
+      form.reset();
       getUser();
       setDisplayUpdateUserModal(true);
     } catch (error) {
@@ -96,6 +116,14 @@ function User({ user, setUser }: IUserProps) {
         <DeleteUserModal
           closeDeleteUserModal={closeDeleteUserModal}
           setDisplayDeleteUserModal={setDisplayDeleteUserModal}
+          setDisplayConfirmDeleteUserModal={setDisplayConfirmDeleteUserModal}
+          errors={errors}
+          setErrors={setErrors}
+        />
+      )}
+      {displayConfirmDeleteUserModal && (
+        <ConfirmDeleteUserModal
+          closeConfirmDeleteUserModal={closeConfirmDeleteUserModal}
         />
       )}
       <section id="user-data-section">

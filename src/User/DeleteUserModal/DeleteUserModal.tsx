@@ -10,13 +10,19 @@ import './DeleteUserModal.scss'
 interface iDeleteUserProps {
     closeDeleteUserModal: () => void;
     setDisplayDeleteUserModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setDisplayConfirmDeleteUserModal: React.Dispatch<React.SetStateAction<boolean>>;
+    errors: Record<string, string>;
+    setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
 }
 
 
 
 function DeleteUserModal({
     closeDeleteUserModal,
-    setDisplayDeleteUserModal
+    setDisplayDeleteUserModal,
+    setDisplayConfirmDeleteUserModal,
+    errors,
+    setErrors
 }: iDeleteUserProps) {
 
     async function handleDeleteUserDatas(
@@ -39,22 +45,30 @@ function DeleteUserModal({
             });
 
         setDisplayDeleteUserModal(false);
-
+        setDisplayConfirmDeleteUserModal(true);
 
         } catch (error) {
-            console.log(error);
-        }
+            if (axios.isAxiosError(error) && error.response?.data.errors) {
+              const zodErrors = error.response.data.errors;
+              const formattedErrors: { [key: string]: string } = {};
+              for (const error of zodErrors) {
+                formattedErrors[error.field] = error.error;
+              }
+              setErrors(formattedErrors);
+            }
+          }
 
     }
 
 
     return (
         <div className='hidden-background' onClick={closeDeleteUserModal}>
-            <div className='update-modal' onClick={(event) => event.stopPropagation()}>
-                <img id='validation-icon'src="./Pictures/caution.png" alt="Icone de validation" />
-                <div>Attention, la suppression de votre compte est définitive. Êtes vous bien sûr de vouloir continuer ?
+            <div className='delete-modal' onClick={(event) => event.stopPropagation()}>
+                <img id='caution-icon'src="./Pictures/caution.png" alt="Icone de validation" />
+                <p className='delete-user-message'>
+                    Attention, la suppression de votre compte est définitive. Êtes vous bien sûr de vouloir continuer ?
                     Veuillez saisir votre mot de passe pour confirmer la suppression.
-                </div>
+                </p>
                 <form className='delete-user-form' onSubmit={handleDeleteUserDatas}>
                     <label htmlFor="current-password">
                         Mot de passe actuel
@@ -62,15 +76,22 @@ function DeleteUserModal({
                     <input 
                     type="password" 
                     name="current-password" 
-                    id="current-password" />
+                    id="current-password" 
+                    />
+                    {errors.password && (
+                        <p className="register-form-error">{errors.password}</p>
+                    )}
                     <label htmlFor="confirm-password">
                         Confirmer le mot de passe
                     </label>
                     <input 
                     type='password'
                     name='confirm-password'
-                    id='confirm-password' 
+                    id='confirm-password'
                     />
+                    {errors.confirmPassword && (
+                        <p className="register-form-error">{errors.confirmPassword}</p>
+                    )}
                     <button className='delete-user-button' type='submit'>
                         Supprimer mon compte
                     </button>
