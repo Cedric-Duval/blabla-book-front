@@ -4,6 +4,7 @@ import '../Books/Books.scss';
 import './PersonalLibrary.scss';
 import type { IBooks, ILibrary } from '../@types/books';
 import CoverBook from '../CoverBook/CoverBook';
+import Loader from '../Loader/Loader';
 import api from '../features/axiosApi';
 
 interface PersonalLibraryProps {
@@ -28,16 +29,19 @@ function PersonalLibrary({
   const [librariesStatus, setLibrariesStatus] = useState('all');
   const [displayFilter, setDisplayFilter] = useState(false);
   const [currentGenres, setCurrentGenres] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
 
   useEffect(() => {
     const getmyLibraries = async () => {
       try {
+        setIsLoading(true);
         const response = await api.get('/libraries/books');
         setMyLibraries(response.data);
         setCurrentLibraries(response.data);
         genresFilter(response.data);
+        setIsLoading(false);
       } catch (error) {
         error;
       }
@@ -119,6 +123,10 @@ function PersonalLibrary({
     const uniqueGenres = [...new Set(allGenres)].sort();
 
     setCurrentGenres(uniqueGenres);
+  }
+
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (

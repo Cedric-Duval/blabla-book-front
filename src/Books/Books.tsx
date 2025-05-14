@@ -2,26 +2,31 @@ import { useEffect, useState } from 'react';
 import './Books.scss';
 import { Link } from 'react-router';
 import type { IBooks } from '../@types/books';
+import Loader from '../Loader/Loader';
 import api from '../features/axiosApi';
 
 interface BooksProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
+  setCurrentBook: React.Dispatch<
+    React.SetStateAction<IBooks | null | undefined>
+  >;
 }
-
 
 function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   // État pour afficher tous les livres
   const [allBooks, setAllBooks] = useState<IBooks[]>([]);
   // État pour gérer la recherche (titre + auteur)
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getAllBooks = async () => {
       try {
+        setIsLoading(true);
         const response = await api.get('/books');
         setAllBooks(response.data);
-      } catch (_error) { }
+        setIsLoading(false);
+      } catch (_error) {}
     };
     getAllBooks();
   }, []);
@@ -32,14 +37,17 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   };
 
   // Filtrer les livres en fonction du titre ou de l'auteur taper dans la barre de recherche
-  const filteredBooks = allBooks.filter((book) =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.author.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBooks = allBooks.filter(
+    (book) =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
-
     <section id="books-section" className="section books-section">
       <div className="head-books">
         <h1>Tous nos livres</h1>
@@ -53,7 +61,9 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
 
       {/* Si aucun livre ne correspond à la recherche effectuée, on fait apparaître un message d'erreur */}
       {filteredBooks.length === 0 && (
-        <p className="no-results">Aucun livre ne correspond à votre recherche.</p>
+        <p className="no-results">
+          Aucun livre ne correspond à votre recherche.
+        </p>
       )}
 
       <div className="books-list">
@@ -70,8 +80,8 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
                       onClick={(event) => {
                         setDisplayModalBook(true);
                         event.preventDefault();
-                        setCurrentBook(books)
-                        console.log(books)
+                        setCurrentBook(books);
+                        console.log(books);
                       }}
                     >
                       ...
