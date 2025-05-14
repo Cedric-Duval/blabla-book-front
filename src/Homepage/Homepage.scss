@@ -24,6 +24,18 @@
             padding: 15px 40px;
             cursor: pointer;
         }
+
+        & .button {
+            background-color: v.$secondary-color;
+            margin: 1rem 0;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: "Inter";
+            font-size: small;
+        }
     }
 
     & #presentation-img {
@@ -160,43 +172,43 @@ hr {
     gap: 1rem;
     padding: 2rem;
     background-color: v.$primary-color;
-    
-  
-  
-  & .left-paragraph,
-  .right-paragraph {
-    max-width: 650px;
-    text-align: center;
-    padding: 3vh;
-  }
-  
-  & .divider {
-    width: 2px;
-    background-color: v.$secondary-color;
-  }
 
-  & h3 {
-    text-align: center;
-  }
+
+
+    & .left-paragraph,
+    .right-paragraph {
+        max-width: 650px;
+        text-align: center;
+        padding: 3vh;
+    }
+
+    & .divider {
+        width: 2px;
+        background-color: v.$secondary-color;
+    }
+
+    & h3 {
+        text-align: center;
+    }
 
 
 }
-  
+
 @media (max-width: 1429px) {
     #paragraphs-section {
-      flex-direction: column;
-      align-items: center;
-    
-  
+        flex-direction: column;
+        align-items: center;
+
+
         & .divider {
-        width: 60vw;
-        height: 2px;
-        margin: 1.5rem auto;
+            width: 60vw;
+            height: 2px;
+            margin: 1.5rem auto;
         }
-    
+
         & .left-paragraph,
         .right-paragraph {
-        max-width: 700px;
+            max-width: 700px;
         }
     }
 }
@@ -221,7 +233,7 @@ hr {
         }
     }
 
-    & .section5-text {  
+    & .section5-text {
         max-width: 470px;
     }
 }

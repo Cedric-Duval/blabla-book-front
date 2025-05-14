@@ -40,6 +40,16 @@ function RegisterForm({
   return (
     <div className="hidden-background" /* onClick={closeRegisterForm} */ >
       <div className="register" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
+      <button
+          type="button"
+          onClick={closeRegisterForm}
+          className="register-closeBtn"
+        >
+          <img
+            src="../public/Pictures/gridicons--cross.svg"
+            alt="Fermer la fenêtre"
+          />
+        </button>
         <form
           className="register-form"
           method="post"
