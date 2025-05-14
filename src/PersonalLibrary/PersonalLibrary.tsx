@@ -43,7 +43,7 @@ function PersonalLibrary({
       }
     };
     getmyLibraries();
-  }, []);
+  }, [setMyLibraries, setCurrentLibraries]);
 
   // -------------- FONCTION DE CREATION DE BIBLITOTHEQUE -----------------------------
 
@@ -109,6 +109,7 @@ function PersonalLibrary({
 
     setCurrentLibraries(filteredLibrary);
   }
+
 
   function genresFilter(libraries) {
     const allGenres = libraries.flatMap((library) =>
@@ -185,7 +186,7 @@ function PersonalLibrary({
             <div className="personal-library-header-filter-libraries">
               <p className="filter-label">Filtrer par bibliothèque :</p>
               <select
-                onClick={(event) => event.stopPropagation}
+                /* onClick={(event) => event.stopPropagation} */
                 onChange={(event) => handleFilterLibraries(event)}
               >
                 <option value="all">Toutes</option>
@@ -200,7 +201,7 @@ function PersonalLibrary({
             <div className="personal-library-header-filter-genres">
               <p className="filter-label">Filtrer par genre :</p>
               <select
-                onClick={(event) => event.stopPropagation}
+                /* onClick={(event) => event.stopPropagation} */
                 onChange={(event) => handleFilterGenres(event)}
               >
                 <option value="all">Tous</option>
