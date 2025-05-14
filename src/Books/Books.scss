@@ -151,7 +151,13 @@
     cursor: pointer;
     border-radius: 6px;
     color: white;
+
+    &:hover {
+        background-color: v.$marronlight-color;
+      }
   }
+
+
 
 // ------------ RESPONSIVE -----------
 
