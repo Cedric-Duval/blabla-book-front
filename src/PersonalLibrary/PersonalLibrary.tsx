@@ -274,14 +274,21 @@ function PersonalLibrary({
 
               <ul className="books-list-ul">
                 {librariesStatus === 'all' &&
-                  library.Books.map((book) => {
+                  library.Books.map((book, index) => {
                     return (
-                      <CoverBook
+                      <div
                         key={book.id}
-                        book={book}
-                        setDisplayModalLibrary={setDisplayModalLibrary}
-                        setCurrentBook={setCurrentBook}
-                      />
+                        className="animated-book"
+                        style={{
+                          animationDelay: `${index * 100}ms`,
+                        }}
+                      >
+                        <CoverBook
+                          book={book}
+                          setDisplayModalLibrary={setDisplayModalLibrary}
+                          setCurrentBook={setCurrentBook}
+                        />
+                      </div>
                     );
                   })}
 
@@ -313,7 +320,12 @@ function PersonalLibrary({
                     }
                   })}
                 {library.Books.length !== 0 && (
-                  <li className="books-list-li library-menu-list">
+                  <li
+                    className="books-list-li library-menu-list animated-book"
+                    style={{
+                      animationDelay: `${library.Books.length * 100}ms`,
+                    }}
+                  >
                     <Link to="/books">
                       <figure>
                         <div className="addbook-box">
