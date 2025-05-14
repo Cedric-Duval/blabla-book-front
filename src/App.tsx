@@ -39,7 +39,11 @@ function App() {
       try {
         const response = await api.get('/user');
         setUser(response.data);
-      } catch (_error) {}
+      } catch (_error) {
+        localStorage.removeItem('token');
+        setIsLogged(false);
+        setUser(undefined);
+      }
     }
 
     if (token) {
@@ -145,19 +149,14 @@ function App() {
           }
         />
 
-        <Route 
-          path="/user" 
+        <Route
+          path="/user"
           element={
-            <User 
-              user={user} 
-              setUser={setUser}
-              setIsLogged={setIsLogged}
-            />
-          } 
+            <User user={user} setUser={setUser} setIsLogged={setIsLogged} />
+          }
         />
-        
-        <Route path="/admin" element={<Admin />} />
 
+        <Route path="/admin" element={<Admin />} />
 
         <Route path="/confidentality" element={<Confidentalite />} />
         <Route path="/legal-notice" element={<MentionLegale />} />
