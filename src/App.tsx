@@ -21,7 +21,6 @@ import RegisterForm from './RegisterForm/RegisterForm';
 import User from './User/User';
 import api from './features/axiosApi';
 
-
 function App() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
   const [displayLoginForm, setDisplayLoginForm] = useState(false);
@@ -128,7 +127,10 @@ function App() {
             />
           }
         />
-        <Route path="/book/:id" element={<Book setDisplayModalBook={setDisplayModalBook}  />} />
+        <Route
+          path="/book/:id"
+          element={<Book setDisplayModalBook={setDisplayModalBook} />}
+        />
         <Route
           path="/myLibrary"
           element={

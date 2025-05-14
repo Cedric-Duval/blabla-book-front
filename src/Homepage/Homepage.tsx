@@ -1,38 +1,41 @@
 import { useEffect, useState } from 'react';
 import type { IBooks } from '../@types/books';
 import './Homepage.scss';
-import axios from 'axios'
+import axios from 'axios';
 import { Link } from 'react-router';
 import type { IUser } from '../@types/user';
 
 interface HomepageProps {
-    setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
-    isLogged: boolean;
-    setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>
-    user: IUser | undefined;
+  setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
+  setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+  user: IUser | undefined;
 }
 
-function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm }: HomepageProps) {
+function Homepage({
+  setDisplayRegisterForm,
+  isLogged,
+  user,
+  setDisplayLoginForm,
+}: HomepageProps) {
+  const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
 
-    const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
-
-    useEffect(() => {
-        const getRandomBooks = async () => {
-            try {
-                const response = await axios.get(
-                    "http://localhost:3000/random-books",
-                );
-                setRandomBooks(response.data);
-            } catch (_error) {
-            }
-        };
-        getRandomBooks();
-    }, []);
-
-    const clickButtonHomePage = () => {
-        setDisplayRegisterForm(true);
+  useEffect(() => {
+    const getRandomBooks = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/random-books');
+        setRandomBooks(response.data);
+      } catch (_error) {}
     };
 
+//Merge issue, to keep ?    
+    getRandomBooks();
+  }, []);
+
+  const clickButtonHomePage = () => {
+    setDisplayRegisterForm(true);
+  };
+ //
 
     return (
         <div id="homepage">
@@ -154,22 +157,84 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
                     <Link to="/myLibrary" className="button">
                         Accéder à ma bibliothèque                           
                     </Link>
-                ) : (
-                    <button type="button" onClick={clickButtonHomePage} className="button">
-                        Commencer ici
-                    </button>
-                )}
-            </section>
-
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
-    )
+      </section>
+
+      <section id="paragraphs-section" className="section">
+        <div className="left-paragraph">
+          <h3>Un espace dédié à chaque ouvrage</h3>
+          <p>
+            Chaque fiche livre vous donne un aperçu complet des informations
+            essentielles : titre, auteur, résumé, genre. Vous pourrez ainsi en
+            savoir plus sur un ouvrage avant de l’ajouter à votre bibliothèque.
+            Vous pourrez choisir si ce livre fait partie de vos lectures
+            passées, en cours ou à venir
+          </p>
+        </div>
+
+        <div className="divider" />
+
+        <div className="right-paragraph">
+          <h3>Exprimez-vous en tant que lecteur</h3>
+          <p>
+            BlaBla Book ne se limite pas à la gestion : c’est aussi une
+            plateforme de partage. Vous avez adoré un livre ? Laissez un avis et
+            une note. Vous avez été déçu ? Partagez-le aussi. Vos retours
+            enrichissent la communauté et aident d’autres utilisateurs à faire
+            leur choix !
+          </p>
+        </div>
+      </section>
+
+      <section id="section5" className="section5">
+        <div className="img-livres">
+          <img src="../Pictures/img-livres.jpg" alt="" />
+        </div>
+        <div className="section5-text">
+          <h2>Une bibliothèque à votre image</h2>
+          <p>
+            Vous retrouvez tous les livres que vous avez ajoutés à votre profil.
+            Qu’ils soient lus ou encore à lire, ils sont organisés de façon
+            claire, et vous pouvez les trier selon vos préférences : par statut,
+            par genre, ou encore par date d’ajout.
+          </p>
+          <p>
+            Vous pouvez aussi renommer vos bibliothèques, en créer plusieurs et
+            les gérer à votre convenance. Cet outil est conçu pour s’adapter à
+            vos habitudes de lecture et vous permettre de garder une trace de
+            toutes vos envies littéraires.
+          </p>
+        </div>
+      </section>
+
+      <section id="call-to-action-section" className="">
+        {isLogged && user?.firstname ? (
+          <h2>Bienvenue chez BlaBla Book, {user.firstname} !</h2>
+        ) : (
+          <h2>Rejoignez notre communauté littéraire</h2>
+        )}
+
+        {isLogged ? (
+          <Link to="/myLibrary" className="button">
+            Accéder à ma bibliothèque
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={clickButtonHomePage}
+            className="button"
+          >
+            Commencer ici
+          </button>
+        )}
+      </section>
+    </div>
+  );
 }
 
 export default Homepage;
-
-
-
-
-
-
-

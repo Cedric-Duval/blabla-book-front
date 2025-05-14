@@ -6,7 +6,7 @@
 #contact-page-section {
     background-color: v.$primary-color;
     text-align: center;
-    min-height: 82vh;
+    display: flex;
   
   
   & .contact-container {
