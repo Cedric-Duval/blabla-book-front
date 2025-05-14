@@ -78,7 +78,7 @@ function ModalBooks({
                         )}
                     </button>
 
-                    <button type="button" className="library-menu-li" onClick={() => handleClick('toRead')} onChange={(e) => handleSelectLibrary(e, 'toRead')}>
+                    <button type="button" className="library-menu-li" onClick={() => handleClick('toRead')}>
                         <img
                             className="library-menu-li-img"
                             src="../public/Pictures/tdesign--time.svg"
@@ -86,7 +86,7 @@ function ModalBooks({
                         />
                         <p className="library-menu-li-text">A lire</p>
                         {menuDeroulant === 'toRead' && (
-                            <select className="library-select" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
+                            <select className="library-select" onClick={(e) => e.stopPropagation()} onChange={(e) => handleSelectLibrary(e, 'toRead')} onKeyDown={(e) => e.stopPropagation()}>
                                 <option value="">Choisir une bibliothèque</option>
                                 {myLibraries.map((library) => (
                                     <option key={library.id} value={library.id}>

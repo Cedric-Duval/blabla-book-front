@@ -19,9 +19,9 @@ function LoginForm({
 }: iRegisterFormProps) {
   const [errors, setErrors] = useState({});
 
-  async function handleSubmitLogin(event) {
+  async function handleSubmitLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formDatas = new FormData(event.target);
+    const formDatas = new FormData(event.currentTarget);
     try {
       const httpResponse = await axios.post(
         'http://localhost:3000/login',

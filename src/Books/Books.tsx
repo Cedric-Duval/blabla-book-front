@@ -15,6 +15,9 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   const [allBooks, setAllBooks] = useState<IBooks[]>([]);
   // État pour gérer la recherche (titre + auteur)
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [visibleCount, setVisibleCount] = useState<number>(18);
+
+
 
   useEffect(() => {
     const getAllBooks = async () => {
@@ -29,6 +32,7 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   // Fonction pour gérer le changement dans la barre de recherche, elle met à jour l'état searchTerm à chaque changement dans le champ de recherche.
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    setVisibleCount(18); // Réinitialise la pagination lors d'une recherche
   };
 
   // Filtrer les livres en fonction du titre ou de l'auteur taper dans la barre de recherche
@@ -36,6 +40,17 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
     book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     book.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+
+  const visibleBooks = filteredBooks.slice(0, visibleCount);
+
+  const handleShowMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 18, filteredBooks.length));
+  };
+
+  const handleShowLess = () => {
+    setVisibleCount((prev) => Math.max(18, prev - 18));
+  };
 
 
   return (
@@ -58,7 +73,7 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
 
       <div className="books-list">
         <ul className="books-list-ul">
-          {filteredBooks.map((books) => (
+          {visibleBooks.map((books) => (
             <li key={books.id} className="books-list-li">
               <Link to={`/book/${books.id}`}>
                 <figure>
@@ -86,6 +101,19 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
             </li>
           ))}
         </ul>
+
+        <div className="show-buttons-container">
+          {visibleCount < filteredBooks.length && (
+            <button type="button" className="show-more-btn" onClick={handleShowMore}>
+              Afficher plus
+            </button>
+          )}
+          {visibleCount > 18 && (
+            <button type="button" className="show-less-btn" onClick={handleShowLess}>
+              Afficher moins
+            </button>
+          )}
+        </div>
       </div>
     </section>
   );
