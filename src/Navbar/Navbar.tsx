@@ -2,7 +2,7 @@ import type { IUser } from '../@types/user';
 import './Navbar.scss';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import type { IBooks } from '../@types/books';
 
 interface INavbarProps {
@@ -97,12 +97,13 @@ function Navbar({
       <div id="menu">
         <ul className={menuBurger ? '' : 'hidden'}>
           <li>
-            <Link to="/" onClick={closeMenuBurger}>Accueil</Link>
+            <NavLink to="/" className={({ isActive }) => isActive && isLogged ? 'active' : ''} onClick={closeMenuBurger}>Accueil</NavLink>
           </li>
 
           <li>
-            <Link
+            <NavLink
               to={isLogged ? "/books" : "#"}
+              className={({ isActive }) => isActive && isLogged ? 'active' : ''}
               onClick={(e) => {
                 if (!isLogged) {
                   e.preventDefault();
@@ -112,12 +113,13 @@ function Navbar({
               }}
             >
               Livres
-            </Link>
+            </NavLink>
           </li>
 
           <li>
-            <Link
+            <NavLink
               to={isLogged ? "/myLibrary" : "#"}
+              className={({ isActive }) => isActive && isLogged ? 'active' : ''}
               onClick={(e) => {
                 if (!isLogged) {
                   e.preventDefault();
@@ -127,14 +129,19 @@ function Navbar({
               }}
             >
               Bibliothèque
-            </Link>
+            </NavLink>
           </li>
           {isLogged ? (
             <>
               <li>
-                <Link to="/user" className="button-connect" onClick={closeMenuBurger} >
+                <NavLink to="/user" /* className="button-connect" */ className={({ isActive }) => isActive ? 'active' : ''} onClick={closeMenuBurger} >
                   Profil
-                </Link>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''} >
+                  Admin
+                </NavLink>
               </li>
               <li>
                 <Link

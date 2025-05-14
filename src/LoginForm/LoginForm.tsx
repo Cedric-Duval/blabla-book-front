@@ -19,9 +19,9 @@ function LoginForm({
 }: iRegisterFormProps) {
   const [errors, setErrors] = useState({});
 
-  async function handleSubmitLogin(event) {
+  async function handleSubmitLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formDatas = new FormData(event.target);
+    const formDatas = new FormData(event.currentTarget);
     try {
       const httpResponse = await axios.post(
         'http://localhost:3000/login',
@@ -41,7 +41,7 @@ function LoginForm({
         const zodErrors = error.response.data.errors;
         const formattedErrors: { [key: string]: string } = {};
         for (const error of zodErrors) {
-          formattedErrors[error.field] = error.message;
+          formattedErrors[error.field] = error.error;
         }
         setErrors(formattedErrors);
       }
@@ -49,8 +49,18 @@ function LoginForm({
   }
 
   return (
-    <div className="hidden-background" onClick={closeLoginForm}>
-      <div className="login" onClick={(event) => event.stopPropagation()}>
+    <div className="hidden-background" /* onClick={closeLoginForm} */>
+      <div className="login" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
+      <button
+          type="button"
+          onClick={closeLoginForm}
+          className="login-closeBtn"
+        >
+          <img
+            src="../public/Pictures/gridicons--cross.svg"
+            alt="Fermer la fenêtre"
+          />
+        </button>
         <form className="login-form" method="post" onSubmit={handleSubmitLogin}>
           <p className="login-form-title">Connexion</p>
           <label className="login-form-label" htmlFor="email">

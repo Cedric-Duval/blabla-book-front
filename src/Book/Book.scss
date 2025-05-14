@@ -82,8 +82,14 @@
         border-radius: 50%;
         width: calc(20px + 2vw);
         max-width: 50px;
+        cursor: pointer;
         }
 
+        & .button-add {
+        
+            border: none;
+            background: none;
+            }
          
     }
 

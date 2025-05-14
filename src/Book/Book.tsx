@@ -53,11 +53,11 @@ function Book({ setDisplayModalBook }: BookProps) {
                 <p>ISBN: {book.isbn}</p>
                 <p>Pages: {book.pages}</p>
                 <p>Genres:
-                <ul>
-                  {book.Genres.map((genre) => (
-                    <li key={genre.id}>{genre.name}</li>
-                  ))}
-                </ul>
+                  <ul>
+                    {book.Genres.map((genre) => (
+                      <li key={genre.id}>{genre.name}</li>
+                    ))}
+                  </ul>
                 </p>
               </div>
             </div>
@@ -67,12 +67,12 @@ function Book({ setDisplayModalBook }: BookProps) {
             <hr />
             <h3>Résumé:</h3>
             <p>{book.summary}</p>
-            <Link to=""><img
-              id="add-button"
-              src="../Pictures/ic--outline-plus.png"
-              alt="add-button"
-              onClick={() => setDisplayModalBook(true)}
-            /></Link>
+
+            <button type="button" className="button-add" onClick={() => setDisplayModalBook(true)}>
+              <Link to="">
+                <img src="../Pictures/ic--outline-plus.png" id="add-button" alt="add-button" />
+              </Link>
+            </button>
 
           </div>
         </>

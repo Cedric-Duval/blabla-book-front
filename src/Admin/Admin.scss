@@ -1,0 +1,106 @@
+@use '../styles/variables' as v;
+@use '../styles/section';
+
+
+.admin-page-section {
+    background-color: v.$base-color;
+
+    & .admin-header {
+        background-color: v.$base-color;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+
+        &-list {
+            font-family: "Inter";
+            padding: 4vw;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5vw;
+
+            &-link {
+                font-family: "Inter";
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: v.$secondary-color;
+                text-decoration: none;
+                padding: 1.2rem 0;
+            }
+        }
+
+
+    }
+
+    & .book-modification-selection {
+        text-align: center; 
+    }
+
+    & .book-modification-presentation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        max-width: 700px;
+        gap: 5vh;
+
+        & label {
+            font-family: "Inter";
+            margin-top: 1vh;
+        }
+        
+        &-image {
+            margin: 0 auto;
+            & img {
+                width: 250px;    
+            }
+        }
+
+
+        & .book-modification-presentation-texts{
+            margin: 0 auto;
+        
+            & .book-modification-details {
+                
+                width: 80vw;
+                max-width: 350px;
+
+                & button {
+                    all: unset;
+                    background-color: v.$secondary-color; 
+                    text-align: center;
+                    color: v.$base-color;
+                    margin: 1vh 0 4vh 0;
+
+                    padding: 15px 40px; 
+                    cursor: pointer;
+                    max-width: 60px;
+                }
+        
+            }
+        }
+
+    }
+    & input, textarea, select {
+        padding: 8px;
+        border-radius: 4px;
+        border: solid 2px v.$secondary-color;
+        background-color: white; 
+        font-size: 0.9rem;
+    }
+
+
+    .book-modification-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+}

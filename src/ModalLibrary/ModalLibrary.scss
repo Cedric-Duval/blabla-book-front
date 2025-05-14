@@ -48,6 +48,13 @@
     }
   }
 
+  button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
   &-closeBtn {
     width: 40px;
     position: absolute;
