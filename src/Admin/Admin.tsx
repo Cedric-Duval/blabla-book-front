@@ -9,8 +9,17 @@ import './Admin.scss'
 
 function Admin (){
 
+    // Menu pour choisir l'action à effectuer par l'admin
+    const [adminChoice, setAdminChoice] = useState('add-book');
+
+
     // Permet de prévisualiser l'image lors de l'ajout d'un livre
     const [imagePresentation, setImagePresentation] = useState("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/old-books-cover-design-template-528851dfc1b6ed275212cd110a105122_screen.jpg");
+    
+
+    const [allBooks, setAllBooks] = useState<IBooks[]>([]); 
+
+    const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState(null);
     const [updateBookState, setUpdateBookState] = useState({
         "image":"https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg", 
         "title": "", 
@@ -24,10 +33,7 @@ function Admin (){
         "summary": "", 
     });
 
-    const [adminChoice, setAdminChoice] = useState('add-book');
-    const [allBooks, setAllBooks] = useState<IBooks[]>([]); 
 
-    const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState(null);
 
 
     useEffect(() => {
@@ -41,6 +47,7 @@ function Admin (){
     }, []);
 
 
+    // Fonctionnalité d'ajout d'un livre
     async function addBook(event: React.FormEvent<HTMLFormElement>) {
         try {
             event.preventDefault();
@@ -61,7 +68,7 @@ function Admin (){
                 summary: formData.get('summary'),
               });
             console.log(formData);
-            console.log(formData.get('title'));
+            console.log("Ajout du livre suivant: " + formData.get('title'));
             
         } catch (error) {
             console.log(error);
@@ -160,7 +167,7 @@ function Admin (){
                             <input type="text" name="title" placeholder="Don Quichotte" required />
 
                                 <label htmlFor="image">URL image:</label> 
-                                <input type="text" name="image" placeholder='https://www. --- image-du-livre.jpg' required />
+                                <input type="text" name="image" placeholder='https://www. --- image-du-livre.jpg' value={imagePresentation} onChange={e => setImagePresentation(e.target.value)} required />
 
                                 <label htmlFor="author">Auteur:</label> 
                                 <input type="text" name="author" placeholder='Prénom Nom' required />
