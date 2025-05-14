@@ -33,8 +33,6 @@ function DeleteUserModal({
         const form = event.currentTarget;
         const formData = new FormData(form);
 
-        console.log(form);
-
 
         try {
             await api.delete('/user', {
