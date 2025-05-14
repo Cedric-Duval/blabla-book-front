@@ -26,7 +26,7 @@ function PersonalLibrary({
   setCurrentLibraries,
 }: PersonalLibraryProps) {
   const [librariesStatus, setLibrariesStatus] = useState('all');
-  const [displayFilter, setDisplayFilter] = useState(true);
+  const [displayFilter, setDisplayFilter] = useState(false);
   const [currentGenres, setCurrentGenres] = useState([]);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
@@ -182,7 +182,11 @@ function PersonalLibrary({
             </li>
           </NavLink>
           <button
-            className="personal-library-header-list-btn"
+            className={
+              displayFilter
+                ? 'personal-library-header-list-btn selected-filter'
+                : 'personal-library-header-list-btn'
+            }
             type="button"
             onClick={(event) => {
               event.preventDefault();
@@ -192,10 +196,15 @@ function PersonalLibrary({
             ...
           </button>
         </ul>
-        {displayFilter && (
+      </div>
+      <div className="library-background">
+        <div
+          className={`personal-library-header-filter-wrapper ${displayFilter && 'active'}`}
+        >
           <div className="personal-library-header-filter">
+            <p className="personal-library-header-filter-text">Filter par :</p>
             <div className="personal-library-header-filter-libraries">
-              <p className="filter-label">Filtrer par bibliothèque :</p>
+              <p className="filter-label">Bibliothèque</p>
               <select
                 onClick={(event) => event.stopPropagation}
                 onChange={(event) => handleFilterLibraries(event)}
@@ -210,7 +219,7 @@ function PersonalLibrary({
             </div>
 
             <div className="personal-library-header-filter-genres">
-              <p className="filter-label">Filtrer par genre :</p>
+              <p className="filter-label">Genre</p>
               <select
                 onClick={(event) => event.stopPropagation}
                 onChange={(event) => handleFilterGenres(event)}
@@ -224,82 +233,85 @@ function PersonalLibrary({
               </select>
             </div>
 
-            <form onSubmit={handleLibraryCreation}>
+            <form className="create-form" onSubmit={handleLibraryCreation}>
               <input
+                className="create-form-input"
                 type="text"
                 id="newLibraryName"
                 name="newLibraryName"
                 placeholder="Créer une bibliothèque"
                 required
               />
-              <button type="submit">Créer</button>
+              <button className="create-form-button" type="submit">
+                Créer
+              </button>
             </form>
           </div>
-        )}
+        </div>
+
+        {currentLibraries.map((library) => {
+          return (
+            <div
+              className="books-list personal-library-libraries"
+              key={library.id}
+            >
+              <h3 className="library-title">{library.name}</h3>
+              <ul className="books-list-ul">
+                {librariesStatus === 'all' &&
+                  library.Books.map((book) => {
+                    return (
+                      <CoverBook
+                        key={book.id}
+                        book={book}
+                        setDisplayModalLibrary={setDisplayModalLibrary}
+                        setCurrentBook={setCurrentBook}
+                      />
+                    );
+                  })}
+
+                {librariesStatus === 'read' &&
+                  library.Books.map((book) => {
+                    if (book.LibraryBook.read) {
+                      return (
+                        <CoverBook
+                          key={book.id}
+                          book={book}
+                          setDisplayModalLibrary={setDisplayModalLibrary}
+                          setCurrentBook={setCurrentBook}
+                        />
+                      );
+                    }
+                  })}
+
+                {librariesStatus === 'toRead' &&
+                  library.Books.map((book) => {
+                    if (!book.LibraryBook.read) {
+                      return (
+                        <CoverBook
+                          key={book.id}
+                          book={book}
+                          setDisplayModalLibrary={setDisplayModalLibrary}
+                          setCurrentBook={setCurrentBook}
+                        />
+                      );
+                    }
+                  })}
+                <li className="books-list-li library-menu-list">
+                  <Link to="/books">
+                    <figure>
+                      <div className="addbook-box">
+                        <p className="addbook-box-btn">+</p>
+                        <h5 className="addbook-box-text">Ajouter un livre</h5>
+                        <div />
+                      </div>
+                    </figure>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          );
+        })}
       </div>
-
-      {currentLibraries.map((library) => {
-        return (
-          <div
-            className="books-list personal-library-libraries"
-            key={library.id}
-          >
-            <h3 className="library-title">{library.name}</h3>
-            <ul className="books-list-ul">
-              {librariesStatus === 'all' &&
-                library.Books.map((book) => {
-                  return (
-                    <CoverBook
-                      key={book.id}
-                      book={book}
-                      setDisplayModalLibrary={setDisplayModalLibrary}
-                      setCurrentBook={setCurrentBook}
-                    />
-                  );
-                })}
-
-              {librariesStatus === 'read' &&
-                library.Books.map((book) => {
-                  if (book.LibraryBook.read) {
-                    return (
-                      <CoverBook
-                        key={book.id}
-                        book={book}
-                        setDisplayModalLibrary={setDisplayModalLibrary}
-                        setCurrentBook={setCurrentBook}
-                      />
-                    );
-                  }
-                })}
-
-              {librariesStatus === 'toRead' &&
-                library.Books.map((book) => {
-                  if (!book.LibraryBook.read) {
-                    return (
-                      <CoverBook
-                        key={book.id}
-                        book={book}
-                        setDisplayModalLibrary={setDisplayModalLibrary}
-                        setCurrentBook={setCurrentBook}
-                      />
-                    );
-                  }
-                })}
-              <li className="books-list-li library-menu-list">
-                <Link to="/books">
-                  <figure>
-                    <div className="addbook-box">
-                      <p className="addbook-box-btn">+</p>
-                      <h5 className="addbook-box-text">Ajouter un livre</h5>
-                      <div />
-                    </div>
-                  </figure>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        );
-      })}
     </section>
   );
 }
