@@ -5,7 +5,9 @@ import type { IBooks } from '../@types/books';
 interface CoverBookProps {
   book: IBooks;
   setDisplayModalLibrary: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>
+  setCurrentBook: React.Dispatch<
+    React.SetStateAction<IBooks | null | undefined>
+  >;
 }
 
 function CoverBook({
@@ -27,12 +29,32 @@ function CoverBook({
                   event.preventDefault();
                   setCurrentBook(book);
                 }}
-              >...
+              >
+                ...
               </button>
-              <img src={book.image} alt="book-image" /> 
-              {!book.LibraryBook.read && <span id="read-notRead"><img src="../public/Pictures/toRead13.svg" alt="livre à lire" title="à lire" /></span>}
-              {book.LibraryBook.read && <span id="read-notRead"><img src="../public/Pictures/tick.svg" alt="livre lu" title="livre lu" /></span>}
-
+              <img
+                className="cover-book-img"
+                src={book.image}
+                alt="book-image"
+              />
+              {!book.LibraryBook.read && (
+                <span id="read-notRead">
+                  <img
+                    src="../public/Pictures/toRead13.svg"
+                    alt="livre à lire"
+                    title="à lire"
+                  />
+                </span>
+              )}
+              {book.LibraryBook.read && (
+                <span id="read-notRead">
+                  <img
+                    src="../public/Pictures/tick.svg"
+                    alt="livre lu"
+                    title="livre lu"
+                  />
+                </span>
+              )}
             </div>
             <hgroup>
               <figcaption>{book.title}</figcaption>

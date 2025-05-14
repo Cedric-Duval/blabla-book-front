@@ -256,6 +256,22 @@ function PersonalLibrary({
               key={library.id}
             >
               <h3 className="library-title">{library.name}</h3>
+              {library.Books.length === 0 && (
+                <div className="library-empty">
+                  <h4 className="library-subtitle">
+                    Votre bibliothèque est vide !
+                  </h4>
+                  <p className="library-text">
+                    Commencer par ajouter des livres, c'est simple et rapide.
+                  </p>
+                  <Link to="/books">
+                    <button type="button" className="library-add-button">
+                      + Ajouter
+                    </button>
+                  </Link>
+                </div>
+              )}
+
               <ul className="books-list-ul">
                 {librariesStatus === 'all' &&
                   library.Books.map((book) => {
@@ -296,17 +312,20 @@ function PersonalLibrary({
                       );
                     }
                   })}
-                <li className="books-list-li library-menu-list">
-                  <Link to="/books">
-                    <figure>
-                      <div className="addbook-box">
-                        <p className="addbook-box-btn">+</p>
-                        <h5 className="addbook-box-text">Ajouter un livre</h5>
-                        <div />
-                      </div>
-                    </figure>
-                  </Link>
-                </li>
+                {library.Books.length !== 0 && (
+                  <li className="books-list-li library-menu-list">
+                    <Link to="/books">
+                      <figure>
+                        <div className="addbook-box">
+                          <p className="addbook-box-btn">
+                            <em>+</em> Ajouter
+                          </p>
+                          <div />
+                        </div>
+                      </figure>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           );
