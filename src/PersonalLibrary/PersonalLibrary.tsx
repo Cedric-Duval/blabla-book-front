@@ -128,46 +128,58 @@ function PersonalLibrary({
 
         <ul className="personal-library-header-list">
           <NavLink
-            className={
-              librariesStatus === 'all'
-                ? 'personal-library-header-list-link selected-status'
-                : 'personal-library-header-list-link'
-            }
+            className="header-navlink"
             to=""
             onClick={(event) => {
               event.preventDefault();
               setLibrariesStatus('all');
             }}
           >
-            <li>Tous</li>
+            <li
+              className={
+                librariesStatus === 'all'
+                  ? 'personal-library-header-list-link selected-status'
+                  : 'personal-library-header-list-link'
+              }
+            >
+              Tous
+            </li>
           </NavLink>
           <NavLink
-            className={
-              librariesStatus === 'read'
-                ? 'personal-library-header-list-link selected-status'
-                : 'personal-library-header-list-link'
-            }
+            className="header-navlink"
             to=""
             onClick={(event) => {
               event.preventDefault();
               setLibrariesStatus('read');
             }}
           >
-            <li>Lus</li>
+            <li
+              className={
+                librariesStatus === 'read'
+                  ? 'personal-library-header-list-link selected-status'
+                  : 'personal-library-header-list-link'
+              }
+            >
+              Lus
+            </li>
           </NavLink>
           <NavLink
-            className={
-              librariesStatus === 'toRead'
-                ? 'personal-library-header-list-link selected-status'
-                : 'personal-library-header-list-link'
-            }
+            className="header-navlink"
             to=""
             onClick={(event) => {
               event.preventDefault();
               setLibrariesStatus('toRead');
             }}
           >
-            <li>A lire</li>
+            <li
+              className={
+                librariesStatus === 'toRead'
+                  ? 'personal-library-header-list-link selected-status'
+                  : 'personal-library-header-list-link'
+              }
+            >
+              À lire
+            </li>
           </NavLink>
           <button
             className="personal-library-header-list-btn"
