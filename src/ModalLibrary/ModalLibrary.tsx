@@ -26,6 +26,7 @@ function ModalLibrary({
     );
     setMyLibraries(response.data);
     setCurrentLibraries(response.data);
+    closeModalLibrary();
   }
 
   // ------------ FONCTION DE SUPPRESSION D'UN LIVRE D'UNE BIBLIOTHEQUE -----------------
