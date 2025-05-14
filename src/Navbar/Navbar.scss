@@ -43,6 +43,9 @@ nav ul {
     text-decoration: underline;
   }
 
+  nav a.active {
+    text-decoration: underline;
+  }
  @media screen and (max-width: 800px) {
   .navbar {
     position: sticky;
