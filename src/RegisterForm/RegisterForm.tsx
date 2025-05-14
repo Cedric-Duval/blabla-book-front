@@ -3,7 +3,7 @@ import './RegisterForm.scss';
 import axios from 'axios';
 import { useState } from 'react';
 
-interface iRegisterFormProps {
+interface IRegisterFormProps {
   closeRegisterForm: () => void;
   setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -11,12 +11,12 @@ interface iRegisterFormProps {
 function RegisterForm({
   closeRegisterForm,
   setDisplayLoginForm,
-}: iRegisterFormProps) {
+}: IRegisterFormProps) {
   const [errors, setErrors] = useState({});
 
-  async function handleSubmitRegister(event) {
+  async function handleSubmitRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formDatas = new FormData(event.target);
+    const formDatas = new FormData(event.currentTarget);
     try {
       await axios.post('http://localhost:3000/register', formDatas, {
         headers: {
@@ -38,8 +38,8 @@ function RegisterForm({
   }
 
   return (
-    <div className="hidden-background" onClick={closeRegisterForm}>
-      <div className="register" onClick={(event) => event.stopPropagation()}>
+    <div className="hidden-background" /* onClick={closeRegisterForm} */ >
+      <div className="register" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
         <form
           className="register-form"
           method="post"

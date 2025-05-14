@@ -59,88 +59,102 @@ function ModalLibrary({
   }
 
   return (
-    <div className="hidden-background" onClick={closeModalLibrary}>
+    <div className="hidden-background" /* onClick={closeModalLibrary} */>
       <div className="library">
-        <div onClick={closeModalLibrary} className="library-closeBtn">
+        <button
+          type="button"
+          onClick={closeModalLibrary}
+          className="library-closeBtn"
+        >
           <img
             src="../public/Pictures/gridicons--cross.svg"
-            alt="close-button"
+            alt="Fermer la fenêtre"
           />
-        </div>
+        </button>
+
         <ul className="library-menu">
           <li
             className={
               currentBook?.LibraryBook.read
                 ? 'library-menu-li selected'
                 : 'library-menu-li'
-            }
-            onClick={(event) => {
-              if (!currentBook.LibraryBook.read) {
-                editBookStatus();
-                return;
-              }
-              event.stopPropagation();
-            }}
-          >
-            {' '}
-            <img
-              className="library-menu-li-img"
-              src="../public/Pictures/ph--book-open.svg"
-              alt=""
-            />
-            <p className="library-menu-li-text">Livre lu</p>
+            } >
+            <button type="button"
+              onClick={(event) => {
+                if (!currentBook.LibraryBook.read) {
+                  editBookStatus();
+                  return;
+                }
+                event.stopPropagation();
+              }}
+            >
+              {' '}
+              <img
+                className="library-menu-li-img"
+                src="../public/Pictures/ph--book-open.svg"
+                alt=""
+              />
+              <p className="library-menu-li-text">Livre lu</p>
+            </button>
           </li>
           <li
             className={
               !currentBook?.LibraryBook.read
                 ? 'library-menu-li selected'
                 : 'library-menu-li'
-            }
-            onClick={(event) => {
-              if (currentBook.LibraryBook.read) {
-                editBookStatus();
-                return;
-              }
-              event.stopPropagation();
-            }}
-          >
-            {' '}
-            <img
-              className="library-menu-li-img"
-              src="../public/Pictures/tdesign--time.svg"
-              alt=""
-            />
-            <p className="library-menu-li-text">A lire </p>
+            } >
+            <button type="button"
+              onClick={(event) => {
+                if (currentBook.LibraryBook.read) {
+                  editBookStatus();
+                  return;
+                }
+                event.stopPropagation();
+              }}
+            >
+              {' '}
+              <img
+                className="library-menu-li-img"
+                src="../public/Pictures/tdesign--time.svg"
+                alt=""
+              />
+              <p className="library-menu-li-text">A lire </p>
+            </button>
           </li>
           <li
-            className="library-menu-li"
-            onClick={(event) => {
-              event.stopPropagation();
-              deleteBookFromLibrary();
-            }}
-          >
-            <img
-              className="library-menu-li-img"
-              src="../public/Pictures/tabler--trash.svg"
-              alt=""
-            />
-            <p className="library-menu-li-text">Supprimer</p>
+            className="library-menu-li" >
+            <button type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                deleteBookFromLibrary();
+              }}
+            >
+              <img
+                className="library-menu-li-img"
+                src="../public/Pictures/tabler--trash.svg"
+                alt=""
+              />
+              <p className="library-menu-li-text">Supprimer</p>
+            </button>
           </li>
           <li
-            className="library-menu-li"
-            onClick={(event) => {
-              event.stopPropagation();
-              setMenuDeroulant(!menuDeroulant);
-            }}
-          >
-            <img
-              className="library-menu-li-img"
-              src="../public/Pictures/material-symbols--change-circle-rounded.svg"
-              alt=""
-            />
-            <p className="library-menu-li-text">Changer de bibliothèque</p>
+            className="library-menu-li">
+            <button type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                setMenuDeroulant(!menuDeroulant);
+              }}
+            >
+              <img
+                className="library-menu-li-img"
+                src="../public/Pictures/material-symbols--change-circle-rounded.svg"
+                alt=""
+              />
+              <p className="library-menu-li-text">Changer de bibliothèque</p>
+            </button>
             {menuDeroulant && (
-              <div
+              <button
+                type="button"
                 className="library-change"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -161,8 +175,9 @@ function ModalLibrary({
                       </option>
                     ))}
                 </select>
-              </div>
+              </button>
             )}
+
           </li>
         </ul>
       </div>
