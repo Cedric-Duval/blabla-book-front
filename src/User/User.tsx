@@ -10,6 +10,7 @@ import './User.scss';
 import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
 import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
 import ConfirmDeleteUserModal from './ConfirmDeleteUserModal/ConfirmDeleteUserModal';
+import DeleteLibraryModal from './DeleteLibraryModal/DeleteLibraryModal';
 
 
 interface IUserProps {
@@ -30,6 +31,8 @@ function User({
     const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
     const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
     const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
+    const [displayDeleteLibraryModal, setDisplayDeleteLibraryModal] = useState(false);
+    const [libraryId, setLibraryId] = useState<number | undefined>();
     
     // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
     const [editingLibraryId, setEditingLibraryId] = useState(null);
@@ -52,6 +55,8 @@ function User({
   }
 
   function openDeleteUserModal() {
+    //Empty the errors state to avoid duplicated error messages when the modal pops up
+    setErrors({});
     setDisplayDeleteUserModal(true);
   }
 
@@ -59,7 +64,15 @@ function User({
     setDisplayDeleteUserModal(false);
   }
 
-  //Close the confirmation of user data deletion and redirect the user to the homepage
+  function openDeleteLibraryModal() {
+    setDisplayDeleteLibraryModal(true);
+  }
+
+  function closeDeleteLibraryModal() {
+    setDisplayDeleteLibraryModal(false);
+  }
+
+  //Close the confirmation of user data deletion, disconnect the user and redirect him to the homepage
   function closeConfirmDeleteUserModal() {
     localStorage.removeItem('token');
     setIsLogged(false);
@@ -109,16 +122,6 @@ function User({
     return <div>Chargement de vos données...</div>;
   }
 
-  async function deleteLibrary(id) {
-    try {
-      const response = await api.delete(
-        `/library/${id}`
-      );      
-      getUser();
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
 
 
@@ -171,6 +174,17 @@ function User({
       {displayConfirmDeleteUserModal && (
         <ConfirmDeleteUserModal
           closeConfirmDeleteUserModal={closeConfirmDeleteUserModal}
+        />
+      )}
+      {displayDeleteLibraryModal && (
+        <DeleteLibraryModal
+          closeDeleteLibraryModal={closeDeleteLibraryModal}
+          errors={errors}
+          setErrors={setErrors}
+          libraryId={libraryId}
+          setLibraryId={setLibraryId}
+          user={user}
+          setUser={setUser}
         />
       )}
       <section id="user-data-section">
@@ -298,7 +312,8 @@ function User({
                   
                   <button type="button" className="library-delete" onClick={(event) => {
                     event.stopPropagation();
-                    deleteLibrary(Library.id);
+                    setLibraryId(Library.id)
+                    openDeleteLibraryModal();
                     }}>
                     Supprimer
                   </button>
