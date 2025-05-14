@@ -51,6 +51,16 @@ function LoginForm({
   return (
     <div className="hidden-background" /* onClick={closeLoginForm} */>
       <div className="login" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
+      <button
+          type="button"
+          onClick={closeLoginForm}
+          className="login-closeBtn"
+        >
+          <img
+            src="../public/Pictures/gridicons--cross.svg"
+            alt="Fermer la fenêtre"
+          />
+        </button>
         <form className="login-form" method="post" onSubmit={handleSubmitLogin}>
           <p className="login-form-title">Connexion</p>
           <label className="login-form-label" htmlFor="email">

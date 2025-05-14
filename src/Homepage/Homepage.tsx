@@ -33,7 +33,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
         setDisplayRegisterForm(true);
     };
 
-    
+
     return (
         <div id="homepage">
             <section id="hero-section" className="section">
@@ -44,7 +44,15 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
                     </hgroup>
                     <p>Bienvenue dans l'univers des livres où chaque page tournée est une nouvelle aventure. Rejoignez notre communauté de lecteurs passionnés, partagez vos coups de cœur et découvrez des trésors littéraires qui vous attendent. Ne restez pas seul avec vos livres !</p>
 
-                    <button type="button" className="button" onClick={clickButtonHomePage}>Commencer ici</button>
+                    {isLogged ? (
+                        <Link to="/books" className="button">
+                            Découvrez nos livres
+                        </Link>
+                    ) : (
+                        <button type="button" className="button" onClick={clickButtonHomePage}>
+                            Commencer ici
+                        </button>
+                    )}
                 </div>
                 <div id="presentation-img">
                     <img src="../Pictures/pres.jpeg" alt="" />
@@ -107,7 +115,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
             </section>
 
             <section id="paragraphs-section" className="section">
-                
+
                 <div className="left-paragraph">
                     <h3>Un espace dédié à chaque ouvrage</h3>
                     <p>Chaque fiche livre vous donne un aperçu complet des informations essentielles : titre, auteur, résumé, genre. Vous pourrez ainsi en savoir plus sur un ouvrage avant de l’ajouter à votre bibliothèque.
@@ -144,7 +152,7 @@ function Homepage({ setDisplayRegisterForm, isLogged, user, setDisplayLoginForm 
 
                 {isLogged ? (
                     <Link to="/myLibrary" className="button">
-                        Accéder à ma bibliothèque
+                        Accéder à ma bibliothèque                           
                     </Link>
                 ) : (
                     <button type="button" onClick={clickButtonHomePage} className="button">
