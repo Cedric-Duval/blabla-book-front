@@ -73,15 +73,20 @@
 
             & label {
                 width: 100%;
+                margin: 5% 0 0 0;
             }
 
             & input {
                 width: 100%;
-                margin: 0.3vh 0% 1.8vh 0;
+                margin: 0.3vh 0% 0 0;
                 padding: 8px;
                 border-radius: 4px;
                 border: solid 2px v.$secondary-color;
                 background-color: white; 
+                font-size: 0.9rem;
+            }
+
+            & .register-form-error {
                 font-size: 0.9rem;
             }
 
@@ -91,6 +96,7 @@
                 text-align: center;
                 color: v.$base-color;
                 margin: 1vh auto 5vh auto;
+                border-radius: 8px;
                 
                 padding: 15px 40px; 
                 cursor: pointer;
@@ -104,6 +110,7 @@
             padding: 15px 40px; 
             text-align: center;
             color: v.$base-color;
+            border-radius: 8px;
             cursor: pointer;
             max-width: 230px;
             margin: 1vh auto 5vh auto;
@@ -149,17 +156,19 @@
                     color: v.$base-color;
                     margin: 1vh 0 2vh 0; 
                     padding: 5px 0; 
+                    border-radius: 8px;
                     cursor: pointer;
                 }
 
                 & .library-rename {
                     all: unset;
                     width: 100%;
-                    background-color: #009b0d; 
+                    background-color: #4abb53; 
                     text-align: center;
                     color: v.$base-color;
                     margin: 1vh 0 2vh 0; 
-                    padding: 5px 0; 
+                    padding: 5px 0;
+                    border-radius: 8px;
                     cursor: pointer;
                 }
     
@@ -170,6 +179,7 @@
                     padding: 5px 0; 
                     text-align: center;
                     color: v.$base-color;
+                    border-radius: 8px;
                     cursor: pointer;
                 }
             }

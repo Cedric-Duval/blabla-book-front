@@ -208,8 +208,8 @@ function Admin() {
             <div className="admin-container">
 
                 <div className="admin-header">
-                    <h1>Page administrateur</h1>
-                    <p className={`admin-header-title fade ${fadeClass}`}>{displayedChoice}</p>
+                    <h1 className='admin-header-title'>Page administrateur</h1>
+                    
                     <ul className='admin-header-list'>
                         <li>
                         <NavLink 
@@ -262,6 +262,9 @@ function Admin() {
                         </li>
                     </ul>
                 </div>
+
+                <p className={`admin-subtitle fade ${fadeClass}`}>{displayedChoice}</p>
+                
 
                 {adminChoice === "Ajouter un livre" && 
                 <form onSubmit={addBook}>
