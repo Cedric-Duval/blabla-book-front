@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
 import axios from 'axios';
 import api from '../../features/axiosApi';
-import type { IBooks } from '../@types/books';
-import type { ILibraries } from '../@types/libraries';
-import type { IUser } from '../@types/user';
-import './DeleteUserModal.scss'
+import './DeleteUserModal.scss';
+import type { IUserUpdateError } from '../../@types/user';
 
 interface iDeleteUserProps {
     closeDeleteUserModal: () => void;
     setDisplayDeleteUserModal: React.Dispatch<React.SetStateAction<boolean>>;
     setDisplayConfirmDeleteUserModal: React.Dispatch<React.SetStateAction<boolean>>;
     errors: Record<string, string>;
-    setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+    setErrors: React.Dispatch<React.SetStateAction<IUserUpdateError>>;
 }
 
 
@@ -47,11 +43,14 @@ function DeleteUserModal({
 
         } catch (error) {
             if (axios.isAxiosError(error) && error.response?.data.errors) {
-              const zodErrors = error.response.data.errors;
-              const formattedErrors: { [key: string]: string } = {};
-              for (const error of zodErrors) {
-                formattedErrors[error.field] = error.error;
-              }
+                const zodErrors = error.response.data.errors;
+                const formattedErrors: IUserUpdateError = {
+                  confirmPassword: '',
+                  password: ''
+                };
+                for (const error of zodErrors) {
+                  formattedErrors[error.field as keyof IUserUpdateError] = error.error;
+                }
               setErrors(formattedErrors);
             }
           }
@@ -60,8 +59,19 @@ function DeleteUserModal({
 
 
     return (
-        <div className='hidden-background' onClick={closeDeleteUserModal}>
-            <div className='delete-modal' onClick={(event) => event.stopPropagation()}>
+        <div className='hidden-background' /* onClick={closeDeleteUserModal} */>
+            <div className='delete-modal' onClick={(event) => event.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
+            <button
+                    type="button"
+                    onClick={closeDeleteUserModal}
+                    className="delete-modal-closeBtn"
+                >
+                    <img
+                        src="../public/Pictures/gridicons--cross.svg"
+                        alt="Fermer la fenêtre"
+                        className="delete-modal-closeBtn-img"
+                    />
+                </button>
                 <img id='caution-icon'src="./Pictures/caution.png" alt="Icone de validation" />
                 <p className='delete-user-message'>
                     Attention, la suppression de votre compte est définitive. Êtes vous bien sûr de vouloir continuer ?

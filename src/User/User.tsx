@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
+import type { IUser, IUserUpdateError } from '../@types/user';
 import api from '../features/axiosApi';
-import type { IBooks } from '../@types/books';
-import type { ILibraries } from '../@types/libraries';
-import type { IUser } from '../@types/user';
 import './User.scss';
-import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
-import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
 import ConfirmDeleteUserModal from './ConfirmDeleteUserModal/ConfirmDeleteUserModal';
 import DeleteLibraryModal from './DeleteLibraryModal/DeleteLibraryModal';
+import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
+import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
 
 
 interface IUserProps {
@@ -20,36 +18,36 @@ interface IUserProps {
 }
 
 
-function User({ 
-  user, 
+function User({
+  user,
   setUser,
-  setIsLogged 
+  setIsLogged
 }: IUserProps) {
 
-    const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
-    const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
-    const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
-    const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
-    const [displayDeleteLibraryModal, setDisplayDeleteLibraryModal] = useState(false);
-    const [libraryId, setLibraryId] = useState<number | undefined>();
-    const [userSection, setUserSection] = useState<string | undefined>('Mes informations');
-    
-    // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
-    const [editingLibraryId, setEditingLibraryId] = useState(null);
-    // On stocke la valeur de l’input du formulaire
-    const [newLibraryName, setNewLibraryName] = useState('');
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState<IUserUpdateError>({} as IUserUpdateError);
+  const [displayUpdateUserModal, setDisplayUpdateUserModal] = useState(false);
+  const [displayDeleteUserModal, setDisplayDeleteUserModal] = useState(false);
+  const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
+  const [displayDeleteLibraryModal, setDisplayDeleteLibraryModal] = useState(false);
+  const [libraryId, setLibraryId] = useState<number>();
+  const [userSection, setUserSection] = useState<string | undefined>('Mes informations');
 
-  async function getUser() {
+  // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
+  const [editingLibraryId, setEditingLibraryId] = useState<number | null>(null);
+  // On stocke la valeur de l’input du formulaire
+  const [newLibraryName, setNewLibraryName] = useState('');
+
+  const getUser = useCallback(async () => {
     try {
       const response = await api.get('/user');
       setUser(response.data);
-    } catch (_error) {}
-  }
+    } catch (_error) { }
+  }, [setUser]);
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
 
   function closeUpdateUserModal() {
     setDisplayUpdateUserModal(false);
@@ -57,7 +55,7 @@ function User({
 
   function openDeleteUserModal() {
     //Empty the errors state to avoid duplicated error messages when the modal pops up
-    setErrors({});
+    setErrors({} as IUserUpdateError);
     setDisplayDeleteUserModal(true);
   }
 
@@ -87,7 +85,7 @@ function User({
   ) {
     event.preventDefault();
 
-    setErrors({});
+    setErrors({} as IUserUpdateError);
 
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -103,20 +101,23 @@ function User({
         newPassword: formData.get('new-password'),
         confirmPassword: formData.get('confirm-password'),
       });
-      
+
       form.reset();
       getUser();
       setDisplayUpdateUserModal(true);
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.data.errors) {
-          const zodErrors = error.response.data.errors;
-          const formattedErrors: { [key: string]: string } = {};
-          for (const error of zodErrors) {
-            formattedErrors[error.field] = error.error;
-          }
-          setErrors(formattedErrors);
+      if (axios.isAxiosError(error) && error.response?.data.errors) {
+        const zodErrors = error.response.data.errors;
+        const formattedErrors: IUserUpdateError = {
+          confirmPassword: '',
+          password: ''
+        };
+        for (const error of zodErrors) {
+          formattedErrors[error.field as keyof IUserUpdateError] = error.error;
         }
+        setErrors(formattedErrors);
       }
+    }
   }
 
   if (!user) {
@@ -126,9 +127,9 @@ function User({
 
 
 
-  
 
-  async function renameLibrary(event: React.FormEvent<HTMLFormElement>, id) {
+
+  async function renameLibrary(event: React.FormEvent<HTMLFormElement>, id: number) {
     try {
       event.preventDefault();
       const form = event.currentTarget;
@@ -137,18 +138,18 @@ function User({
       // console.log(form);
       // console.log(formData.get('library-rename-input'));
 
-      const response = await api.patch(
+      await api.patch(
         `/library/${id}`,
         {
           name: formData.get('library-rename-input'),
         }
-      ); 
+      );
       getUser();
 
-  
+
     } catch (error) {
       console.log(error);
-      
+
     }
   }
 
@@ -158,192 +159,189 @@ function User({
   return (
     <section id="user-profile">
       <div id='user-profile-container'>
-      {displayUpdateUserModal && (
-        <UpdateUserModal
-          closeUpdateUserModal={closeUpdateUserModal}
-          setDisplayUpdateUserModal={setDisplayUpdateUserModal}
-        />
-      )}
-      {displayDeleteUserModal && (
-        <DeleteUserModal
-          closeDeleteUserModal={closeDeleteUserModal}
-          setDisplayDeleteUserModal={setDisplayDeleteUserModal}
-          setDisplayConfirmDeleteUserModal={setDisplayConfirmDeleteUserModal}
-          errors={errors}
-          setErrors={setErrors}
-        />
-      )}
-      {displayConfirmDeleteUserModal && (
-        <ConfirmDeleteUserModal
-          closeConfirmDeleteUserModal={closeConfirmDeleteUserModal}
-        />
-      )}
-      {displayDeleteLibraryModal && (
-        <DeleteLibraryModal
-          closeDeleteLibraryModal={closeDeleteLibraryModal}
-          errors={errors}
-          setErrors={setErrors}
-          libraryId={libraryId}
-          setLibraryId={setLibraryId}
-          user={user}
-          setUser={setUser}
+        {displayUpdateUserModal && (
+          <UpdateUserModal
+            closeUpdateUserModal={closeUpdateUserModal}
+            setDisplayUpdateUserModal={setDisplayUpdateUserModal}
           />
         )}
-      <div id="user-data-section">
-        <p id="user-update-form-title">{userSection}</p>
-        <ul id='user-section-navlink'>  
-        <NavLink
-            className={
-              userSection === 'Mes informations'
-                ? 'personal-library-header-list-link selected-status'
-                : 'personal-library-header-list-link'
-            }
-            to=""
-            onClick={(event) => {
-              event.preventDefault();
-              setErrors({});
-              setUserSection('Mes informations');
-            }}
-          >
-            <li>Mes informations</li>
-          </NavLink>
-          <NavLink
-            className={
-              userSection === 'Modifier mon mot de passe'
-                ? 'personal-library-header-list-link selected-status'
-                : 'personal-library-header-list-link'
-            }
-            to=""
-            onClick={(event) => {
-              event.preventDefault();
-              setErrors({});
-              setUserSection('Modifier mon mot de passe');
-            }}
-          >
-            <li>Modifier mon mot de passe</li>
-          </NavLink>
-          <NavLink
-            className={
-              userSection === 'Supprimer mon compte'
-                ? 'personal-library-header-list-link selected-status'
-                : 'personal-library-header-list-link'
-            }
-            to=""
-            onClick={(event) => {
-              event.preventDefault();
-              setErrors({});
-              setUserSection('Supprimer mon compte');
-            }}
-          >
-            <li>Supprimer mon compte</li>
-          </NavLink>
-        </ul>
-        {userSection === 'Mes informations' && (
-        <form onSubmit={handleUserDatasUpdate}>
-          <label className="user-update-form-label" htmlFor="name">
-            Nom
-          </label>
-          <input
-            className="user-update-form-input"
-            type="text"
-            id="name"
-            name="name"
-            defaultValue={user.name}
+        {displayDeleteUserModal && (
+          <DeleteUserModal
+            closeDeleteUserModal={closeDeleteUserModal}
+            setDisplayDeleteUserModal={setDisplayDeleteUserModal}
+            setDisplayConfirmDeleteUserModal={setDisplayConfirmDeleteUserModal}
+            errors={errors}
+            setErrors={setErrors}
           />
-          <label className="user-update-form-label" htmlFor="firstname">
-            Prénom
-          </label>
-          <input
-            className="user-update-form-input"
-            type="text"
-            id="firstname"
-            name="firstname"
-            defaultValue={user.firstname}
+        )}
+        {displayConfirmDeleteUserModal && (
+          <ConfirmDeleteUserModal
+            closeConfirmDeleteUserModal={closeConfirmDeleteUserModal}
           />
-          <label className="user-update-form-label" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="user-update-form-input"
-            type="email"
-            id="email"
-            name="email"
-            defaultValue={user.email}
+        )}
+        {libraryId !== undefined && displayDeleteLibraryModal && (
+          <DeleteLibraryModal
+            closeDeleteLibraryModal={closeDeleteLibraryModal}
+            errors={errors}
+            setErrors={setErrors}
+            libraryId={libraryId}
+            setUser={setUser}
           />
-          <label className="user-update-form-label" htmlFor="old-password">
-            Mot de passe actuel
-          </label>
-          <input
-            className="user-update-form-input"
-            type="password"
-            id="current-password"
-            name="current-password"
-          />
-          {errors.password && (
-            <p className="register-form-error">{errors.password}</p>
+        )}
+        <div id="user-data-section">
+          <p id="user-update-form-title">{userSection}</p>
+          <ul id='user-section-navlink'>
+            <NavLink
+              className={
+                userSection === 'Mes informations'
+                  ? 'personal-library-header-list-link selected-status'
+                  : 'personal-library-header-list-link'
+              }
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setErrors({} as IUserUpdateError);
+                setUserSection('Mes informations');
+              }}
+            >
+              <li>Mes informations</li>
+            </NavLink>
+            <NavLink
+              className={
+                userSection === 'Modifier mon mot de passe'
+                  ? 'personal-library-header-list-link selected-status'
+                  : 'personal-library-header-list-link'
+              }
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setErrors({} as IUserUpdateError);
+                setUserSection('Modifier mon mot de passe');
+              }}
+            >
+              <li>Modifier mon mot de passe</li>
+            </NavLink>
+            <NavLink
+              className={
+                userSection === 'Supprimer mon compte'
+                  ? 'personal-library-header-list-link selected-status'
+                  : 'personal-library-header-list-link'
+              }
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setErrors({} as IUserUpdateError);
+                setUserSection('Supprimer mon compte');
+              }}
+            >
+              <li>Supprimer mon compte</li>
+            </NavLink>
+          </ul>
+          {userSection === 'Mes informations' && (
+            <form onSubmit={handleUserDatasUpdate}>
+              <label className="user-update-form-label" htmlFor="name">
+                Nom
+              </label>
+              <input
+                className="user-update-form-input"
+                type="text"
+                id="name"
+                name="name"
+                defaultValue={user.name}
+              />
+              <label className="user-update-form-label" htmlFor="firstname">
+                Prénom
+              </label>
+              <input
+                className="user-update-form-input"
+                type="text"
+                id="firstname"
+                name="firstname"
+                defaultValue={user.firstname}
+              />
+              <label className="user-update-form-label" htmlFor="email">
+                Email
+              </label>
+              <input
+                className="user-update-form-input"
+                type="email"
+                id="email"
+                name="email"
+                defaultValue={user.email}
+              />
+              <label className="user-update-form-label" htmlFor="old-password">
+                Mot de passe actuel
+              </label>
+              <input
+                className="user-update-form-input"
+                type="password"
+                id="current-password"
+                name="current-password"
+              />
+              {errors.password && (
+                <p className="register-form-error">{errors.password}</p>
+              )}
+              <button className="user-update-form-button" type="submit">
+                Modifier
+              </button>
+            </form>
           )}
-          <button className="user-update-form-button" type="submit">
-            Modifier
-          </button>
-        </form>
-        )}
-        { userSection === 'Modifier mon mot de passe' && (
-          <form onSubmit={handleUserDatasUpdate}>
-          <label className="user-update-form-label" htmlFor="current-password">
-            Mot de passe actuel
-          </label>
-          <input
-            className="user-update-form-input"
-            type="password"
-            id="current-password"
-            name="current-password"
-          />
-          {errors.password && (
-            <p className="register-form-error">{errors.password}</p>
+          {userSection === 'Modifier mon mot de passe' && (
+            <form onSubmit={handleUserDatasUpdate}>
+              <label className="user-update-form-label" htmlFor="current-password">
+                Mot de passe actuel
+              </label>
+              <input
+                className="user-update-form-input"
+                type="password"
+                id="current-password"
+                name="current-password"
+              />
+              {errors.password && (
+                <p className="register-form-error">{errors.password}</p>
+              )}
+              <label className="user-update-form-label" htmlFor="new-password">
+                Nouveau mot de passe
+              </label>
+              <input
+                className="user-update-form-input"
+                type="password"
+                id="new-password"
+                name="new-password"
+              />
+              <label className="user-update-form-label" htmlFor="renew-password">
+                Confirmer le mot de passe
+              </label>
+              <input
+                className="user-update-form-input"
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+              />
+              {errors.confirmPassword && (
+                <p className="register-form-error">{errors.confirmPassword}</p>
+              )}
+              <button className="user-update-form-button" type="submit">
+                Modifier
+              </button>
+            </form>
           )}
-          <label className="user-update-form-label" htmlFor="new-password">
-            Nouveau mot de passe
-          </label>
-          <input
-            className="user-update-form-input"
-            type="password"
-            id="new-password"
-            name="new-password"
-          />
-          <label className="user-update-form-label" htmlFor="renew-password">
-            Confirmer le mot de passe
-          </label>
-          <input
-            className="user-update-form-input"
-            type="password"
-            id="confirm-password"
-            name="confirm-password"
-          />
-          {errors.confirmPassword && (
-            <p className="register-form-error">{errors.confirmPassword}</p>
+          {userSection === 'Supprimer mon compte' && (
+            <button type="button" className="user-delete-button" onClick={openDeleteUserModal}>
+              Supprimer mon compte
+            </button>
           )}
-          <button className="user-update-form-button" type="submit">
-            Modifier
-          </button>
-        </form>
-        )}
-        { userSection === 'Supprimer mon compte' && (
-          <button type="button" className="user-delete-button" onClick={openDeleteUserModal}>
-            Supprimer mon compte
-          </button>
-        )}
-      </div>
+        </div>
 
-      {/* Affichage des librairies du User */}
-      <div id="user-libraries-section">
-        <p id="user-libraries-section-title">Mes bibliothèques</p>
+        {/* Affichage des librairies du User */}
+        <div id="user-libraries-section">
+          <p id="user-libraries-section-title">Mes bibliothèques</p>
 
-        <ul id="libraries-list">
-          {user?.Libraries &&
-            user?.Libraries.map((Library) => {
+          <ul id="libraries-list">
+            {user?.Libraries?.map((Library) => {
               return (
                 <li key={Library.id}>
-                  <Link to={`/myLibrary`}>
+                  <Link to={'/myLibrary'}>
                     <figure>
                       {Library.Books[0]?.image && (
                         <div className="book-img">
@@ -356,32 +354,32 @@ function User({
                     </figure>
                   </Link>
                   {editingLibraryId === Library.id ? (
-                  <form onSubmit={(event) => {
-                    event.preventDefault();
-                    renameLibrary(event, Library.id, newLibraryName);
-                    setEditingLibraryId(null);
-                  }}>
-                    <input
+                    <form onSubmit={(event) => {
+                      event.preventDefault();
+                      renameLibrary(event, Library.id);
+                      setEditingLibraryId(null);
+                    }}>
+                      <input
                         type="text"
                         name="library-rename-input"
                         placeholder={Library.name}
                         value={newLibraryName}
                         onChange={(e) => setNewLibraryName(e.target.value)}
-                        required/>
-                    <button className="library-rename" type="submit">
-                      Valider
-                    </button>
-                  </form>
+                        required />
+                      <button className="library-rename" type="submit">
+                        Valider
+                      </button>
+                    </form>
                   ) : (
-                  <button className="library-update" type="button" onClick={() => {
+                    <button className="library-update" type="button" onClick={() => {
                       setEditingLibraryId(Library.id);
                       setNewLibraryName(Library.name);
                     }}
-                  >
-                    Renommer
-                  </button>
+                    >
+                      Renommer
+                    </button>
                   )}
-                  
+
                   <button type="button" className="library-delete" onClick={(event) => {
                     event.stopPropagation();
                     setLibraryId(Library.id)
@@ -392,8 +390,8 @@ function User({
                 </li>
               );
             })}
-            </ul>
-      </div>
+          </ul>
+        </div>
       </div>
     </section>
   );
