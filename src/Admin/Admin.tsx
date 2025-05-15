@@ -286,8 +286,9 @@ function Admin() {
                                 <button type="submit">Valider</button>
                             </div>
                         </div>
-
-                    </form>}
+                    </div>
+                </form>
+                }
 
 
                 {adminChoice === "Modifier un livre" && 
@@ -409,7 +410,7 @@ function Admin() {
                         </div>
 
                     </form>
-
+                }    
 
                 {adminChoice === "Supprimer un livre" &&
                 
