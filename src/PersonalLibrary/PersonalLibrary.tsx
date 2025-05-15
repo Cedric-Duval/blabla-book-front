@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import '../Books/Books.scss';
 import './PersonalLibrary.scss';
-import type { IBooks, ILibrary } from '../@types/books';
+import type { IBooks, IGenre, ILibrary } from '../@types/books';
 import CoverBook from '../CoverBook/CoverBook';
 import Loader from '../Loader/Loader';
 import api from '../features/axiosApi';
@@ -28,7 +28,7 @@ function PersonalLibrary({
 }: PersonalLibraryProps) {
   const [librariesStatus, setLibrariesStatus] = useState('all');
   const [displayFilter, setDisplayFilter] = useState(false);
-  const [currentGenres, setCurrentGenres] = useState([]);
+  const [currentGenres, setCurrentGenres] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // ------------- FONCTION DE RECUPERATION DES BIBLIOTHEQUES ----------------------
@@ -77,7 +77,7 @@ function PersonalLibrary({
       ]);
 
       form.reset();
-    } catch (_error) {}
+    } catch (_error) { }
   }
 
   // -------------- FONCTIONS DE FILTRE -----------------------------
@@ -89,7 +89,8 @@ function PersonalLibrary({
     }
     const filteredLibrary = [
       myLibraries.find((library) => library.id === Number(libraryId)),
-    ];
+    ].filter((lib): lib is ILibrary => lib !== undefined);
+
     setCurrentLibraries(filteredLibrary);
   }
 
@@ -103,7 +104,7 @@ function PersonalLibrary({
 
     const filteredLibrary = myLibraries.map((library) => {
       const filteredBooks = library.Books.filter((book) =>
-        book.Genres.some((genre) => genre.name === selectedGenre),
+        book.Genres.some((genre: IGenre) => genre.name === selectedGenre),
       );
 
       return {
@@ -116,9 +117,9 @@ function PersonalLibrary({
   }
 
 
-  function genresFilter(libraries) {
+  function genresFilter(libraries: ILibrary[]) {
     const allGenres = libraries.flatMap((library) =>
-      library.Books.flatMap((book) => book.Genres.map((genre) => genre.name)),
+      library.Books.flatMap((book: IBooks) => book.Genres.map((genre: IGenre) => genre.name))
     );
 
     //Set => rend les valeurs uniques --- sort => tri par ordre alphabétique
