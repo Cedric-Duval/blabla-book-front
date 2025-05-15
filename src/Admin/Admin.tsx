@@ -35,8 +35,13 @@ function Admin() {
         "summary": "",
     });
     
+    //Display confirmation modals for updating/deleting book
     const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] = useState(false);
     const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] = useState(false);
+
+    //For fading title animation
+    const [displayedChoice, setDisplayedChoice] = useState('');
+    const [fadeClass, setFadeClass] = useState('');
 
     const getAllBooks = async () => {
     try {
@@ -45,9 +50,28 @@ function Admin() {
     } catch (_error) { }
     };
 
+
+    //API call to get all the books in the DB when page first loading only
     useEffect(() => {
         getAllBooks();
     }, []);
+
+    //Handle fading title animation
+    useEffect(() => {
+        if(adminChoice != displayedChoice) {
+            setFadeClass('fade-out');
+    
+            const timeout = setTimeout(() => {
+                setDisplayedChoice(adminChoice);
+                setFadeClass('');
+            }, 300);
+    
+            return () => clearTimeout(timeout);
+        }
+
+    }, [adminChoice, displayedChoice]);
+
+
 
     function closeConfirmUpdateBookModal() {
         setDisplayConfirmUpdateBookModal(false)
@@ -185,7 +209,7 @@ function Admin() {
 
                 <div className="admin-header">
                     <h1>Page administrateur</h1>
-                    <p className='admin-header-title'>{adminChoice}</p>
+                    <p className={`admin-header-title fade ${fadeClass}`}>{displayedChoice}</p>
                     <ul className='admin-header-list'>
                         <li>
                         <NavLink 
