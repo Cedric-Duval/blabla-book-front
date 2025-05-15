@@ -21,7 +21,6 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState<number>(18);
 
-
   useEffect(() => {
     const getAllBooks = async () => {
       try {
@@ -61,7 +60,6 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
     setVisibleCount((prev) => Math.max(18, prev - 18));
   };
 
-
   return (
     <section id="books-section" className="section books-section">
       <div className="head-books">
@@ -83,8 +81,14 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
 
       <div className="books-list">
         <ul className="books-list-ul">
-          {visibleBooks.map((books) => (
-            <li key={books.id} className="books-list-li">
+          {visibleBooks.map((books, index) => (
+            <li
+              key={books.id}
+              className="books-list-li animated-book"
+              style={{
+                animationDelay: `${index * 70}ms`,
+              }}
+            >
               <Link to={`/book/${books.id}`}>
                 <figure>
                   <div id="book-img">
@@ -114,12 +118,20 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
 
         <div className="show-buttons-container">
           {visibleCount < filteredBooks.length && (
-            <button type="button" className="show-more-btn" onClick={handleShowMore}>
+            <button
+              type="button"
+              className="show-more-btn"
+              onClick={handleShowMore}
+            >
               Afficher plus
             </button>
           )}
           {visibleCount > 18 && (
-            <button type="button" className="show-less-btn" onClick={handleShowLess}>
+            <button
+              type="button"
+              className="show-less-btn"
+              onClick={handleShowLess}
+            >
               Afficher moins
             </button>
           )}
