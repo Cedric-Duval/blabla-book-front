@@ -1,8 +1,8 @@
 import './Book.scss';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
-import axios from 'axios'
 import type { IBooks } from '../@types/books';
+import api from '../features/axiosApi';
 
 
 interface BookProps {
@@ -18,9 +18,7 @@ function Book({ setDisplayModalBook }: BookProps) {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/book/${bookId}`,
-        );
+        const response = await api.get(`/book/${bookId}`);
         setBook(response.data);
         console.log(response.data)
       } catch (error) {
@@ -52,13 +50,13 @@ function Book({ setDisplayModalBook }: BookProps) {
                 <p>Édition: {book.editor}</p>
                 <p>ISBN: {book.isbn}</p>
                 <p>Pages: {book.pages}</p>
-                <p>Genres:
-                  <ul>
+                <ul>Genres:
+                  <p>
                     {book.Genres.map((genre) => (
                       <li key={genre.id}>{genre.name}</li>
                     ))}
-                  </ul>
-                </p>
+                  </p>
+                </ul>
               </div>
             </div>
 
