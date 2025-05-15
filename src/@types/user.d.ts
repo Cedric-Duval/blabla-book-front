@@ -1,5 +1,5 @@
-import type { ILibraries } from "./libraries";
 import type { IBooks } from "./books";
+import type { ILibraries } from "./libraries";
 
 export type IUser = {
   id: number;
@@ -11,3 +11,20 @@ export type IUser = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type IUserError = {
+  email: string;
+  password: string;
+}
+
+export type IRegisterError = {
+  firstname: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+export type IUserUpdateError = {
+  password : string;
+  confirmPassword: string;
+}

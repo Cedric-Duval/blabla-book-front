@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import './RegisterForm.scss';
 import axios from 'axios';
 import { useState } from 'react';
+import type { IRegisterError } from '../@types/user';
 
 interface IRegisterFormProps {
   closeRegisterForm: () => void;
@@ -12,7 +13,7 @@ function RegisterForm({
   closeRegisterForm,
   setDisplayLoginForm,
 }: IRegisterFormProps) {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<IRegisterError>({} as IRegisterError);
 
   async function handleSubmitRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -28,9 +29,14 @@ function RegisterForm({
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
-        const formattedErrors: { [key: string]: string } = {};
+        const formattedErrors: IRegisterError = {
+          email: '',
+          password: '',
+          firstname:'',
+          name:''
+        };
         for (const error of zodErrors) {
-          formattedErrors[error.field] = error.message;
+          formattedErrors[error.field as keyof IRegisterError] = error.message;
         }
         setErrors(formattedErrors);
       }

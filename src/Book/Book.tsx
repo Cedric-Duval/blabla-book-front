@@ -1,6 +1,6 @@
 import './Book.scss';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { useParams, Link } from 'react-router';
 import type { IBooks } from '../@types/books';
 import api from '../features/axiosApi';
 
@@ -50,14 +50,13 @@ function Book({ setDisplayModalBook }: BookProps) {
                 <p>Édition: {book.editor}</p>
                 <p>ISBN: {book.isbn}</p>
                 <p>Pages: {book.pages}</p>
-                <p>
-                  Genres:
-                  <ul>
+                <ul>Genres:
+                  <p>
                     {book.Genres.map((genre) => (
                       <li key={genre.id}>{genre.name}</li>
                     ))}
-                  </ul>
-                </p>
+                  </p>
+                </ul>
               </div>
             </div>
           </div>

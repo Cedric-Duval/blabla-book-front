@@ -154,7 +154,8 @@ function App() {
         <Route
           path="/user"
           element={
-            <User user={user} setUser={setUser} setIsLogged={setIsLogged} />
+            <User user={user} setUser={setUser}
+             setIsLogged={setIsLogged} />
           }
         />
 
