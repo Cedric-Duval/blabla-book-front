@@ -17,6 +17,9 @@
         flex-direction: column;
         align-items: center;
 
+        overflow-x: auto;
+        white-space: nowrap;
+
         &-titre{
             font-size: 2.8rem;
             margin: 0;
@@ -108,7 +111,7 @@
                 display: flex;
                 gap: 0.5rem;
                 align-items: center;
-                margin-left: 5rem;
+                padding-left: 5rem;
 
                 &-input {
                     padding: 0.4rem 0.6rem;
@@ -138,6 +141,7 @@
 
     &-libraries {
         padding-bottom: 4rem;
+        overflow-x: auto;
 
         .library-title {
             font-family: "Inter";
@@ -156,6 +160,7 @@
         }
         .library-subtitle {
             font-family: "Inter";
+            text-align: center;
             font-weight: 300;
             font-size: 1.3rem;;
             padding: 0;
@@ -164,6 +169,8 @@
 
         .library-text {
             font-family: "Inter";
+            text-align: center;
+            max-width: 80%;
             font-weight: 150;
             font-size: 1rem;;
             padding: 0;
@@ -290,7 +297,7 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
+}
 
 
 //HOVER ----------------------------------------
@@ -312,4 +319,23 @@
 .addbook-box-btn:hover {
     background-color:v.$secondary-color;
     color: v.$base-color;
+}
+
+@media  screen and (max-width: 630px) {
+    .personal-library-header-filter {
+        gap: 1rem;
+        flex-direction: column;
+    }
+
+    .personal-library-header-filter-libraries,
+    .personal-library-header-filter-genres {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .personal-library-header-filter .create-form {
+        margin-top: 1rem;
+        padding-left: 0rem;
+    }
 }

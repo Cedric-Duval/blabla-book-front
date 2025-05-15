@@ -21,7 +21,6 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState<number>(18);
 
-
   useEffect(() => {
     const getAllBooks = async () => {
       try {
@@ -61,31 +60,37 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
     setVisibleCount((prev) => Math.max(18, prev - 18));
   };
 
-
   return (
-    <section id="books-section" className="section books-section">
+    <section className="section books-section">
       <div className="head-books">
-        <h1>Tous nos livres</h1>
+        <h1 className="books-section-title">Tous nos livres</h1>
         <input
           type="text"
-          placeholder="Recherche parmi nos livres"
+          placeholder="Rechercher parmis nos livres"
           value={searchTerm}
           onChange={handleSearchChange}
+          className="books-section-search"
         />
       </div>
 
-      {/* Si aucun livre ne correspond à la recherche effectuée, on fait apparaître un message d'erreur */}
-      {filteredBooks.length === 0 && (
-        <p className="no-results">
-          Aucun livre ne correspond à votre recherche.
-        </p>
-      )}
-
       <div className="books-list">
+        {/* Si aucun livre ne correspond à la recherche effectuée, on fait apparaître un message d'erreur */}
+        {filteredBooks.length === 0 && (
+          <p className="books-list-no-results">
+            Aucun livre ne correspond à votre recherche !
+          </p>
+        )}
+
         <ul className="books-list-ul">
-          {visibleBooks.map((books) => (
+          {visibleBooks.map((books, index) => (
             <li key={books.id} className="books-list-li">
-              <Link to={`/book/${books.id}`}>
+              <Link
+                to={`/book/${books.id}`}
+                className="animated-book"
+                style={{
+                  animationDelay: `${index * 70}ms`,
+                }}
+              >
                 <figure>
                   <div id="book-img">
                     <img src={books.image} alt="book-image" />
@@ -114,12 +119,20 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
 
         <div className="show-buttons-container">
           {visibleCount < filteredBooks.length && (
-            <button type="button" className="show-more-btn" onClick={handleShowMore}>
+            <button
+              type="button"
+              className="show-more-btn"
+              onClick={handleShowMore}
+            >
               Afficher plus
             </button>
           )}
           {visibleCount > 18 && (
-            <button type="button" className="show-less-btn" onClick={handleShowLess}>
+            <button
+              type="button"
+              className="show-less-btn"
+              onClick={handleShowLess}
+            >
               Afficher moins
             </button>
           )}
