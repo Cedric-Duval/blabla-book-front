@@ -17,6 +17,9 @@
         flex-direction: column;
         align-items: center;
 
+        overflow-x: auto;
+        white-space: nowrap;
+
         &-titre{
             font-size: 2.8rem;
             margin: 0;
@@ -138,6 +141,7 @@
 
     &-libraries {
         padding-bottom: 4rem;
+        overflow-x: auto;
 
         .library-title {
             font-family: "Inter";
@@ -156,6 +160,7 @@
         }
         .library-subtitle {
             font-family: "Inter";
+            text-align: center;
             font-weight: 300;
             font-size: 1.3rem;;
             padding: 0;
@@ -164,6 +169,8 @@
 
         .library-text {
             font-family: "Inter";
+            text-align: center;
+            max-width: 80%;
             font-weight: 150;
             font-size: 1rem;;
             padding: 0;
