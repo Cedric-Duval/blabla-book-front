@@ -1,11 +1,59 @@
 @use '../styles/variables' as v;
 @use '../styles/section';
 
-#user-profile {
+.user-profile {
     background-color: v.$base-color;
+    padding: 0;
+
+    &-header {
+        background-color: v.$base-color;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem 0 0 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-title {
+            font-size: 2.8rem;
+            margin: 0;
+        }
+
+        &-navlink {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0 0 0;
+            width: 100%;
+             
+            
+            & .user-profile-header-list-link {
+                padding: 0 0 0.5rem 0;
+                background-color: v.$base-color;
+                color: v.$secondary-color;
+                font-family: "Inter";
+                font-size: 1.3rem;
+                font-weight: 700;
+                text-decoration: none;
+                text-align: center;
+                margin: 0 1.5% 5% 1.5%;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            & .selected-status {
+                text-decoration: underline;
+                color: #d1bda5;                
+            }
+        }
+    }
 }
 
-#user-profile-container {
+.user-profile-container {
     flex:1;
     display: flex;
     flex-wrap: wrap;
@@ -18,7 +66,7 @@
     
 
 
-    & #user-data-section {
+    & .user-data-section {
         min-width: 250px;
         max-width: 480px;
         width: 50vh;
@@ -26,43 +74,17 @@
         display: flex;
         flex-direction: column;
 
-        & #user-section-navlink {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0;
-             
-            
-            & .personal-library-header-list-link {
-                padding: 0 0 0.5rem 0;
-                background-color: v.$base-color;
-                color: v.$secondary-color;
-                font-family: "Inter";
-                font-size: 1.3rem;
-                font-weight: 700;
-                text-decoration: none;
-                text-align: center;
-                margin: 1.2vh;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                gap: 2rem;
-                max-width: 130px;
-            }
 
-            & .selected-status {
-                text-decoration: underline;
-                color: #d1bda5;                
-            }
-        }
 
-        & #user-update-form-title {
+        & .user-update-form-title {
             font-weight: bold;
             font-size: calc(1.3rem + 0.5vw);
             text-align: center;
             margin-bottom: 4.5vh;
             
         }
+
+
     
         & form {
             display: flex;
@@ -95,7 +117,7 @@
                 background-color: v.$secondary-color; 
                 text-align: center;
                 color: v.$base-color;
-                margin: 1vh auto 5vh auto;
+                margin: 3vh auto 5vh auto;
                 border-radius: 8px;
                 
                 padding: 15px 40px; 
@@ -211,5 +233,14 @@
 
 
 }
+
+.fade {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  
+    &.fade-out {
+      opacity: 0;
+    }
+  }
 
 

@@ -38,6 +38,10 @@ function User({
   // On stocke la valeur de l’input du formulaire
   const [newLibraryName, setNewLibraryName] = useState('');
 
+  //For fading title animation
+  const [displayedSection, setDisplayedSection] = useState('');
+  const [fadeClass, setFadeClass] = useState('');
+
   const getUser = useCallback(async () => {
     try {
       const response = await api.get('/user');
@@ -47,7 +51,22 @@ function User({
 
   useEffect(() => {
     getUser();
-  }, [getUser]);
+  }, []);
+  
+  //Handle fading title animation
+  useEffect(() => {
+    if(userSection != displayedSection) {
+        setFadeClass('fade-out');
+    
+        const timeout = setTimeout(() => {
+            setDisplayedSection(userSection);
+            setFadeClass('');
+        }, 300);
+    
+        return () => clearTimeout(timeout);
+    }
+
+  }, [userSection, displayedSection]);
 
   function closeUpdateUserModal() {
     setDisplayUpdateUserModal(false);
@@ -157,8 +176,60 @@ function User({
 
 
   return (
-    <section id="user-profile">
-      <div id='user-profile-container'>
+    <section className="user-profile">
+      <div className='user-profile-header'>
+        <h1 className='user-profile-header-title'>
+          Mon profil
+        </h1>
+        <ul className='user-profile-header-navlink'>
+            <NavLink
+              className={
+                userSection === 'Mes informations'
+                  ? 'user-profile-header-list-link selected-status'
+                  : 'user-profile-header-list-link'
+              }
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setErrors({} as IUserUpdateError);
+                setUserSection('Mes informations');
+              }}
+            >
+              <li>Mes informations</li>
+            </NavLink>
+            <NavLink
+              className={
+                userSection === 'Modifier mon mot de passe'
+                  ? 'user-profile-header-list-link selected-status'
+                  : 'user-profile-header-list-link'
+              }
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setErrors({} as IUserUpdateError);
+                setUserSection('Modifier mon mot de passe');
+              }}
+            >
+              <li>Modifier mon mot de passe</li>
+            </NavLink>
+            <NavLink
+              className={
+                userSection === 'Supprimer mon compte'
+                  ? 'user-profile-header-list-link selected-status'
+                  : 'user-profile-header-list-link'
+              }
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setErrors({} as IUserUpdateError);
+                setUserSection('Supprimer mon compte');
+              }}
+            >
+              <li>Supprimer mon compte</li>
+            </NavLink>
+          </ul>
+      </div>
+      <div className='user-profile-container'>
         {displayUpdateUserModal && (
           <UpdateUserModal
             closeUpdateUserModal={closeUpdateUserModal}
@@ -188,55 +259,9 @@ function User({
             setUser={setUser}
           />
         )}
-        <div id="user-data-section">
-          <p id="user-update-form-title">{userSection}</p>
-          <ul id='user-section-navlink'>
-            <NavLink
-              className={
-                userSection === 'Mes informations'
-                  ? 'personal-library-header-list-link selected-status'
-                  : 'personal-library-header-list-link'
-              }
-              to=""
-              onClick={(event) => {
-                event.preventDefault();
-                setErrors({} as IUserUpdateError);
-                setUserSection('Mes informations');
-              }}
-            >
-              <li>Mes informations</li>
-            </NavLink>
-            <NavLink
-              className={
-                userSection === 'Modifier mon mot de passe'
-                  ? 'personal-library-header-list-link selected-status'
-                  : 'personal-library-header-list-link'
-              }
-              to=""
-              onClick={(event) => {
-                event.preventDefault();
-                setErrors({} as IUserUpdateError);
-                setUserSection('Modifier mon mot de passe');
-              }}
-            >
-              <li>Modifier mon mot de passe</li>
-            </NavLink>
-            <NavLink
-              className={
-                userSection === 'Supprimer mon compte'
-                  ? 'personal-library-header-list-link selected-status'
-                  : 'personal-library-header-list-link'
-              }
-              to=""
-              onClick={(event) => {
-                event.preventDefault();
-                setErrors({} as IUserUpdateError);
-                setUserSection('Supprimer mon compte');
-              }}
-            >
-              <li>Supprimer mon compte</li>
-            </NavLink>
-          </ul>
+        <div className="user-data-section">
+          <p className={`user-update-form-title fade ${fadeClass}`}>{displayedSection}</p>
+
           {userSection === 'Mes informations' && (
             <form onSubmit={handleUserDatasUpdate}>
               <label className="user-update-form-label" htmlFor="name">
