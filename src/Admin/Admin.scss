@@ -15,6 +15,14 @@
         flex-direction: column;
         align-items: center;
 
+        &-title {
+            font-family: 'Inter';
+            font-weight: bold;
+            font-size: calc(1.3rem + 0.5vw);
+            margin-top: 4.5vh;
+            margin-bottom: 4.5vh;
+            padding: 0;
+        }
 
 
         &-list {
@@ -34,13 +42,17 @@
                 text-decoration: none;
                 padding: 1.2rem 0;
             }
+
+            & .selected-status {
+                text-decoration: underline;
+                color: #d1bda5
+            }
         }
-
-
     }
 
     & .book-modification-selection {
         text-align: center; 
+        margin-bottom: 4%;
     }
 
     & .book-modification-presentation {
@@ -54,7 +66,20 @@
 
         & label {
             font-family: "Inter";
+            font-weight: 200;
+            font-size: 0.9rem;
             margin-top: 1vh;
+            margin-bottom: 2%;
+            padding: 0;
+        }
+
+        & select {
+            margin-bottom: 2%;
+        }
+
+        & textarea {
+            margin-bottom: 2%;
+            font-family: "Inter";
         }
         
         &-image {
@@ -75,14 +100,22 @@
 
                 & button {
                     all: unset;
+
+                    font-family: 'Inter';
                     background-color: v.$secondary-color; 
-                    text-align: center;
                     color: v.$base-color;
                     margin: 1vh 0 4vh 0;
-
+                    text-align: center;
                     padding: 15px 40px; 
                     cursor: pointer;
-                    max-width: 60px;
+                    max-width: 20%;
+
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                    border-radius: 8px;
+
+                }
+                & .delete {
+                    background-color: v.$red-color;
                 }
         
             }
@@ -103,4 +136,17 @@
         flex-direction: column;
     }
 
+}
+
+select {
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid v.$base-color;
+    background-color: white;
+    font-size: 0.9rem;
+    min-width: 160px;
+}
+
+input {
+    margin-bottom: 2%;
 }

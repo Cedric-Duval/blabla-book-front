@@ -38,6 +38,7 @@ function PersonalLibrary({
       try {
         setIsLoading(true);
         const response = await api.get('/libraries/books');
+        console.log(response.data);
         setMyLibraries(response.data);
         setCurrentLibraries(response.data);
         genresFilter(response.data);
