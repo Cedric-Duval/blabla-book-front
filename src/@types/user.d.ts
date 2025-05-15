@@ -23,3 +23,8 @@ export type IRegisterError = {
   email: string;
   password: string;
 }
+
+export type IUserUpdateError = {
+  password : string;
+  confirmPassword: string;
+}
