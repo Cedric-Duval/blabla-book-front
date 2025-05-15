@@ -114,7 +114,6 @@ function PersonalLibrary({
     setCurrentLibraries(filteredLibrary);
   }
 
-
   function genresFilter(libraries) {
     const allGenres = libraries.flatMap((library) =>
       library.Books.flatMap((book) => book.Genres.map((genre) => genre.name)),

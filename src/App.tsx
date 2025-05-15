@@ -43,6 +43,8 @@ function App() {
         localStorage.removeItem('token');
         setIsLogged(false);
         setUser(undefined);
+        setMyLibraries([]);
+        setCurrentLibraries([]);
       }
     }
 
