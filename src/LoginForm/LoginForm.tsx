@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import './LoginForm.scss';
 import axios from 'axios';
 import { useState } from 'react';
-import type { IUser } from '../@types/user';
+import type { IUser, IUserError } from '../@types/user';
 
 interface iRegisterFormProps {
   closeLoginForm: () => void;
@@ -17,7 +17,7 @@ function LoginForm({
   setIsLogged,
   setDisplayRegisterForm,
 }: iRegisterFormProps) {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<IUserError>({} as IUserError);
 
   async function handleSubmitLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,11 +37,15 @@ function LoginForm({
       setIsLogged(true);
       closeLoginForm();
     } catch (error) {
+      
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
-        const formattedErrors: { [key: string]: string } = {};
+        const formattedErrors: IUserError = {
+          email: '',
+          password: ''
+        };
         for (const error of zodErrors) {
-          formattedErrors[error.field] = error.error;
+          formattedErrors[error.field as keyof IUserError] = error.error;
         }
         setErrors(formattedErrors);
       }

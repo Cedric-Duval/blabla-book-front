@@ -82,7 +82,7 @@ function ModalLibrary({
             } >
             <button type="button"
               onClick={(event) => {
-                if (!currentBook.LibraryBook.read) {
+                if (!currentBook?.LibraryBook.read) {
                   editBookStatus();
                   return;
                 }
@@ -106,7 +106,7 @@ function ModalLibrary({
             } >
             <button type="button"
               onClick={(event) => {
-                if (currentBook.LibraryBook.read) {
+                if (currentBook?.LibraryBook.read) {
                   editBookStatus();
                   return;
                 }
