@@ -61,35 +61,36 @@ function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   };
 
   return (
-    <section id="books-section" className="section books-section">
+    <section className="section books-section">
       <div className="head-books">
-        <h1>Tous nos livres</h1>
+        <h1 className="books-section-title">Tous nos livres</h1>
         <input
           type="text"
-          placeholder="Recherche parmi nos livres"
+          placeholder="Rechercher parmis nos livres"
           value={searchTerm}
           onChange={handleSearchChange}
+          className="books-section-search"
         />
       </div>
 
-      {/* Si aucun livre ne correspond à la recherche effectuée, on fait apparaître un message d'erreur */}
-      {filteredBooks.length === 0 && (
-        <p className="no-results">
-          Aucun livre ne correspond à votre recherche.
-        </p>
-      )}
-
       <div className="books-list">
+        {/* Si aucun livre ne correspond à la recherche effectuée, on fait apparaître un message d'erreur */}
+        {filteredBooks.length === 0 && (
+          <p className="books-list-no-results">
+            Aucun livre ne correspond à votre recherche !
+          </p>
+        )}
+
         <ul className="books-list-ul">
           {visibleBooks.map((books, index) => (
-            <li
-              key={books.id}
-              className="books-list-li animated-book"
-              style={{
-                animationDelay: `${index * 70}ms`,
-              }}
-            >
-              <Link to={`/book/${books.id}`}>
+            <li key={books.id} className="books-list-li">
+              <Link
+                to={`/book/${books.id}`}
+                className="animated-book"
+                style={{
+                  animationDelay: `${index * 70}ms`,
+                }}
+              >
                 <figure>
                   <div id="book-img">
                     <img src={books.image} alt="book-image" />
