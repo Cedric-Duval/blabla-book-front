@@ -156,7 +156,8 @@ function User({
 
 
   return (
-    <div id="user-profile">
+    <section id="user-profile">
+      <div id='user-profile-container'>
       {displayUpdateUserModal && (
         <UpdateUserModal
           closeUpdateUserModal={closeUpdateUserModal}
@@ -188,10 +189,10 @@ function User({
           setUser={setUser}
           />
         )}
-      <section id="user-data-section">
-      <p id="user-update-form-title">{userSection}</p>
-      <ul id='user-section-navlink'>  
-      <NavLink
+      <div id="user-data-section">
+        <p id="user-update-form-title">{userSection}</p>
+        <ul id='user-section-navlink'>  
+        <NavLink
             className={
               userSection === 'Mes informations'
                 ? 'personal-library-header-list-link selected-status'
@@ -331,10 +332,10 @@ function User({
             Supprimer mon compte
           </button>
         )}
-      </section>
+      </div>
 
       {/* Affichage des librairies du User */}
-      <section id="user-libraries-section">
+      <div id="user-libraries-section">
         <p id="user-libraries-section-title">Mes bibliothèques</p>
 
         <ul id="libraries-list">
@@ -392,8 +393,9 @@ function User({
               );
             })}
             </ul>
-      </section>
-    </div>
+      </div>
+      </div>
+    </section>
   );
 }
 
