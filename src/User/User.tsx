@@ -61,7 +61,7 @@ function User({
         const timeout = setTimeout(() => {
             setDisplayedSection(userSection);
             setFadeClass('');
-        }, 300);
+        }, 200);
     
         return () => clearTimeout(timeout);
     }
@@ -368,11 +368,18 @@ function User({
                 <li key={Library.id}>
                   <Link to={'/myLibrary'}>
                     <figure>
-                      {Library.Books[0]?.image && (
-                        <div className="book-img">
+                      <div className="book-img">
+                      {Library.Books[0]?.image ? (
                           <img src={Library.Books[0].image} alt="book-image" />
+                        ) : (
+                          <div className='no-book-img'>
+                            <p>Il n'y a pas encore de livre dans cette bibliothèque. Ajoutez en un !</p>
+                            <p className="addbook-box-btn">
+                            <em>+</em> Ajouter
+                          </p>
                         </div>
                       )}
+                      </div>
                       <figcaption className="library-name">
                         {Library.name}
                       </figcaption>
