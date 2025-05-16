@@ -126,7 +126,7 @@ function Homepage({
                                         </Link>
                                     </li>
                                 );
-                            })}
+                            })};
                         </ul>
                     </div>
                 </div>

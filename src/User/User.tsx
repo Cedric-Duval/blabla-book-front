@@ -9,6 +9,7 @@ import ConfirmDeleteUserModal from './ConfirmDeleteUserModal/ConfirmDeleteUserMo
 import DeleteLibraryModal from './DeleteLibraryModal/DeleteLibraryModal';
 import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
 import UpdateUserModal from './UpdateUserModal/UpdateUserModal';
+import Loader from '../Loader/Loader';
 
 
 interface IUserProps {
@@ -42,10 +43,15 @@ function User({
   const [displayedSection, setDisplayedSection] = useState('');
   const [fadeClass, setFadeClass] = useState('');
 
+  //For loading page animation
+  const [isLoading, setIsLoading] = useState(true);
+
   const getUser = useCallback(async () => {
     try {
+      setIsLoading(true);
       const response = await api.get('/user');
       setUser(response.data);
+      setIsLoading(false);
     } catch (_error) { }
   }, [setUser]);
 
@@ -139,9 +145,10 @@ function User({
     }
   }
 
-  if (!user) {
-    return <div>Chargement de vos données...</div>;
+  if (isLoading) {
+    return <Loader />;
   }
+
 
 
 

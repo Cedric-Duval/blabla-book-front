@@ -8,6 +8,7 @@ import './Admin.scss'
 import ConfirmAddBookModal from './ConfirmAddBookModal/ConfirmAddBookModal';
 import ConfirmDeleteBookModal from './ConfirmDeleteBookModal/ConfirmDeleteBookModal';
 import ConfirmUpdateBookModal from './ConfirmUpdateBookModal/ConfirmUpdateBookModal';
+import Loader from '../Loader/Loader';
 
 
 function Admin() {
@@ -46,10 +47,14 @@ function Admin() {
     const [displayedChoice, setDisplayedChoice] = useState('');
     const [fadeClass, setFadeClass] = useState('');
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const getAllBooks = useCallback(async () => {
         try {
+            setIsLoading(true);
             const response = await api.get('/books');
             setAllBooks(response.data);
+            setIsLoading(false);
         } catch (_error) { }
     }, []);
 
@@ -197,6 +202,10 @@ function Admin() {
             console.log(error);
         }
     }
+
+    if (isLoading) {
+        return <Loader />;
+      }
 
 
 
