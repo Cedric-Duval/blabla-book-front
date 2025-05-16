@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import './RegisterForm.scss';
 import axios from 'axios';
+import api from '../features/axiosApi';
 import { useState } from 'react';
 import type { IRegisterError } from '../@types/user';
 
@@ -19,7 +20,7 @@ function RegisterForm({
     event.preventDefault();
     const formDatas = new FormData(event.currentTarget);
     try {
-      await axios.post('http://localhost:3000/register', formDatas, {
+      await api.post('/register', formDatas, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -118,6 +119,7 @@ function RegisterForm({
               type="checkbox"
               id="cgv"
               name="cgv"
+              required
             />
             <label className="register-form-label" htmlFor="cgv">
               Conditions générales

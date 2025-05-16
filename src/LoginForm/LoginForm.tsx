@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import './LoginForm.scss';
+import api from '../features/axiosApi';
 import axios from 'axios';
 import { useState } from 'react';
 import type { IUser, IUserError } from '../@types/user';
@@ -23,8 +24,8 @@ function LoginForm({
     event.preventDefault();
     const formDatas = new FormData(event.currentTarget);
     try {
-      const httpResponse = await axios.post(
-        'http://localhost:3000/login',
+      const httpResponse = await api.post(
+        '/login',
         formDatas,
         {
           headers: {
@@ -37,6 +38,7 @@ function LoginForm({
       setIsLogged(true);
       closeLoginForm();
     } catch (error) {
+      console.log(error);
       
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
