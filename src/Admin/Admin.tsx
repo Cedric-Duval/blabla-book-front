@@ -60,7 +60,7 @@ function Admin() {
             const response = await api.get('/books');
             setAllBooks(response.data);
             setIsLoading(false);
-        } catch (_error) { }
+        } catch (_error) {}
     }, []);
 
     const getAllGenres = useCallback(async () => {
@@ -74,7 +74,7 @@ function Admin() {
     //API call to get all the books in the DB when page first loading only
     useEffect(() => {
         getAllBooks();
-        getAllGenres
+        getAllGenres();
     }, [getAllBooks, getAllGenres]);
 
 
