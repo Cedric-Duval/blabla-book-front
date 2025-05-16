@@ -1,0 +1,17 @@
+.library {
+    
+    &-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-li {
+            height: 100px;
+            font-family: 'Inter';
+        }
+    }
+
+    &-select {
+        margin-top: 10%;
+    }
+}
