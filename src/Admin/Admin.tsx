@@ -7,6 +7,7 @@ import api from '../features/axiosApi';
 import './Admin.scss'
 import ConfirmDeleteBookModal from './ConfirmDeleteBookModal/ConfirmDeleteBookModal';
 import ConfirmUpdateBookModal from './ConfirmUpdateBookModal/ConfirmUpdateBookModal';
+import ConfirmAddBookModal from './ConfirmAddBookModal/ConfirmAddBookModal';
 
 
 function Admin() {
@@ -38,6 +39,7 @@ function Admin() {
     //Display confirmation modals for updating/deleting book
     const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] = useState(false);
     const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] = useState(false);
+    const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] = useState(false);
 
     //For fading title animation
     const [displayedChoice, setDisplayedChoice] = useState('');
@@ -91,6 +93,10 @@ function Admin() {
         });
     };
 
+    function closeConfirmAddBookModal() {
+        setDisplayConfirmAddBookModal(false)
+    }
+
 
     // Fonctionnalité d'ajout d'un livre
     async function addBook(event: React.FormEvent<HTMLFormElement>) {
@@ -114,6 +120,7 @@ function Admin() {
             });
             console.log(formData);
             console.log(`Ajout du livre suivant: ${formData.get('title')}`);
+            setDisplayConfirmAddBookModal(true)
 
         } catch (error) {
             console.log(error);
@@ -147,7 +154,7 @@ function Admin() {
                 summary: formData.get('summary'),
               });
               
-            console.log("Modification du livre: " + formData.get('title'));
+            console.log(`Modification du livre: ${formData.get('title')}`);
             setDisplayConfirmUpdateBookModal(true);
             
 
@@ -190,6 +197,8 @@ function Admin() {
     }
 
 
+
+
     return (
         <section className="admin-page-section section">
 
@@ -202,6 +211,11 @@ function Admin() {
         {displayConfirmUpdateBookModal && (
             < ConfirmUpdateBookModal
                 closeConfirmUpdateBookModal={closeConfirmUpdateBookModal}
+            />
+        )}
+        {displayConfirmAddBookModal && (
+            < ConfirmAddBookModal
+                closeConfirmAddBookModal={closeConfirmAddBookModal}
             />
         )}
             

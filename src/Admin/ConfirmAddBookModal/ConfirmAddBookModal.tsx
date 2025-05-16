@@ -1,12 +1,12 @@
-import './ConfirmUpdateBookModal.scss'
+import './ConfirmAddBookModal.scss'
 
-interface iConfirmUpdateProps {
-    closeConfirmUpdateBookModal: () => void;
+interface iConfirmAddProps {
+    closeConfirmAddBookModal: () => void;
 }
 
-function ConfirmUpdateBookModal({
-    closeConfirmUpdateBookModal,
-}: iConfirmUpdateProps) {
+function ConfirmAddBookModal({
+    closeConfirmAddBookModal,
+}: iConfirmAddProps) {
 
 
 
@@ -15,7 +15,7 @@ function ConfirmUpdateBookModal({
             <div className='update-modal'>
                 <button
                     type="button"
-                    onClick={closeConfirmUpdateBookModal}
+                    onClick={closeConfirmAddBookModal}
                     className="update-modal-closeBtn"
                 >
                     <img
@@ -26,7 +26,7 @@ function ConfirmUpdateBookModal({
                 </button>
                 <img id='validation-icon' src="./Pictures/check.png" alt="Icone de validation" />
                 <p className='confirm-delete-message'>
-                    Ce livre a bien été modifié dans la base de données.
+                    Ce livre a bien été ajouté dans la base de données.
                 </p>
             </div>
         </div>
@@ -34,4 +34,4 @@ function ConfirmUpdateBookModal({
 
 }
 
-export default ConfirmUpdateBookModal;
+export default ConfirmAddBookModal;
