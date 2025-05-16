@@ -21,6 +21,7 @@
         min-width: 500px;
         padding: 3rem 5rem;
         position: relative;
+        border-radius: 8px;
 
         &-closeBtn {
             width: 40px;
@@ -56,6 +57,18 @@
             & label {
                 margin: 3%;
                 color: v.$police-color;
+
+                & em {
+                    color: v.$red-color;
+                }
+            }
+
+            & input {
+                padding: 0.4rem 0.6rem;
+                border-radius: 6px;
+                border: 1px solid v.$base-color;
+                font-size: 0.9rem;
+                width: 100%;
             }
 
             & .register-form-error {
@@ -70,6 +83,7 @@
                 padding: 15px 40px; 
                 text-align: center;
                 color: v.$base-color;
+                border-radius: 8px;
                 cursor: pointer;
             }
         }

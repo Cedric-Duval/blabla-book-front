@@ -295,7 +295,7 @@ function User({
                 defaultValue={user.email}
               />
               <label className="user-update-form-label" htmlFor="old-password">
-                Mot de passe actuel
+                Mot de passe actuel <em>*</em>
               </label>
               <input
                 className="user-update-form-input"
@@ -314,7 +314,7 @@ function User({
           {userSection === 'Modifier mon mot de passe' && (
             <form onSubmit={handleUserDatasUpdate}>
               <label className="user-update-form-label" htmlFor="current-password">
-                Mot de passe actuel
+                Mot de passe actuel <em>*</em>
               </label>
               <input
                 className="user-update-form-input"
@@ -326,7 +326,7 @@ function User({
                 <p className="register-form-error">{errors.password}</p>
               )}
               <label className="user-update-form-label" htmlFor="new-password">
-                Nouveau mot de passe
+                Nouveau mot de passe <em>*</em>
               </label>
               <input
                 className="user-update-form-input"
@@ -335,7 +335,7 @@ function User({
                 name="new-password"
               />
               <label className="user-update-form-label" htmlFor="renew-password">
-                Confirmer le mot de passe
+                Confirmer le mot de passe <em>*</em>
               </label>
               <input
                 className="user-update-form-input"

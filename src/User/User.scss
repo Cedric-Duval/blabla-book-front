@@ -99,6 +99,10 @@
             & label {
                 width: 100%;
                 margin: 5% 0 0 0;
+
+                & em {
+                    color: v.$red-color;
+                }
             }
 
             & input {

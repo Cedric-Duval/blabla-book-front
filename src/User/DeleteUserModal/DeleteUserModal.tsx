@@ -79,7 +79,7 @@ function DeleteUserModal({
                 </p>
                 <form className='delete-user-form' onSubmit={handleDeleteUserDatas}>
                     <label htmlFor="current-password">
-                        Mot de passe actuel
+                        Mot de passe actuel <em>*</em>
                     </label>
                     <input 
                     type="password" 
@@ -90,7 +90,7 @@ function DeleteUserModal({
                         <p className="register-form-error">{errors.password}</p>
                     )}
                     <label htmlFor="confirm-password">
-                        Confirmer le mot de passe
+                        Confirmer le mot de passe <em>*</em>
                     </label>
                     <input 
                     type='password'

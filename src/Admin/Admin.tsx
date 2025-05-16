@@ -332,7 +332,7 @@ function Admin() {
                             </div>
                         </div>
                     </form>
-      }
+                    }
     
     
                     {adminChoice === "Modifier un livre" && 
@@ -577,7 +577,7 @@ function Admin() {
                         </div>
 
                     </form>
-                }
+                    }
 
                 {adminChoice === "Supprimer un livre" &&
 
@@ -697,7 +697,7 @@ function Admin() {
                         </div>
                     </form>
                 }
-
+                </div>
             </div>
         </section>
     )
