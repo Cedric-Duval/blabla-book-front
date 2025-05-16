@@ -111,6 +111,7 @@ function App() {
         isLogged={isLogged}
         setIsLogged={setIsLogged}
         setUser={setUser}
+        user={user}
       />
       <Routes>
         <Route
@@ -155,12 +156,13 @@ function App() {
           path="/user"
           element={
             <User user={user} setUser={setUser}
-             setIsLogged={setIsLogged} />
+              setIsLogged={setIsLogged} />
           }
         />
 
-        <Route path="/admin" element={<Admin />} />
-
+        {isLogged && user?.admin && (
+          <Route path="/admin" element={<Admin />} />
+        )}
         <Route path="/confidentality" element={<Confidentalite />} />
         <Route path="/legal-notice" element={<MentionLegale />} />
 
