@@ -7,11 +7,12 @@ import api from '../features/axiosApi';
 
 interface BooksProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
-  currentBook: IBooks | null | undefined;
+  setCurrentBook: React.Dispatch<
+    React.SetStateAction<IBooks | null | undefined>
+  >;
 }
 
-function Books({ setDisplayModalBook, setCurrentBook, currentBook }: BooksProps) {
+function Books({ setDisplayModalBook, setCurrentBook }: BooksProps) {
   // État pour afficher tous les livres
   const [allBooks, setAllBooks] = useState<IBooks[]>([]);
   // État pour gérer la recherche (titre + auteur)

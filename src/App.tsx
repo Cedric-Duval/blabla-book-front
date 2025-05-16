@@ -130,20 +130,13 @@ function App() {
           element={
             <Books
               setDisplayModalBook={setDisplayModalBook}
-              currentBook={currentBook}
               setCurrentBook={setCurrentBook}
             />
           }
         />
         <Route
           path="/book/:id"
-          element={
-            <Book 
-              setDisplayModalBook={setDisplayModalBook}
-              currentBook={currentBook}
-              setCurrentBook={setCurrentBook} 
-            />
-          }
+          element={<Book setDisplayModalBook={setDisplayModalBook} />}
         />
         <Route
           path="/myLibrary"
@@ -162,14 +155,11 @@ function App() {
         <Route
           path="/user"
           element={
-            <User user={user} setUser={setUser}
-              setIsLogged={setIsLogged} />
+            <User user={user} setUser={setUser} setIsLogged={setIsLogged} />
           }
         />
 
-        {isLogged && user?.admin && (
-          <Route path="/admin" element={<Admin />} />
-        )}
+        {isLogged && user?.admin && <Route path="/admin" element={<Admin />} />}
         <Route path="/confidentality" element={<Confidentalite />} />
         <Route path="/legal-notice" element={<MentionLegale />} />
 
