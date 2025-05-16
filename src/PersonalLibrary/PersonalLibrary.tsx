@@ -77,7 +77,7 @@ function PersonalLibrary({
       ]);
 
       form.reset();
-    } catch (_error) { }
+    } catch (_error) {}
   }
 
   // -------------- FONCTIONS DE FILTRE -----------------------------
@@ -116,11 +116,11 @@ function PersonalLibrary({
     setCurrentLibraries(filteredLibrary);
   }
 
-
-
   function genresFilter(libraries: ILibrary[]) {
     const allGenres = libraries.flatMap((library) =>
-      library.Books.flatMap((book: IBooks) => book.Genres.map((genre: IGenre) => genre.name))
+      library.Books.flatMap((book: IBooks) =>
+        book.Genres.map((genre: IGenre) => genre.name),
+      ),
     );
 
     //Set => rend les valeurs uniques --- sort => tri par ordre alphabétique

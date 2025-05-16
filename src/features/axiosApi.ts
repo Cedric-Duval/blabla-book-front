@@ -14,9 +14,6 @@
 
 // export default api;
 
-
-
-
 import axios from 'axios';
 
 const apiDevPort = import.meta.env.VITE_API_DEV_PORT;
