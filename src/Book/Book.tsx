@@ -46,18 +46,19 @@ function Book({ setDisplayModalBook, setCurrentBook, currentBook }: BookProps) {
             <div id="presentation-texts">
               <div id="details">
                 {/* <h2>{book.title}</h2> */}
-                <p>Auteur: {book.author}</p>
-                <p>Parution: {book.publication_year}</p>
-                <p>Édition: {book.editor}</p>
-                <p>ISBN: {book.isbn}</p>
-                <p>Pages: {book.pages}</p>
-                <ul>Genres:
-                  <p>
+                <p><b>Auteur :</b> {book.author}</p>
+                <p><b>Parution :</b> {book.publication_year}</p>
+                <p><b>Édition :</b> {book.editor}</p>
+                <p><b>ISBN :</b> {book.isbn}</p>
+                <p><b>Pages :</b> {book.pages}</p>
+                <p className='genre-list'>
+                <b>Genres :</b> 
+                <ul>
                     {book.Genres.map((genre) => (
-                      <li key={genre.id}>{genre.name}</li>
+                      <li key={genre.id}> {genre.name}</li>
                     ))}
-                  </p>
                 </ul>
+                </p>
               </div>
             </div>
           </div>
