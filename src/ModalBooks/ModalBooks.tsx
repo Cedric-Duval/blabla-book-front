@@ -110,7 +110,8 @@ function ModalBooks({
                     </button>
 
                     <button className="library-menu-li"
-                        onClick={() => setDisplayReviewModal(true)}>
+                        onClick={() => setDisplayReviewModal(true)}
+                    >
                         <img
                             className="library-menu-li-img"
                             src="../public/Pictures/stash--star-duotone.svg"
@@ -118,7 +119,9 @@ function ModalBooks({
                         />
                         <p className="library-menu-li-text">Noter</p>
                     </button>
-                    <button className="library-menu-li">
+                    <button className="library-menu-li"
+                        onClick={() => setDisplayReviewModal(true)}
+                    >
                         <img
                             className="library-menu-li-img"
                             src="../public/Pictures/mdi--dialogue-outline.svg"
