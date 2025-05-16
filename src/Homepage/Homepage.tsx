@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { IBooks } from '../@types/books';
 import './Homepage.scss';
-import axios from 'axios';
+import api from '../features/axiosApi';
 import { Link } from 'react-router';
 import type { IUser } from '../@types/user';
 
@@ -23,9 +23,11 @@ function Homepage({
     useEffect(() => {
         const getRandomBooks = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/random-books');
+                const response = await api.get('/random-books');
                 setRandomBooks(response.data);
-            } catch (_error) { }
+            } catch (error) { 
+                console.log(error);
+            }
         };
         getRandomBooks();
     }, []);
