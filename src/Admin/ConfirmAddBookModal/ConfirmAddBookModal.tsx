@@ -1,12 +1,12 @@
 import './ConfirmAddBookModal.scss'
 
-interface iConfirmAddProps {
+interface IConfirmAddProps {
     closeConfirmAddBookModal: () => void;
 }
 
 function ConfirmAddBookModal({
     closeConfirmAddBookModal,
-}: iConfirmAddProps) {
+}: IConfirmAddProps) {
 
 
 

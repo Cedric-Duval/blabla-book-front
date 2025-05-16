@@ -31,7 +31,7 @@ function User({
   const [displayConfirmDeleteUserModal, setDisplayConfirmDeleteUserModal] = useState(false);
   const [displayDeleteLibraryModal, setDisplayDeleteLibraryModal] = useState(false);
   const [libraryId, setLibraryId] = useState<number>();
-  const [userSection, setUserSection] = useState<string | undefined>('Mes informations');
+  const [userSection, setUserSection] = useState<string>('Mes informations');
 
   // On stocke l’id de la bibliothèque que l'on veut modifier pour afficher le formulaire
   const [editingLibraryId, setEditingLibraryId] = useState<number | null>(null);
@@ -51,11 +51,11 @@ function User({
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
   
   //Handle fading title animation
   useEffect(() => {
-    if(userSection != displayedSection) {
+    if(userSection !== displayedSection) {
         setFadeClass('fade-out');
     
         const timeout = setTimeout(() => {
