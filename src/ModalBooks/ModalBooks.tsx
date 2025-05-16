@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { IBooks, ILibrary } from '../@types/books';
 import './ModalBooks.scss';
 import api from '../features/axiosApi';
+import ReviewModal from './ReviewModal/ReviewModal';
 
 type IModalBooksProps = {
     closeModalBook: () => void;
@@ -16,6 +17,7 @@ function ModalBooks({
     myLibraries
 }: IModalBooksProps) {
     const [menuDeroulant, setMenuDeroulant] = useState<string | null>(null);
+    const [displayReviewModal, setDisplayReviewModal] = useState(false);
 
     const handleClick = (type: 'read' | 'toRead') => {
         setMenuDeroulant(menu => (menu === type ? null : type));
@@ -49,8 +51,18 @@ function ModalBooks({
         }
     };
 
+
     return (
         <div className="hidden-background" /* onClick={closeModalBook} */>
+            {displayReviewModal && (
+                <ReviewModal
+                    closeModalBook={closeModalBook}
+                    currentBook={currentBook}
+                    myLibraries={myLibraries}
+                    setDisplayReviewModal={setDisplayReviewModal}
+                    displayReviewModal={displayReviewModal}
+                />
+            )}
             <div className="library" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                 <button type="button" onClick={closeModalBook} className="library-closeBtn">
                     <img
@@ -97,22 +109,23 @@ function ModalBooks({
                         )}
                     </button>
 
-                    <li className="library-menu-li">
+                    <button className="library-menu-li"
+                        onClick={() => setDisplayReviewModal(true)}>
                         <img
                             className="library-menu-li-img"
                             src="../public/Pictures/stash--star-duotone.svg"
                             alt=""
                         />
                         <p className="library-menu-li-text">Noter</p>
-                    </li>
-                    <li className="library-menu-li">
+                    </button>
+                    <button className="library-menu-li">
                         <img
                             className="library-menu-li-img"
                             src="../public/Pictures/mdi--dialogue-outline.svg"
                             alt=""
-                        />
+                            />
                         <p className="library-menu-li-text">Laisser un avis</p>
-                    </li>
+                    </button>
                 </ul>
             </div>
         </div>

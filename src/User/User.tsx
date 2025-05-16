@@ -279,7 +279,7 @@ function User({
                 type="text"
                 id="name"
                 name="name"
-                defaultValue={user.name}
+                defaultValue={user?.name}
               />
               <label className="user-update-form-label" htmlFor="firstname">
                 Prénom
@@ -289,7 +289,7 @@ function User({
                 type="text"
                 id="firstname"
                 name="firstname"
-                defaultValue={user.firstname}
+                defaultValue={user?.firstname}
               />
               <label className="user-update-form-label" htmlFor="email">
                 Email
@@ -299,7 +299,7 @@ function User({
                 type="email"
                 id="email"
                 name="email"
-                defaultValue={user.email}
+                defaultValue={user?.email}
               />
               <label className="user-update-form-label" htmlFor="old-password">
                 Mot de passe actuel <em>*</em>
