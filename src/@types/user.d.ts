@@ -10,6 +10,7 @@ export type IUser = {
   Libraries: ILibraries[];
   createdAt: string;
   updatedAt: string;
+  admin: boolean;
 };
 
 export type IUserError = {

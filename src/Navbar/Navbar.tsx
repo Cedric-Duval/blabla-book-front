@@ -1,9 +1,9 @@
 import type { IUser } from '../@types/user';
 import './Navbar.scss';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import type { IBooks } from '../@types/books';
+import api from '../features/axiosApi';
 
 interface INavbarProps {
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,6 +11,7 @@ interface INavbarProps {
   isLogged: boolean;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+  user: IUser | undefined;
 }
 
 function Navbar({
@@ -19,6 +20,7 @@ function Navbar({
   isLogged,
   setIsLogged,
   setUser,
+  user
 }: INavbarProps) {
   const [menuBurger, setMenuBurger] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,14 +35,14 @@ function Navbar({
       }
 
       try {
-        const res = await axios.get('http://localhost:3000/books');
+        const res = await api.get('/books');
 
         const filtered = res.data.filter((book: IBooks) =>
           book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
           book.isbn.toString().includes(searchTerm.toLowerCase()) ||
           book.editor.toLowerCase().includes(searchTerm.toLowerCase())
-    
+
         );
         setSearchResults(filtered.slice(0, 5));
       } catch (error) {
@@ -138,11 +140,13 @@ function Navbar({
                   Profil
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''} >
-                  Admin
-                </NavLink>
-              </li>
+              {isLogged && user?.admin && (
+                <li>
+                  <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''} onClick={closeMenuBurger}>
+                    Admin
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <Link
                   to="/"
