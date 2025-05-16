@@ -19,7 +19,7 @@ import axios from 'axios';
 const apiDevPort = import.meta.env.VITE_API_DEV_PORT;
 
 const api = axios.create({
-  baseURL: apiDevPort, // 'http://localhost:3000'
+  baseURL: 'http://localhost:3000', //apiDevPort
 });
 
 api.interceptors.request.use((config) => {

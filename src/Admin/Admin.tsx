@@ -7,83 +7,81 @@ import './Admin.scss';
 import ConfirmAddBookModal from './ConfirmAddBookModal/ConfirmAddBookModal';
 import ConfirmDeleteBookModal from './ConfirmDeleteBookModal/ConfirmDeleteBookModal';
 import ConfirmUpdateBookModal from './ConfirmUpdateBookModal/ConfirmUpdateBookModal';
+import Loader from '../Loader/Loader';
 
 function Admin() {
-  // Menu pour choisir l'action à effectuer par l'admin
-  const [adminChoice, setAdminChoice] = useState('Ajouter un livre');
 
-  // Permet de prévisualiser l'image lors de l'ajout d'un livre
-  const [imagePresentation, setImagePresentation] = useState(
-    'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/old-books-cover-design-template-528851dfc1b6ed275212cd110a105122_screen.jpg',
-  );
+    // Menu pour choisir l'action à effectuer par l'admin
+    const [adminChoice, setAdminChoice] = useState('Ajouter un livre');
 
-  const [allBooks, setAllBooks] = useState<IBooks[]>([]);
-  const [allGenres, setAllGenres] = useState([]);
 
-  const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<
-    number | undefined
-  >();
-  const [updateBookState, setUpdateBookState] = useState({
-    image: 'https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg',
-    title: '',
-    author: '',
-    publication_year: Number(''),
-    editor: '',
-    isbn: Number(''),
-    pages: Number(''),
-    // genre1: "",
-    // genre2: "",
-    summary: '',
-  });
+    // Permet de prévisualiser l'image lors de l'ajout d'un livre
+    const [imagePresentation, setImagePresentation] = useState("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/old-books-cover-design-template-528851dfc1b6ed275212cd110a105122_screen.jpg");
 
-  //Display confirmation modals for updating/deleting book
-  const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] =
-    useState(false);
-  const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] =
-    useState(false);
-  const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] =
-    useState(false);
 
-  //For fading title animation
-  const [displayedChoice, setDisplayedChoice] = useState('');
-  const [fadeClass, setFadeClass] = useState('');
+    const [allBooks, setAllBooks] = useState<IBooks[]>([]);
 
-  const getAllBooks = useCallback(async () => {
-    try {
-      const response = await api.get('/books');
-      setAllBooks(response.data);
-    } catch (_error) {}
-  }, []);
+    const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<number | undefined>();
+    const [updateBookState, setUpdateBookState] = useState({
+        "image": "https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg",
+        "title": "",
+        "author": "",
+        "publication_year": Number(""),
+        "editor": "",
+        "isbn": Number(""),
+        "pages": Number(""),
+        // genre1: "",
+        // genre2: "",
+        "summary": "",
+    });
 
-  const getAllGenres = useCallback(async () => {
-    try {
-      const response = await api.get('/genres');
-      setAllGenres(response.data);
-    } catch (_error) {}
-  }, []);
 
-  //API call to get all the books in the DB when page first loading only
-  useEffect(() => {
-    getAllBooks();
-    getAllGenres();
-  }, [getAllBooks, getAllGenres]);
+    //Display confirmation modals for updating/deleting book
+    const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] = useState(false);
+    const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] = useState(false);
+    const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] = useState(false);
 
-  //Handle fading title animation
-  useEffect(() => {
-    if (adminChoice !== displayedChoice) {
-      setFadeClass('fade-out');
+    //For fading title animation
+    const [displayedChoice, setDisplayedChoice] = useState('');
+    const [fadeClass, setFadeClass] = useState('');
 
-      const timeout = setTimeout(() => {
-        setDisplayedChoice(adminChoice);
-        setFadeClass('');
-      }, 300);
+    const [isLoading, setIsLoading] = useState(true);
 
-      return () => clearTimeout(timeout);
-    }
-  }, [adminChoice, displayedChoice]);
+    const getAllBooks = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const response = await api.get('/books');
+            setAllBooks(response.data);
+            setIsLoading(false);
+        } catch (_error) { }
+    }, []);
 
-  function closeConfirmUpdateBookModal() {
-    setDisplayConfirmUpdateBookModal(false);
+
+    //API call to get all the books in the DB when page first loading only
+    useEffect(() => {
+        getAllBooks();
+    }, [getAllBooks]);
+
+
+    //Handle fading title animation
+    useEffect(() => {
+        if (adminChoice !== displayedChoice) {
+            setFadeClass('fade-out');
+
+            const timeout = setTimeout(() => {
+                setDisplayedChoice(adminChoice);
+                setFadeClass('');
+            }, 300);
+
+            return () => clearTimeout(timeout);
+        }
+
+    }, [adminChoice, displayedChoice]);
+
+
+
+    function closeConfirmUpdateBookModal() {
+        setDisplayConfirmUpdateBookModal(false)
   }
 
   function closeConfirmDeleteBookModal() {
@@ -224,49 +222,100 @@ function Admin() {
                     ? 'admin-header-list-link selected-status'
                     : 'admin-header-list-link'
                 }
-                to=""
-                onClick={(event) => {
-                  event.preventDefault();
+            });
 
-                  setAdminChoice('Ajouter un livre');
-                }}
-              >
-                Ajouter un livre
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={
-                  adminChoice === 'Modifier un livre'
-                    ? 'admin-header-list-link selected-status'
-                    : 'admin-header-list-link'
-                }
-                to=""
-                onClick={(event) => {
-                  event.preventDefault();
-                  setAdminChoice('Modifier un livre');
-                }}
-              >
-                Modifier un livre
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={
-                  adminChoice === 'Supprimer un livre'
-                    ? 'admin-header-list-link selected-status'
-                    : 'admin-header-list-link'
-                }
-                to=""
-                onClick={(event) => {
-                  event.preventDefault();
-                  setAdminChoice('Supprimer un livre');
-                }}
-              >
-                Supprimer un livre
-              </NavLink>
-            </li>
-          </ul>
+            console.log(event);
+            getAllBooks();
+            setDisplayConfirmDeleteBookModal(true);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    if (isLoading) {
+        return <Loader />;
+      }
+
+
+
+
+    return (
+        <section className="admin-page-section section">
+
+
+            {displayConfirmDeleteBookModal && (
+                < ConfirmDeleteBookModal
+                    closeConfirmDeleteBookModal={closeConfirmDeleteBookModal}
+                />
+            )}
+            {displayConfirmUpdateBookModal && (
+                < ConfirmUpdateBookModal
+                    closeConfirmUpdateBookModal={closeConfirmUpdateBookModal}
+                />
+            )}
+            {displayConfirmAddBookModal && (
+                < ConfirmAddBookModal
+                    closeConfirmAddBookModal={closeConfirmAddBookModal}
+                />
+            )}
+
+            <div className="admin-container">
+
+                <div className="admin-header">
+                    <h1 className='admin-header-title'>Page administrateur</h1>
+
+                    <ul className='admin-header-list'>
+                        <li>
+                            <NavLink
+                                className={
+                                    adminChoice === 'Ajouter un livre'
+                                        ? 'admin-header-list-link selected-status'
+                                        : 'admin-header-list-link'
+                                }
+                                to=""
+                                onClick={(event) => {
+                                    event.preventDefault();
+
+                                    setAdminChoice('Ajouter un livre');
+                                }}
+                            >
+                                Ajouter un livre
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className={
+                                    adminChoice === 'Modifier un livre'
+                                        ? 'admin-header-list-link selected-status'
+                                        : 'admin-header-list-link'
+                                }
+                                to=""
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    setAdminChoice('Modifier un livre');
+                                }}
+                            >
+                                Modifier un livre
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className={
+                                    adminChoice === 'Supprimer un livre'
+                                        ? 'admin-header-list-link selected-status'
+                                        : 'admin-header-list-link'
+                                }
+                                to=""
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    setAdminChoice('Supprimer un livre');
+                                }}
+                            >
+                                Supprimer un livre
+                            </NavLink>
+                        </li>
+                    </ul>
         </div>
 
         <div className="admin-body">
