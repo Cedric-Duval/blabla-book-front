@@ -6,9 +6,11 @@ import api from '../features/axiosApi';
 
 interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
+  currentBook: IBooks | null | undefined;
 }
 
-function Book({ setDisplayModalBook }: BookProps) {
+function Book({ setDisplayModalBook, setCurrentBook, currentBook }: BookProps) {
   const params = useParams();
   const bookId = params.id;
   const [book, setBook] = useState<IBooks | null>(null);
@@ -18,7 +20,6 @@ function Book({ setDisplayModalBook }: BookProps) {
       try {
         const response = await api.get(`/book/${bookId}`);
         setBook(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
