@@ -130,13 +130,20 @@ function App() {
           element={
             <Books
               setDisplayModalBook={setDisplayModalBook}
+              currentBook={currentBook}
               setCurrentBook={setCurrentBook}
             />
           }
         />
         <Route
           path="/book/:id"
-          element={<Book setDisplayModalBook={setDisplayModalBook} />}
+          element={
+            <Book 
+              setDisplayModalBook={setDisplayModalBook}
+              currentBook={currentBook}
+              setCurrentBook={setCurrentBook} 
+            />
+          }
         />
         <Route
           path="/myLibrary"
