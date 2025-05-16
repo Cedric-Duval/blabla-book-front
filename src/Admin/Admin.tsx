@@ -20,26 +20,33 @@ function Admin() {
 
 
     const [allBooks, setAllBooks] = useState<IBooks[]>([]);
+    const [allGenres, setAllGenres] = useState([]);
 
-    const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<number | undefined>();
+    const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<
+        number | undefined
+    >();
     const [updateBookState, setUpdateBookState] = useState({
-        "image": "https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg",
-        "title": "",
-        "author": "",
-        "publication_year": Number(""),
-        "editor": "",
-        "isbn": Number(""),
-        "pages": Number(""),
+        image: "https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg",
+        title: "",
+        author: "",
+        publication_year: Number(""),
+        editor: "",
+        isbn: Number(""),
+        pages: Number(""),
         // genre1: "",
         // genre2: "",
-        "summary": "",
+        summary: "",
     });
 
 
     //Display confirmation modals for updating/deleting book
-    const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] = useState(false);
-    const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] = useState(false);
-    const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] = useState(false);
+    const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] = 
+        useState(false);
+    const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] = 
+        useState(false);
+    const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] = 
+        useState(false);
+    
 
     //For fading title animation
     const [displayedChoice, setDisplayedChoice] = useState('');
@@ -56,11 +63,19 @@ function Admin() {
         } catch (_error) { }
     }, []);
 
+    const getAllGenres = useCallback(async () => {
+        try {
+          const response = await api.get('/genres');
+          setAllGenres(response.data);
+        } catch (_error) {}
+      }, []);
+    
 
     //API call to get all the books in the DB when page first loading only
     useEffect(() => {
         getAllBooks();
-    }, [getAllBooks]);
+        getAllGenres
+    }, [getAllBooks, getAllGenres]);
 
 
     //Handle fading title animation
@@ -79,30 +94,29 @@ function Admin() {
     }, [adminChoice, displayedChoice]);
 
 
-
     function closeConfirmUpdateBookModal() {
         setDisplayConfirmUpdateBookModal(false)
-  }
+    }
 
-  function closeConfirmDeleteBookModal() {
-    setDisplayConfirmDeleteBookModal(false);
-    setUpdateBookState({
-      image: 'https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg',
-      title: '',
-      author: '',
-      publication_year: Number(''),
-      editor: '',
-      isbn: Number(''),
-      pages: Number(''),
-      summary: '',
-    });
-  }
+    function closeConfirmDeleteBookModal() {
+        setDisplayConfirmDeleteBookModal(false);
+        setUpdateBookState({
+            image: 'https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg',
+            title: '',
+            author: '',
+            publication_year: Number(''),
+            editor: '',
+            isbn: Number(''),
+            pages: Number(''),
+            summary: '',
+        });
+    }
 
-  function closeConfirmAddBookModal() {
-    setDisplayConfirmAddBookModal(false);
-  }
+    function closeConfirmAddBookModal() {
+        setDisplayConfirmAddBookModal(false);
+    }
 
-  // Fonctionnalité d'ajout d'un livre
+    // Fonctionnalité d'ajout d'un livre
   async function addBook(event: React.FormEvent<HTMLFormElement>) {
     try {
       event.preventDefault();
@@ -192,50 +206,9 @@ function Admin() {
     }
   }
 
-  return (
-    <section className="admin-page-section section">
-      {displayConfirmDeleteBookModal && (
-        <ConfirmDeleteBookModal
-          closeConfirmDeleteBookModal={closeConfirmDeleteBookModal}
-        />
-      )}
-      {displayConfirmUpdateBookModal && (
-        <ConfirmUpdateBookModal
-          closeConfirmUpdateBookModal={closeConfirmUpdateBookModal}
-        />
-      )}
-      {displayConfirmAddBookModal && (
-        <ConfirmAddBookModal
-          closeConfirmAddBookModal={closeConfirmAddBookModal}
-        />
-      )}
-
-      <div className="admin-container">
-        <div className="admin-header">
-          <h1 className="admin-header-title">Page administrateur</h1>
-
-          <ul className="admin-header-list">
-            <li>
-              <NavLink
-                className={
-                  adminChoice === 'Ajouter un livre'
-                    ? 'admin-header-list-link selected-status'
-                    : 'admin-header-list-link'
-                }
-            });
-
-            console.log(event);
-            getAllBooks();
-            setDisplayConfirmDeleteBookModal(true);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     if (isLoading) {
         return <Loader />;
-      }
+    }
 
 
 
@@ -261,7 +234,6 @@ function Admin() {
             )}
 
             <div className="admin-container">
-
                 <div className="admin-header">
                     <h1 className='admin-header-title'>Page administrateur</h1>
 
@@ -316,7 +288,7 @@ function Admin() {
                             </NavLink>
                         </li>
                     </ul>
-        </div>
+                </div>
 
         <div className="admin-body">
           <p className={`admin-subtitle fade ${fadeClass}`}>
