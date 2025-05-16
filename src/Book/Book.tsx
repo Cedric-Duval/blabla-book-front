@@ -1,16 +1,14 @@
 import './Book.scss';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router';
+import { Link, useParams } from 'react-router';
 import type { IBooks } from '../@types/books';
 import api from '../features/axiosApi';
 
 interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
-  currentBook: IBooks | null | undefined;
 }
 
-function Book({ setDisplayModalBook, setCurrentBook, currentBook }: BookProps) {
+function Book({ setDisplayModalBook }: BookProps) {
   const params = useParams();
   const bookId = params.id;
   const [book, setBook] = useState<IBooks | null>(null);
@@ -46,6 +44,7 @@ function Book({ setDisplayModalBook, setCurrentBook, currentBook }: BookProps) {
             <div id="presentation-texts">
               <div id="details">
                 {/* <h2>{book.title}</h2> */}
+
                 <p><b>Auteur :</b> {book.author}</p>
                 <p><b>Parution :</b> {book.publication_year}</p>
                 <p><b>Édition :</b> {book.editor}</p>
