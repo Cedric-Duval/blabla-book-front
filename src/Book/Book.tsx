@@ -80,6 +80,21 @@ function Book({ setDisplayModalBook }: BookProps) {
               </Link>
             </button>
           </div>
+          {book.Reviews && book.Reviews.length > 0 && (
+            <div className="reviews-section">
+              <hr />
+              <h3>Avis des lecteurs :</h3>
+              <ul>
+                {book.Reviews.map((review) => (
+                  <li key={review.id}>
+                    <p><strong>Note :</strong> {review.rating} / 5</p>
+                    <p>{review.content}</p>
+                    <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+)}
         </>
       ) : (
         <p>Chargement.... </p>

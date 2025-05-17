@@ -43,7 +43,7 @@ function ReviewModal({
     };
 
 return (
-    <div className="hidden-background" /* onClick={closeModalBook} */>
+    <div className="review-hidden-background" /* onClick={closeModalBook} */>
     <div className="library" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
         <button type="button" onClick={hideReviewModal} className="library-closeBtn">
             <img
