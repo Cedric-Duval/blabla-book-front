@@ -13,6 +13,7 @@ export default ({ mode }: ConfigEnv) => {
   switch (mode) {
     case "development": {
       return defineConfig({
+        base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages
         plugins: [react()],
           server: {
             port: portDev || 5173, // Port souhaité
