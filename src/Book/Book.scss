@@ -148,6 +148,23 @@
         & ul {
             padding: 0;
         }
+
+        &-container {
+
+            margin-bottom: 7%;
+
+            &-delete-button {
+                all: unset;
+                background-color: v.$red-color;
+                border-radius: 8px;
+                padding: 5px;
+
+                & img {
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+        }
         
         
     }

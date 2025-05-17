@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { useNavigate } from 'react-router';
 import type { IUser, IUserUpdateError } from '../@types/user';
@@ -16,13 +16,17 @@ interface IUserProps {
   user?: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+  reviewed: boolean;
+  setReviewed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 function User({
   user,
   setUser,
-  setIsLogged
+  setIsLogged,
+  reviewed,
+  setReviewed
 }: IUserProps) {
 
   const navigate = useNavigate();
@@ -57,7 +61,7 @@ function User({
 
   useEffect(() => {
     getUser();
-  }, [getUser]);
+  }, [getUser, reviewed]);
   
   //Handle fading title animation
   useEffect(() => {
@@ -144,6 +148,15 @@ function User({
       }
     }
   }
+
+  const handleDeleteReview = async (reviewId: number) => {
+    try {
+        await api.delete(`/review/${reviewId}`);
+        setReviewed(prev => !prev)
+    } catch (error) {
+        console.error("Erreur lors de l'envoi de l'avis :", error);
+    }
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -450,6 +463,9 @@ function User({
                       <p><strong>Note :</strong> {review.rating} / 5</p>
                       <p>{review.content}</p>
                       <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
+                      <button className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
+                        <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
+                      </button>
                     </li>
                   </div>
                 ))}

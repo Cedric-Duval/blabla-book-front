@@ -17,7 +17,8 @@ function ReviewModal({
     setReviewed
 }: iReviewModalProps) {
     const [reviewText, setReviewText] = useState('');
-    const [rating, setRating] = useState<number>(undefined);
+    const [rating, setRating] = useState<number>(0);
+    const [hoverRating, setHoverRating] = useState<number | null >(null);
 
 
     const hideReviewModal = () => {
@@ -33,7 +34,7 @@ function ReviewModal({
             });
             setDisplayReviewModal(false);
             setReviewText('');
-            setRating(null);
+            setRating(0);
             setReviewed(prev => !prev);
             closeModalBook();
         } catch (error) {
@@ -51,15 +52,22 @@ return (
             />
         </button>
         <div className="review-form">
-            <label htmlFor="rating">Note (0 à 5) :</label>
-            <input
-                type="number"
-                id="rating"
-                min="0"
-                max="5"
-                value={rating}
-                onChange={(e) => setRating(Number(e.target.value))}
-            />
+        <label>Note :</label>
+        <div className="star-rating">
+              <div className="stars">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    className={`star ${(hoverRating ?? rating) >= star ? 'filled' : ''}`}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(null)}
+                    onClick={() => setRating(star)}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+        </div>
             <label htmlFor="review">Votre avis :</label>
             <textarea
                 id="review"

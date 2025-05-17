@@ -154,8 +154,11 @@ function App() {
           element={
             <Book 
               setDisplayModalBook={setDisplayModalBook}
-              reviewed={reviewed} 
-            />}
+              setReviewed={setReviewed}
+              reviewed={reviewed}
+              user={user} 
+            />
+          }
         />
         <Route
           path="/myLibrary"
@@ -174,7 +177,13 @@ function App() {
         <Route
           path="/user"
           element={
-            <User user={user} setUser={setUser} setIsLogged={setIsLogged} />
+            <User 
+            user={user} 
+            setUser={setUser} 
+            setIsLogged={setIsLogged}
+            reviewed={reviewed}
+            setReviewed={setReviewed} 
+            />
           }
         />
 

@@ -1,16 +1,24 @@
 import './Book.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import type { IBooks } from '../@types/books';
+import type { IUser } from '../@types/user';
 import api from '../features/axiosApi';
 import { reverse } from 'dns';
 
 interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
+  setReviewed: React.Dispatch<React.SetStateAction<boolean>>;
   reviewed: boolean;
+  user: IUser[];
 }
 
-function Book({ setDisplayModalBook, reviewed }: BookProps) {
+function Book({ 
+  setDisplayModalBook,
+  setReviewed,
+  reviewed,
+  user 
+}: BookProps) {
   const params = useParams();
   const bookId = params.id;
   const [book, setBook] = useState<IBooks | null>(null);
@@ -26,6 +34,15 @@ function Book({ setDisplayModalBook, reviewed }: BookProps) {
     };
     getBook();
   }, [bookId, reviewed]);
+
+  const handleDeleteReview = async (reviewId: number) => {
+    try {
+        await api.delete(`/review/${reviewId}`);
+        setReviewed(prev => !prev)
+    } catch (error) {
+        console.error("Erreur lors de l'envoi de l'avis :", error);
+    }
+  };
 
   return (
     <section id="book-section" className="section">
@@ -103,6 +120,11 @@ function Book({ setDisplayModalBook, reviewed }: BookProps) {
                       <p>{review.content}</p>
                       <p className="review-meta">Posté par <b>{review.User.firstname}</b> <b>{review.User.name}</b> le {new Date(review.createdAt).toLocaleDateString()}</p>
                     </li>
+                      {review.User.id === user.id && (
+                        <button className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
+                          <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
+                        </button>
+                      )}
                   </div>
                 ))}
               </ul>
