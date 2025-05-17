@@ -94,7 +94,18 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start; 
-            width: 100%; 
+            width: 100%;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.6s ease forwards;
+          
+          
+          @keyframes fadeInUp {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+        }
 
             & label {
                 width: 100%;
@@ -179,18 +190,19 @@
             padding-left: 0px;
             justify-content: center;
 
-            & .animated-library {
-                opacity: 0;
-                transform: translateX(-20px);
-                animation: fadeInUp 0.4s ease forwards;
-              }
-              
-              @keyframes fadeInUp {
-                to {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
+        & .animated-library {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: fadeInUp 0.4s ease forwards;
+        }
+          
+          @keyframes fadeInUp {
+            to {
+              opacity: 1;
+              transform: translateY(0);
             }
+        }
+            
 
             & li{
                 width: 150px;
@@ -218,6 +230,17 @@
                     height: 1.5rem;                    
                     border: solid 1px v.$primary-color;
                     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.04);
+                    opacity: 0;
+                    transform: translateY(-5px);
+                    animation: fadeInUp 0.6s ease forwards;
+                  
+                  
+                  @keyframes fadeInUp {
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
                 }
                 
 
