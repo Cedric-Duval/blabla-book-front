@@ -9,24 +9,22 @@ export default ({ mode }: ConfigEnv) => {
   const portDev = Number(env.VITE_DEV_PORT); // Type: number
   const portProd = Number(env.VITE_PROD_PORT); // Type: number
 
-
   switch (mode) {
-    case "development": {
+    case 'development': {
       return defineConfig({
         plugins: [react()],
-          server: {
-            port: portDev || 5173, // Port souhaité
-          },
-        });
-      }
-    case "production": {
+        server: {
+          port: portDev || 5173, // Port souhaité
+        },
+      });
+    }
+    case 'production': {
       return defineConfig({
         plugins: [react()],
-          server: {
-            port: portProd || 5173, // Port souhaité
-          },
-        });
-      }
+        server: {
+          port: portProd || 5173, // Port souhaité
+        },
+      });
+    }
   }
-
 };

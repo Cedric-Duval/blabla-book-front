@@ -179,3 +179,24 @@ input {
       opacity: 0;
     }
   }
+
+.book-to-update {
+    width:60%;
+    max-width: 500px;
+}
+
+@media screen and (max-width:800px){
+    .book-to-update {
+        width:80%;
+        margin-bottom: 2rem;
+    }
+
+    .admin-page-section .admin-body .admin-subtitle  {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .admin-page-section .admin-header-title{
+        margin-top: 3rem;
+    }
+}
