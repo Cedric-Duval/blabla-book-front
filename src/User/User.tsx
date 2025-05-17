@@ -445,7 +445,7 @@ function User({
           </ul>
         </div>
         <div className='user-reviews-section'>
-        <p className="user-reviews-section-title">Mes avis</p>
+        <p className="user-reviews-section-title">Mes avis ({user?.Reviews.length})</p>
         {user?.Reviews && user.Reviews.length > 0 && (
             <div className="user-reviews-section-reviews-container">
               <ul>
