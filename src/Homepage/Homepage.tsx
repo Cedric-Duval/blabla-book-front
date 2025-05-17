@@ -72,7 +72,7 @@ function Homepage({
 
       <section id="personal-library-section" className="section">
         <div className="personal-library-container">
-          <hgroup>
+          <hgroup className="personal-library-container-title">
             <h4>PRENEZ PLAISIR À CRÉER</h4>
             <h2>Vos bibliothèques personnelles</h2>
           </hgroup>

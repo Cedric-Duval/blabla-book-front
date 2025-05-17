@@ -66,6 +66,10 @@
 .personal-library-container {
     max-width: 780px;
     margin: 0 auto;
+
+    &-title {
+        overflow-x: auto;
+    }
 }
 
 hr {
