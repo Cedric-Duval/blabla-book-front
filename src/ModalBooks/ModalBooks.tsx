@@ -9,15 +9,18 @@ type IModalBooksProps = {
     currentBook: IBooks | null | undefined;
     setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
     myLibraries: ILibrary[];
+    displayReviewModal: boolean;
+    setDisplayReviewModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function ModalBooks({
     closeModalBook,
     currentBook,
-    myLibraries
+    myLibraries,
+    displayReviewModal,
+    setDisplayReviewModal
 }: IModalBooksProps) {
     const [menuDeroulant, setMenuDeroulant] = useState<string | null>(null);
-    const [displayReviewModal, setDisplayReviewModal] = useState(false);
 
     const handleClick = (type: 'read' | 'toRead') => {
         setMenuDeroulant(menu => (menu === type ? null : type));
@@ -54,15 +57,6 @@ function ModalBooks({
 
     return (
         <div className="hidden-background" /* onClick={closeModalBook} */>
-            {displayReviewModal && (
-                <ReviewModal
-                    closeModalBook={closeModalBook}
-                    currentBook={currentBook}
-                    myLibraries={myLibraries}
-                    setDisplayReviewModal={setDisplayReviewModal}
-                    displayReviewModal={displayReviewModal}
-                />
-            )}
             <div className="library" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                 <button type="button" onClick={closeModalBook} className="library-closeBtn">
                     <img

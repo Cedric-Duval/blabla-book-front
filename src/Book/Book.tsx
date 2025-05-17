@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import type { IBooks } from '../@types/books';
 import api from '../features/axiosApi';
+import { reverse } from 'dns';
 
 interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
+  reviewed: boolean;
 }
 
-function Book({ setDisplayModalBook }: BookProps) {
+function Book({ setDisplayModalBook, reviewed }: BookProps) {
   const params = useParams();
   const bookId = params.id;
   const [book, setBook] = useState<IBooks | null>(null);
@@ -23,7 +25,7 @@ function Book({ setDisplayModalBook }: BookProps) {
       }
     };
     getBook();
-  }, [bookId]);
+  }, [bookId, reviewed]);
 
   return (
     <section id="book-section" className="section">
@@ -50,14 +52,23 @@ function Book({ setDisplayModalBook }: BookProps) {
                 <p><b>Édition :</b> {book.editor}</p>
                 <p><b>ISBN :</b> {book.isbn}</p>
                 <p><b>Pages :</b> {book.pages}</p>
-                <p className='genre-list'>
+                <div className='genre-list'>
                 <b>Genres :</b> 
                 <ul>
                     {book.Genres.map((genre) => (
                       <li key={genre.id}> {genre.name}</li>
                     ))}
                 </ul>
-                </p>
+                </div>
+                {book.Reviews && book.Reviews.length > 0 && (
+                  <p>
+                    <strong>Note moyenne :</strong>{' '}
+                    {(
+                      book.Reviews.reduce((sum, review) => sum + review.rating, 0) / book.Reviews.length
+                    ).toFixed(1)}{' '}
+                    / 5
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -83,18 +94,20 @@ function Book({ setDisplayModalBook }: BookProps) {
           {book.Reviews && book.Reviews.length > 0 && (
             <div className="reviews-section">
               <hr />
-              <h3>Avis des lecteurs :</h3>
+              <h3 className='reviews-section-title'>Avis des lecteurs :</h3>
               <ul>
                 {book.Reviews.map((review) => (
-                  <li key={review.id}>
-                    <p><strong>Note :</strong> {review.rating} / 5</p>
-                    <p>{review.content}</p>
-                    <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
-                  </li>
+                  <div key={review.id} className='reviews-section-container'>
+                    <li>
+                      <p><strong>Note :</strong> {review.rating} / 5</p>
+                      <p>{review.content}</p>
+                      <p className="review-meta">Posté par <b>{review.User.firstname}</b> <b>{review.User.name}</b> le {new Date(review.createdAt).toLocaleDateString()}</p>
+                    </li>
+                  </div>
                 ))}
               </ul>
             </div>
-)}
+          )}
         </>
       ) : (
         <p>Chargement.... </p>

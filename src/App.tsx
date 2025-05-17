@@ -14,6 +14,7 @@ import Homepage from './Homepage/Homepage';
 import LoginForm from './LoginForm/LoginForm';
 import MentionLegale from './MentionLegales/MentionLegale';
 import ModalBooks from './ModalBooks/ModalBooks';
+import ReviewModal from './ModalBooks/ReviewModal/ReviewModal';
 import ModalLibrary from './ModalLibrary/ModalLibrary';
 import Navbar from './Navbar/Navbar';
 import PersonalLibrary from './PersonalLibrary/PersonalLibrary';
@@ -26,11 +27,13 @@ function App() {
   const [displayLoginForm, setDisplayLoginForm] = useState(false);
   const [displayModalLibrary, setDisplayModalLibrary] = useState(false);
   const [displayModalBook, setDisplayModalBook] = useState(false);
+  const [displayReviewModal, setDisplayReviewModal] = useState(false);
   const [user, setUser] = useState<IUser | undefined>();
   const [isLogged, setIsLogged] = useState(false);
   const [currentBook, setCurrentBook] = useState<IBooks | null>();
   const [myLibraries, setMyLibraries] = useState<ILibrary[]>([]);
   const [currentLibraries, setCurrentLibraries] = useState(myLibraries);
+  const [reviewed, setReviewed] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -102,8 +105,20 @@ function App() {
           currentBook={currentBook}
           setMyLibraries={setMyLibraries}
           myLibraries={myLibraries}
+          displayReviewModal={displayReviewModal}
+          setDisplayReviewModal={setDisplayReviewModal}
         />
       )}
+
+      {displayReviewModal && (
+        <ReviewModal
+          setDisplayReviewModal={setDisplayReviewModal}
+          setReviewed={setReviewed}
+          closeModalBook={closeModalBook}
+          currentBook={currentBook}
+        />
+      )}
+
 
       <Navbar
         setDisplayRegisterForm={setDisplayRegisterForm}
@@ -136,7 +151,11 @@ function App() {
         />
         <Route
           path="/book/:id"
-          element={<Book setDisplayModalBook={setDisplayModalBook} />}
+          element={
+            <Book 
+              setDisplayModalBook={setDisplayModalBook}
+              reviewed={reviewed} 
+            />}
         />
         <Route
           path="/myLibrary"

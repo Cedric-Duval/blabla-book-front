@@ -431,6 +431,32 @@ function User({
             })}
           </ul>
         </div>
+        <div className='user-reviews-section'>
+        <p className="user-reviews-section-title">Mes avis</p>
+        {user?.Reviews && user.Reviews.length > 0 && (
+            <div className="user-reviews-section-reviews-container">
+              <ul>
+                {user.Reviews.map((review) => (
+                  <div key={review.id} className='user-reviews-section-reviews-container-review-container'>
+                    <Link
+                    to={`/book/${review.Book.id}`}
+                    >
+                    <div className='user-reviews-section-reviews-container-review-container-book-img'>                  
+                      <img src={review.Book.image} alt="book-image" />
+                    </div>
+                    </Link>
+                    <li className='user-reviews-section-reviews-container-review-container-text-container'>
+                      <p>{review.Book.title}</p>
+                      <p><strong>Note :</strong> {review.rating} / 5</p>
+                      <p>{review.content}</p>
+                      <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
+                    </li>
+                  </div>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

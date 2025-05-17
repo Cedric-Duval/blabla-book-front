@@ -6,20 +6,18 @@ import api from '../../features/axiosApi';
 type iReviewModalProps = {
     closeModalBook: () => void;
     setDisplayReviewModal: React.Dispatch<React.SetStateAction<boolean>>;
-    displayReviewModal: boolean;
     currentBook: IBooks | null | undefined;
-    myLibraries: ILibrary[];
+    setReviewed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function ReviewModal({
     closeModalBook,
     setDisplayReviewModal,
-    displayReviewModal,
     currentBook,
-    myLibraries
+    setReviewed
 }: iReviewModalProps) {
     const [reviewText, setReviewText] = useState('');
-    const [rating, setRating] = useState<number>(0);
+    const [rating, setRating] = useState<number>(undefined);
 
 
     const hideReviewModal = () => {
@@ -35,7 +33,8 @@ function ReviewModal({
             });
             setDisplayReviewModal(false);
             setReviewText('');
-            setRating(0);
+            setRating(null);
+            setReviewed(prev => !prev);
             closeModalBook();
         } catch (error) {
             console.error("Erreur lors de l'envoi de l'avis :", error);
