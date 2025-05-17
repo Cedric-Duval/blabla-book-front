@@ -383,9 +383,14 @@ function User({
           <p id="user-libraries-section-title">Mes bibliothèques</p>
 
           <ul id="libraries-list">
-            {user?.Libraries?.map((Library) => {
+            {user?.Libraries?.map((Library, index) => {
               return (
-                <li key={Library.id}>
+                <li key={Library.id} 
+                  className='animated-library'
+                  style={{
+                    animationDelay: `${index * 70}ms`,
+                  }}
+                  >
                   <Link to={'/myLibrary'}>
                     <figure>
                       <div className="book-img">
@@ -416,6 +421,7 @@ function User({
                         name="library-rename-input"
                         placeholder={Library.name}
                         value={newLibraryName}
+                        className='library-rename-input'
                         onChange={(e) => setNewLibraryName(e.target.value)}
                         required />
                       <button className="library-rename" type="submit">
