@@ -13,7 +13,7 @@ export default ({ mode }: ConfigEnv) => {
   switch (mode) {
     case "development": {
       return defineConfig({
-        base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages
+        // base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages en dev
         plugins: [react()],
           server: {
             port: portDev || 5173, // Port souhaité
@@ -22,7 +22,7 @@ export default ({ mode }: ConfigEnv) => {
       }
     case "production": {
       return defineConfig({
-        base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages
+        // base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages en production
         plugins: [react()],
           server: {
             port: portProd || 5173, // Port souhaité
