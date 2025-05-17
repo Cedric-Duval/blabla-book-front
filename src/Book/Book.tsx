@@ -78,12 +78,12 @@ function Book({
                 </ul>
                 </div>
                 {book.Reviews && book.Reviews.length > 0 && (
-                  <p>
-                    <strong>Note moyenne :</strong>{' '}
+                  <p className='note'>
+                    <strong className='note-text'>Note moyenne :</strong>
                     {(
                       book.Reviews.reduce((sum, review) => sum + review.rating, 0) / book.Reviews.length
-                    ).toFixed(1)}{' '}
-                    / 5
+                    ).toFixed(1)}
+                    <span className='star'>★</span>
                   </p>
                 )}
               </div>
@@ -116,7 +116,7 @@ function Book({
                 {book.Reviews.map((review) => (
                   <div key={review.id} className='reviews-section-container'>
                     <li>
-                      <p><strong>Note :</strong> {review.rating} / 5</p>
+                      <p className='note'><strong className='note-text'>Note :</strong> {review.rating} <span className='star'>★</span></p>
                       <p>{review.content}</p>
                       <p className="review-meta">Posté par <b>{review.User.firstname}</b> <b>{review.User.name}</b> le {new Date(review.createdAt).toLocaleDateString()}</p>
                     </li>

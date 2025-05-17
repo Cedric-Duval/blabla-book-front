@@ -459,11 +459,12 @@ function User({
                     </div>
                     </Link>
                     <li className='user-reviews-section-reviews-container-review-container-text-container'>
-                      <p>{review.Book.title}</p>
-                      <p><strong>Note :</strong> {review.rating} / 5</p>
+                      <p><strong>{review.Book.title}</strong></p>
+                      <p className='author'>{review.Book.author}</p>
+                      <p className='note'><strong className='note-text'>Note :</strong> {review.rating} <span className='star'>★</span></p>
                       <p>{review.content}</p>
                       <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
-                      <button className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
+                      <button className='reviews-delete-button' onClick={() => handleDeleteReview(review.id)}>
                         <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
                       </button>
                     </li>

@@ -151,13 +151,27 @@
 
         &-container {
 
-            margin-bottom: 7%;
+            background-color: v.$primary-color;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+
+            & .review-meta {
+                margin-top: 2rem;
+                font-size: 0.9rem;
+            }
 
             &-delete-button {
                 all: unset;
                 background-color: v.$red-color;
                 border-radius: 8px;
                 padding: 5px;
+                transition: transform 0.3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.1);
+                    cursor: pointer;
+                }
 
                 & img {
                     height: 20px;
@@ -167,6 +181,21 @@
         }
         
         
+    }
+
+    
+    & .note {
+        display: flex;
+        
+        &-text {
+            margin-right: 0.5rem;
+        }
+    }
+
+    & .star {
+        font-size: 1.5rem;
+        color: #f5c518;
+        margin-left: 0.3rem;
     }
 
 
