@@ -117,10 +117,85 @@
         & .button-add {
         
             margin-top: 1.5%;
+            margin-bottom: 2%;
             border: none;
             background: none;
             }
          
+    }
+
+    & .reviews-section {
+
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        max-width: 700px;
+
+        & hr {
+            position: absolute;  
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(150px + 45vw);
+            max-width: 830px;
+            border-top: solid 1px v.$secondary-color;
+        }
+
+        &-title {
+            margin-top: 5%;
+            margin-bottom: 3%;
+        }
+
+        & ul {
+            padding: 0;
+        }
+
+        &-container {
+
+            background-color: v.$primary-color;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+
+            & .review-meta {
+                margin-top: 2rem;
+                font-size: 0.9rem;
+            }
+
+            &-delete-button {
+                all: unset;
+                background-color: v.$red-color;
+                border-radius: 8px;
+                padding: 5px;
+                transition: transform 0.3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.1);
+                    cursor: pointer;
+                }
+
+                & img {
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+        }
+        
+        
+    }
+
+    
+    & .note {
+        display: flex;
+        
+        &-text {
+            margin-right: 0.5rem;
+        }
+    }
+
+    & .star {
+        font-size: 1.5rem;
+        color: #f5c518;
+        margin-left: 0.3rem;
     }
 
 

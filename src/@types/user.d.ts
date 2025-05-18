@@ -11,6 +11,8 @@ export type IUser = {
   createdAt: string;
   updatedAt: string;
   admin: boolean;
+  Reviews: IReviews[];
+
 };
 
 export type IUserError = {
@@ -28,4 +30,11 @@ export type IRegisterError = {
 export type IUserUpdateError = {
   password : string;
   confirmPassword: string;
+}
+
+export type IReviews = {
+  id: number;
+  content: string;
+  rating: number;
+  createdAt: string;
 }

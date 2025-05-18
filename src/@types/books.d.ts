@@ -10,6 +10,7 @@ export type IBooks = {
   publication_year: number;
   Genres: IGenre[];
   LibraryBook: ILibraryBook;
+  Reviews: IReviews[];
 };
 
 export type ILibrary = {
@@ -28,3 +29,10 @@ export type ILibraryBook = {
   library_id: number;
   book_id: number;
 };
+
+export type IReviews = {
+  id: number;
+  content: string;
+  rating: number;
+  createdAt: string;
+}
