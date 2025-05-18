@@ -38,7 +38,7 @@ function Book({
   const handleDeleteReview = async (reviewId: number) => {
     try {
         await api.delete(`/review/${reviewId}`);
-        setReviewed(prev => !prev)
+        setReviewed(prev => !prev);
     } catch (error) {
         console.error("Erreur lors de l'envoi de l'avis :", error);
     }

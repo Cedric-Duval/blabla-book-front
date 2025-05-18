@@ -45,6 +45,11 @@
         margin: 0 auto 1rem auto;
         cursor: pointer;
       }
+
+      & select {
+        margin-top: 1rem;
+        width: 100%;
+      }
     }
   }
 

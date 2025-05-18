@@ -28,6 +28,7 @@ function ReviewModal({
     const handleReviewSubmit = async () => {
         if (!currentBook) return;
         try {
+            console.log(currentBook)
             await api.post(`/book/${currentBook.id}/review`, {
                 content: reviewText,
                 rating,
