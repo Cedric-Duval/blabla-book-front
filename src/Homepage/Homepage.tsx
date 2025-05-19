@@ -41,8 +41,10 @@ function Homepage({
       <section id="hero-section" className="section">
         <div id="presentation">
           <hgroup>
-            <h4>PARTAGEZ VOTRE PASSION AVEC</h4>
-            <h1>Blabla Book</h1>
+            <h4 className="hero-section-subtitle">
+              PARTAGEZ VOTRE PASSION AVEC
+            </h4>
+            <h1 className="hero-section-title">Blabla Book</h1>
           </hgroup>
           <p>
             Bienvenue dans l'univers des livres où chaque page tournée est une

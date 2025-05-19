@@ -320,6 +320,11 @@
     background-color:v.$secondary-color;
     color: v.$base-color;
 }
+@media  screen and (max-width: 800px) {
+    .personal-library-header-titre {
+        margin-top: 3rem;;
+    }
+}
 
 @media  screen and (max-width: 630px) {
     .personal-library-header-filter {
