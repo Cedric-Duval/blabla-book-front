@@ -20,12 +20,11 @@ function Navbar({
   isLogged,
   setIsLogged,
   setUser,
-  user
+  user,
 }: INavbarProps) {
   const [menuBurger, setMenuBurger] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<IBooks[]>([]);
-
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -37,12 +36,12 @@ function Navbar({
       try {
         const res = await api.get('/books');
 
-        const filtered = res.data.filter((book: IBooks) =>
-          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          book.isbn.toString().includes(searchTerm.toLowerCase()) ||
-          book.editor.toLowerCase().includes(searchTerm.toLowerCase())
-
+        const filtered = res.data.filter(
+          (book: IBooks) =>
+            book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            book.isbn.toString().includes(searchTerm.toLowerCase()) ||
+            book.editor.toLowerCase().includes(searchTerm.toLowerCase()),
         );
         setSearchResults(filtered.slice(0, 5));
       } catch (error) {
@@ -99,13 +98,23 @@ function Navbar({
       <div id="menu">
         <ul className={menuBurger ? '' : 'hidden'}>
           <li>
-            <NavLink to="/" className={({ isActive }) => isActive && isLogged ? 'active' : ''} onClick={closeMenuBurger}>Accueil</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive && isLogged ? 'active' : ''
+              }
+              onClick={closeMenuBurger}
+            >
+              Accueil
+            </NavLink>
           </li>
 
           <li>
             <NavLink
-              to={isLogged ? "/books" : "#"}
-              className={({ isActive }) => isActive && isLogged ? 'active' : ''}
+              to={isLogged ? '/books' : '#'}
+              className={({ isActive }) =>
+                isActive && isLogged ? 'active' : ''
+              }
               onClick={(e) => {
                 if (!isLogged) {
                   e.preventDefault();
@@ -120,8 +129,10 @@ function Navbar({
 
           <li>
             <NavLink
-              to={isLogged ? "/myLibrary" : "#"}
-              className={({ isActive }) => isActive && isLogged ? 'active' : ''}
+              to={isLogged ? '/myLibrary' : '#'}
+              className={({ isActive }) =>
+                isActive && isLogged ? 'active' : ''
+              }
               onClick={(e) => {
                 if (!isLogged) {
                   e.preventDefault();
@@ -136,13 +147,21 @@ function Navbar({
           {isLogged ? (
             <>
               <li>
-                <NavLink to="/user" /* className="button-connect" */ className={({ isActive }) => isActive ? 'active' : ''} onClick={closeMenuBurger} >
+                <NavLink
+                  to="/user" /* className="button-connect" */
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                  onClick={closeMenuBurger}
+                >
                   Profil
                 </NavLink>
               </li>
               {isLogged && user?.admin && (
                 <li>
-                  <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''} onClick={closeMenuBurger}>
+                  <NavLink
+                    to="/admin"
+                    className={({ isActive }) => (isActive ? 'active' : '')}
+                    onClick={closeMenuBurger}
+                  >
                     Admin
                   </NavLink>
                 </li>
@@ -200,14 +219,12 @@ function Navbar({
           setMenuBurger(!menuBurger);
         }}
       >
-        {!menuBurger && <img
-          src="../public/Pictures/burgerMenu.svg"
-          alt="Menu"
-        />}
-        {menuBurger && <img
-          src="../public/Pictures/burgerCross.svg"
-          alt="Menu"
-        />}
+        {!menuBurger && (
+          <img src="../public/Pictures/burgerMenu.svg" alt="Menu" />
+        )}
+        {menuBurger && (
+          <img src="../public/Pictures/burgerCross.svg" alt="Menu" />
+        )}
       </Link>
     </nav>
   );
