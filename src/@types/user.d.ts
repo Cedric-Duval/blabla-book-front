@@ -31,11 +31,3 @@ export type IUserUpdateError = {
   password : string;
   confirmPassword: string;
 }
-
-/* export type IReviews = {
-  id: number;
-  content: string;
-  rating: number;
-  createdAt: string;
-  User: IUser;
-} */
