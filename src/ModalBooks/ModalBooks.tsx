@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { IBooks, ILibrary } from '../@types/books';
 import './ModalBooks.scss';
 import api from '../features/axiosApi';
-import ReviewModal from './ReviewModal/ReviewModal';
 
 type IModalBooksProps = {
     closeModalBook: () => void;
@@ -17,7 +16,6 @@ function ModalBooks({
     closeModalBook,
     currentBook,
     myLibraries,
-    displayReviewModal,
     setDisplayReviewModal
 }: IModalBooksProps) {
     const [menuDeroulant, setMenuDeroulant] = useState<string | null>(null);
@@ -103,7 +101,7 @@ function ModalBooks({
                         )}
                     </button>
 
-                    <button className="library-menu-li"
+                    <button type="button" className="library-menu-li"
                         onClick={() => setDisplayReviewModal(true)}
                     >
                         <img
@@ -113,7 +111,7 @@ function ModalBooks({
                         />
                         <p className="library-menu-li-text">Noter</p>
                     </button>
-                    <button className="library-menu-li"
+                    <button type="button" className="library-menu-li"
                         onClick={() => setDisplayReviewModal(true)}
                     >
                         <img

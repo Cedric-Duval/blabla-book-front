@@ -35,4 +35,5 @@ export type IReviews = {
   content: string;
   rating: number;
   createdAt: string;
+  User: IUser;
 }

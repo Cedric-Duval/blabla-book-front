@@ -32,9 +32,10 @@ export type IUserUpdateError = {
   confirmPassword: string;
 }
 
-export type IReviews = {
+/* export type IReviews = {
   id: number;
   content: string;
   rating: number;
   createdAt: string;
-}
+  User: IUser;
+} */
