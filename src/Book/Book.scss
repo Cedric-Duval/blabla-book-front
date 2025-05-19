@@ -12,6 +12,22 @@
 
     font-family: "Inter";
     position: relative;
+    padding: 0;
+    background-color: v.$base-color;
+
+    & .section-detail {
+        width: 90%;
+        margin: 3rem auto;
+        background-color: v.$primary-color;
+        border-radius: 8px;
+        padding-bottom: 3rem;
+
+        &-title {
+            font-size: 2.5rem;
+            text-align: center;
+            padding-top: 1rem;
+        }
+    }
 
      
     & #left-arrow {
@@ -81,27 +97,27 @@
     
 
     & #summary {
-        margin: 0 auto;
-        margin-top: 8vh;
-        max-width: 700px;
+        margin: 0 auto 0 auto;
+        max-width: 90%;
+        width:1100px;
         position: relative;
 
-        & hr {
-            position: absolute;  
-            left: 50%;
-            top: -5.5vh;
-            transform: translate(-50%, -50%);
-            width: calc(150px + 45vw);
-            max-width: 830px;
-            border-top: solid 1px v.$secondary-color;
+        .summary-title{
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .summary-resume {
+            margin-bottom: 3rem;
+            text-align: center;
         }
 
         & a {
             display: block; 
             text-align: center;
         }
+
         & #add-button {
-        
         background-color: v.$secondary-color;
         border-radius: 50%;
         width: calc(20px + 2vw);
@@ -115,13 +131,13 @@
         }
 
         & .button-add {
-        
-            margin-top: 1.5%;
-            margin-bottom: 2%;
+            position: absolute;
+            top: 140%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             border: none;
             background: none;
-            }
-         
+            }  
     }
 
     & .reviews-section {
@@ -131,18 +147,11 @@
         margin: 0 auto;
         max-width: 700px;
 
-        & hr {
-            position: absolute;  
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: calc(150px + 45vw);
-            max-width: 830px;
-            border-top: solid 1px v.$secondary-color;
-        }
 
         &-title {
             margin-top: 5%;
             margin-bottom: 3%;
+            text-align: center;
         }
 
         & ul {
@@ -151,7 +160,7 @@
 
         &-container {
 
-            background-color: v.$primary-color;
+            background-color: rgb(252, 252, 252);
             border-radius: 8px;
             padding: 2rem;
             margin-bottom: 2rem;
@@ -201,8 +210,34 @@
 
 }
 
+.detail-separator {
+    max-width: none;
+    margin-top: 3rem;
+    width: 20vw;
+    min-width: 300px;
+    border-top: solid 1px v.$secondary-color;
+}
+
 @media screen and (max-width:800px){
     #book-section h2 {
         margin-top: 1rem;
     }
+
+    #book-section {
+        .section-detail {
+            margin-top: 5rem;
+        }
+
+        #summary {
+            .summary-resume {
+                margin-bottom: 1rem;
+            }
+
+            & .button-add {
+                top: 120%;
+            }
+        }
+    }
+
+    
 }

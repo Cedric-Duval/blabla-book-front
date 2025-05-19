@@ -38,18 +38,18 @@ function CoverBook({
                 alt="book-image"
               />
               {!book.LibraryBook.read && (
-                <span id="read-notRead">
+                <span id="read-notRead" className="icon-read-toread">
                   <img
-                    src="../public/Pictures/toRead13.svg"
+                    src="../public/Pictures/tdesign--time.svg"
                     alt="livre à lire"
                     title="à lire"
                   />
                 </span>
               )}
               {book.LibraryBook.read && (
-                <span id="read-notRead">
+                <span id="read-notRead" className="icon-read-toread">
                   <img
-                    src="../public/Pictures/tick.svg"
+                    src="../public/Pictures/ph--book-open.svg"
                     alt="livre lu"
                     title="livre lu"
                   />
