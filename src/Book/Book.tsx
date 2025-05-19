@@ -1,10 +1,11 @@
 import './Book.scss';
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import type { IBooks } from '../@types/books';
 import type { IUser } from '../@types/user';
 import api from '../features/axiosApi';
-import { reverse } from 'dns';
+
 
 interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,7 +33,9 @@ function Book({
         console.log(error);
       }
     };
-    getBook();
+    if (reviewed !== undefined) {
+      getBook();
+    }
   }, [bookId, reviewed]);
 
   const handleDeleteReview = async (reviewId: number) => {
@@ -121,7 +124,7 @@ function Book({
                       <p className="review-meta">Posté par <b>{review.User.firstname}</b> <b>{review.User.name}</b> le {new Date(review.createdAt).toLocaleDateString()}</p>
                     </li>
                       {review.User.id === user.id && (
-                        <button className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
+                        <button type="button" className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
                           <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
                         </button>
                       )}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { IBooks, ILibrary } from '../../@types/books';
+import type { IBooks } from '../../@types/books';
 import './ReviewModal.scss';
 import api from '../../features/axiosApi';
 
@@ -53,19 +53,21 @@ return (
             />
         </button>
         <div className="review-form">
-        <label>Note :</label>
+        <label htmlFor="star-rating">Note :</label>
         <div className="star-rating">
               <div className="stars">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <span
-                    key={star}
-                    className={`star ${(hoverRating ?? rating) >= star ? 'filled' : ''}`}
-                    onMouseEnter={() => setHoverRating(star)}
-                    onMouseLeave={() => setHoverRating(null)}
-                    onClick={() => setRating(star)}
-                  >
-                    ★
-                  </span>
+                  <button
+                  type="button"
+                  key={star}
+                  className={`star ${(hoverRating ?? rating) >= star ? 'filled' : ''}`}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(null)}
+                  onClick={() => setRating(star)}
+                  aria-label={`Donner une note de ${star} sur 5`}
+                >
+                  ★
+                </button>
                 ))}
               </div>
         </div>

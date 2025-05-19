@@ -16,11 +16,12 @@ function ConfirmDeleteUserModal({
                 <button
                     type="button"
                     onClick={closeConfirmDeleteUserModal}
-                    className="library-closeBtn"
+                    className="update-modal-closeBtn"
                 >
                     <img
                         src="../public/Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
+                        className="update-modal-closeBtn-img"
                     />
                 </button>
                 <img id='validation-icon' src="./Pictures/check.png" alt="Icone de validation" />
