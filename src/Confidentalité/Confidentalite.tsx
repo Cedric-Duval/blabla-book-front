@@ -6,10 +6,8 @@ function Confidentalite() {
     <>
       <ScrollTop />
       <section id="privacy-policy-section">
+        <h1 className="privacy-title">Politique de Confidentialité</h1>
         <div className="privacy-container">
-          <h1 className="privacy-container-title">
-            Politique de Confidentialité
-          </h1>
           <p>Date de dernière mise à jour : 5 mai 2025</p>
 
           <h2>1. Introduction</h2>
