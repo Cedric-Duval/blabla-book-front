@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import type { IBooks, IGenre } from '../@types/books';
+import type { IAddBookError } from '../@types/admin';
 import api from '../features/axiosApi';
 
 import './Admin.scss';
@@ -12,7 +13,7 @@ import Loader from '../Loader/Loader';
 
 function Admin() {
 
-    const [errors, setErrors] = useState();
+    const [errors, setErrors] = useState<IAddBookError>({} as IAddBookError);
 
     // Menu pour choisir l'action à effectuer par l'admin
     const [adminChoice, setAdminChoice] = useState('Ajouter un livre');
@@ -120,9 +121,13 @@ function Admin() {
     }
 
     // Fonctionnalité d'ajout d'un livre
-  async function addBook(event: React.FormEvent<HTMLFormElement>) {
+  async function addBook(
+    event: React.FormEvent<HTMLFormElement>,
+  ) {
     try {
       event.preventDefault();
+
+      setErrors({} as IAddBookError);
 
       const form = event.currentTarget;
       const formData = new FormData(form);
@@ -143,10 +148,26 @@ function Admin() {
       console.log(`Ajout du livre suivant: ${formData.get('title')}`);
       setDisplayConfirmAddBookModal(true);
     } catch (error) {
+      console.log(error);
+
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
-        setErrors(zodErrors);
-        console.log(errors);
+        const formattedErrors: IAddBookError = {
+          title: '',
+          image: '',
+          author: '',
+          publication_year: '',
+          editor: '',
+          isbn: '',
+          pages: '',
+          summary: ''
+        };
+        for (const error of zodErrors) {
+            formattedErrors[error.field as keyof IAddBookError] = error.message;
+        }
+        console.log(zodErrors);
+        setErrors(formattedErrors);
+        console.log(formattedErrors);
       }
     }
   }
@@ -318,7 +339,7 @@ function Admin() {
                       required
                     />
                     {errors?.title && (
-                      <p className="register-form-error">{errors.confirmPassword}</p>
+                      <p className="register-form-error">{errors.title}</p>
                     )}
                     <label htmlFor="image">URL image:</label>
                     <input
@@ -329,7 +350,9 @@ function Admin() {
                       onChange={(e) => setImagePresentation(e.target.value)}
                       required
                     />
-
+                    {errors?.image && (
+                      <p className="register-form-error">{errors.image}</p>
+                    )}
                     <label htmlFor="author">Auteur:</label>
                     <input
                       type="text"
@@ -337,7 +360,9 @@ function Admin() {
                       placeholder="Prénom Nom"
                       required
                     />
-
+                    {errors?.author && (
+                      <p className="register-form-error">{errors.author}</p>
+                    )}
                     <label htmlFor="parution">Parution:</label>
                     <input
                       type="text"
@@ -345,7 +370,9 @@ function Admin() {
                       placeholder="Année (ex: 1964)"
                       required
                     />
-
+                    {errors?.publication_year && (
+                      <p className="register-form-error">{errors.publication_year}</p>
+                    )}
                     <label htmlFor="editor">Edition:</label>
                     <input
                       type="text"
@@ -353,7 +380,9 @@ function Admin() {
                       placeholder="Hachette, Gallimard, Editis, ..."
                       required
                     />
-
+                    {errors?.editor && (
+                      <p className="register-form-error">{errors.editor}</p>
+                    )}
                     <label htmlFor="isbn">ISBN:</label>
                     <input
                       type="text"
@@ -361,7 +390,9 @@ function Admin() {
                       placeholder="10 à 13 chiffres"
                       required
                     />
-
+                    {errors?.isbn && (
+                      <p className="register-form-error">{errors.isbn}</p>
+                    )}
                     <label htmlFor="pages">Pages:</label>
                     <input
                       type="text"
@@ -369,7 +400,9 @@ function Admin() {
                       placeholder="Nombre de pages (ex: 361)"
                       required
                     />
-
+                    {errors?.pages && (
+                      <p className="register-form-error">{errors.pages}</p>
+                    )}
                     <label htmlFor="genre1">1er genre:</label>
 
                     {/* <input type="text" name="name" placeholder='Roman -- non fonctionnel' required /> */}
@@ -399,6 +432,9 @@ function Admin() {
                       placeholder="Description du livre"
                       required
                     />
+                    {errors?.summary && (
+                      <p className="register-form-error">{errors.summary}</p>
+                    )}
                     <button type="submit">Valider</button>
                   </div>
                 </div>

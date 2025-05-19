@@ -2,9 +2,9 @@ export type IAddBookError = {
     title: string;
     image: string;
     author: string;
-    publication_year: number;
+    publication_year: string;
     editor: string;
-    isbn: number;
-    pages: number;
+    isbn: string;
+    pages: string;
     summary: string
 }
