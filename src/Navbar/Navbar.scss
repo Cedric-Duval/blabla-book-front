@@ -8,12 +8,11 @@
     justify-content: space-between;
     // width: 100vw;
     background-color: v.$secondary-color;
-    user-select: none;
-    
+    user-select: none;    
 
     .header-logo {
         height: 80px; 
-        min-width: 110px; 
+        min-width: 110px;
       }
 
 
@@ -70,8 +69,9 @@ nav ul {
 
     & #search {
       position: fixed; 
-      top: 11.5vh; 
-      width: 50%; 
+      top: 11.5vh;
+      left: 10%;
+      width: 80%; 
       border: solid 1px v.$secondary-color;
       border-radius: 5px;
       margin-top:20px;

@@ -41,8 +41,10 @@ function Homepage({
       <section id="hero-section" className="section">
         <div id="presentation">
           <hgroup>
-            <h4>PARTAGEZ VOTRE PASSION AVEC</h4>
-            <h1>Blabla Book</h1>
+            <h4 className="hero-section-subtitle">
+              PARTAGEZ VOTRE PASSION AVEC
+            </h4>
+            <h1 className="hero-section-title">Blabla Book</h1>
           </hgroup>
           <p>
             Bienvenue dans l'univers des livres où chaque page tournée est une
@@ -72,7 +74,7 @@ function Homepage({
 
       <section id="personal-library-section" className="section">
         <div className="personal-library-container">
-          <hgroup>
+          <hgroup className="personal-library-container-title">
             <h4>PRENEZ PLAISIR À CRÉER</h4>
             <h2>Vos bibliothèques personnelles</h2>
           </hgroup>

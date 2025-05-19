@@ -9,26 +9,24 @@ export default ({ mode }: ConfigEnv) => {
   const portDev = Number(env.VITE_DEV_PORT); // Type: number
   const portProd = Number(env.VITE_PROD_PORT); // Type: number
 
-
   switch (mode) {
-    case "development": {
+    case 'development': {
       return defineConfig({
         // base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages en dev
         plugins: [react()],
-          server: {
-            port: portDev || 5173, // Port souhaité
-          },
-        });
-      }
-    case "production": {
+        server: {
+          port: portDev || 5173, // Port souhaité
+        },
+      });
+    }
+    case 'production': {
       return defineConfig({
         // base: '/blabla-book-front/', // nom du repo sur GitHub pour utiliser GitHub Pages en production
         plugins: [react()],
-          server: {
-            port: portProd || 5173, // Port souhaité
-          },
-        });
-      }
+        server: {
+          port: portProd || 5173, // Port souhaité
+        },
+      });
+    }
   }
-
 };

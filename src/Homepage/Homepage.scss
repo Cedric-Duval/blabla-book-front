@@ -5,6 +5,9 @@
 
 
 //----------------------------- HERO SECTION -------------------------
+.hero-section-title {
+    text-align: start;
+}
 
 #hero-section {
     display: flex;
@@ -40,6 +43,8 @@
                 background-color: v.$marronlight-color;
               }
         }
+
+        
     }
 
     & #presentation-img {
@@ -66,10 +71,14 @@
 .personal-library-container {
     max-width: 780px;
     margin: 0 auto;
+
+    &-title {
+        overflow-x: auto;
+    }
 }
 
 hr {
-    width: 220px;
+    max-width: 220px;
     border-top: solid 2px v.$secondary-color;
 }
 
@@ -84,6 +93,7 @@ hr {
         text-align: center;
         padding-bottom: 20px;
         font-family: "Inter";
+        overflow-x: auto;
 
         & h3 {
             font-size: 1.8rem;
@@ -284,5 +294,12 @@ hr {
         &:hover {
             background-color: v.$marronlight-color;
           }
+    }
+}
+
+
+@media screen and (max-width:800px){
+    .hero-section-subtitle {
+        margin-top: 1.5rem;;
     }
 }
