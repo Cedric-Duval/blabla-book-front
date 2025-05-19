@@ -1,10 +1,10 @@
 import './Book.scss';
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import type { IBooks } from '../@types/books';
 import type { IUser } from '../@types/user';
 import api from '../features/axiosApi';
-import { reverse } from 'dns';
 
 interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,12 +13,7 @@ interface BookProps {
   user: IUser[];
 }
 
-function Book({ 
-  setDisplayModalBook,
-  setReviewed,
-  reviewed,
-  user 
-}: BookProps) {
+function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
   const params = useParams();
   const bookId = params.id;
   const [book, setBook] = useState<IBooks | null>(null);
@@ -37,10 +32,10 @@ function Book({
 
   const handleDeleteReview = async (reviewId: number) => {
     try {
-        await api.delete(`/review/${reviewId}`);
-        setReviewed(prev => !prev);
+      await api.delete(`/review/${reviewId}`);
+      setReviewed((prev) => !prev);
     } catch (error) {
-        console.error("Erreur lors de l'envoi de l'avis :", error);
+      console.error("Erreur lors de l'envoi de l'avis :", error);
     }
   };
 
@@ -64,26 +59,39 @@ function Book({
               <div id="details">
                 {/* <h2>{book.title}</h2> */}
 
-                <p><b>Auteur :</b> {book.author}</p>
-                <p><b>Parution :</b> {book.publication_year}</p>
-                <p><b>Édition :</b> {book.editor}</p>
-                <p><b>ISBN :</b> {book.isbn}</p>
-                <p><b>Pages :</b> {book.pages}</p>
-                <div className='genre-list'>
-                <b>Genres :</b> 
-                <ul>
+                <p>
+                  <b>Auteur :</b> {book.author}
+                </p>
+                <p>
+                  <b>Parution :</b> {book.publication_year}
+                </p>
+                <p>
+                  <b>Édition :</b> {book.editor}
+                </p>
+                <p>
+                  <b>ISBN :</b> {book.isbn}
+                </p>
+                <p>
+                  <b>Pages :</b> {book.pages}
+                </p>
+                <div className="genre-list">
+                  <b>Genres :</b>
+                  <ul>
                     {book.Genres.map((genre) => (
                       <li key={genre.id}> {genre.name}</li>
                     ))}
-                </ul>
+                  </ul>
                 </div>
                 {book.Reviews && book.Reviews.length > 0 && (
-                  <p className='note'>
-                    <strong className='note-text'>Note moyenne :</strong>
+                  <p className="note">
+                    <strong className="note-text">Note moyenne :</strong>
                     {(
-                      book.Reviews.reduce((sum, review) => sum + review.rating, 0) / book.Reviews.length
+                      book.Reviews.reduce(
+                        (sum, review) => sum + review.rating,
+                        0,
+                      ) / book.Reviews.length
                     ).toFixed(1)}
-                    <span className='star'>★</span>
+                    <span className="star">★</span>
                   </p>
                 )}
               </div>
@@ -111,20 +119,33 @@ function Book({
           {book.Reviews && book.Reviews.length > 0 && (
             <div className="reviews-section">
               <hr />
-              <h3 className='reviews-section-title'>Avis des lecteurs :</h3>
+              <h3 className="reviews-section-title">Avis des lecteurs :</h3>
               <ul>
                 {book.Reviews.map((review) => (
-                  <div key={review.id} className='reviews-section-container'>
+                  <div key={review.id} className="reviews-section-container">
                     <li>
-                      <p className='note'><strong className='note-text'>Note :</strong> {review.rating} <span className='star'>★</span></p>
+                      <p className="note">
+                        <strong className="note-text">Note :</strong>{' '}
+                        {review.rating} <span className="star">★</span>
+                      </p>
                       <p>{review.content}</p>
-                      <p className="review-meta">Posté par <b>{review.User.firstname}</b> <b>{review.User.name}</b> le {new Date(review.createdAt).toLocaleDateString()}</p>
+                      <p className="review-meta">
+                        Posté par <b>{review.User.firstname}</b>{' '}
+                        <b>{review.User.name}</b> le{' '}
+                        {new Date(review.createdAt).toLocaleDateString()}
+                      </p>
                     </li>
-                      {review.User.id === user.id && (
-                        <button className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
-                          <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
-                        </button>
-                      )}
+                    {review.User.id === user.id && (
+                      <button
+                        className="reviews-section-container-delete-button"
+                        onClick={() => handleDeleteReview(review.id)}
+                      >
+                        <img
+                          src="../Pictures/tabler--trash.svg"
+                          alt="Review Trash Icon"
+                        />
+                      </button>
+                    )}
                   </div>
                 ))}
               </ul>

@@ -9,6 +9,7 @@
 #legal-notice-section {
     padding: 0rem;
     line-height: 1.6;
+    background-color: v.$base-color;
   
   & h2 {
     font-family: "Inter";
@@ -19,8 +20,12 @@
   }
 
   & .legal-container {
-    max-width: 800px;
-    margin: auto;
+    width: 90%;
+    margin: 0 auto 3rem auto;
+    background-color: v.$primary-color;
+    border-radius: 8px;
+    padding: 3rem;
+    overflow-x: auto;
   }
   
   & a {
