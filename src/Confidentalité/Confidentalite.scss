@@ -1,7 +1,7 @@
 @use '../styles/variables' as v;
 @use '../styles/section';
 
-.privacy-container-title {
+.privacy-title {
   font-size: 2.8rem;
   margin-top: 2rem;
 
@@ -10,10 +10,16 @@
 #privacy-policy-section {
     padding: 0rem;
     line-height: 1.6;
+    background-color: v.$base-color;
+    overflow-x: auto;
   
   & .privacy-container {
-    max-width: 800px;
+    width: 90%;
+    background-color: v.$primary-color;
     margin: auto;
+    border-radius: 8px;
+    padding: 3rem;
+    margin-bottom: 3rem;
 
     & h2 {
       font-family: "Inter";
@@ -30,7 +36,7 @@
 }
 
 @media screen and (max-width:800px){
-  .privacy-container-title {
+  .privacy-title {
     margin-top: 4rem;
   }
 }

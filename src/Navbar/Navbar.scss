@@ -45,6 +45,8 @@ nav ul {
   nav a.active {
     text-decoration: underline;
   }
+
+
  @media screen and (max-width: 800px) {
   .navbar {
     position: sticky;
@@ -52,6 +54,9 @@ nav ul {
     flex-direction: column;
     height: 11.5vh;
     z-index: 3;
+
+    display: flex;
+    flex-direction: column;
     
 
     & #logo {
@@ -124,6 +129,9 @@ nav ul {
       right: 20px;
     }
   }
+  .title-blablabook{
+    display: none;
+  }
 }
 
 .title-blablabook{
@@ -172,5 +180,6 @@ nav ul {
   &:hover {
     background-color: #f0f0f0;
   }
+
 }
 

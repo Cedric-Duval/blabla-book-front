@@ -2,7 +2,9 @@
 @use '../styles/section';
 
 
-
+#homepage {
+    overflow-x: auto;
+}
 
 //----------------------------- HERO SECTION -------------------------
 .hero-section-title {

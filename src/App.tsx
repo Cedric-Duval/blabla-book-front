@@ -119,7 +119,6 @@ function App() {
         />
       )}
 
-
       <Navbar
         setDisplayRegisterForm={setDisplayRegisterForm}
         setDisplayLoginForm={setDisplayLoginForm}
@@ -152,11 +151,11 @@ function App() {
         <Route
           path="/book/:id"
           element={
-            <Book 
+            <Book
               setDisplayModalBook={setDisplayModalBook}
               setReviewed={setReviewed}
               reviewed={reviewed}
-              user={user} 
+              user={user}
             />
           }
         />
@@ -177,12 +176,12 @@ function App() {
         <Route
           path="/user"
           element={
-            <User 
-            user={user} 
-            setUser={setUser} 
-            setIsLogged={setIsLogged}
-            reviewed={reviewed}
-            setReviewed={setReviewed} 
+            <User
+              user={user}
+              setUser={setUser}
+              setIsLogged={setIsLogged}
+              reviewed={reviewed}
+              setReviewed={setReviewed}
             />
           }
         />

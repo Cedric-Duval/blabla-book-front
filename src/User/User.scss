@@ -31,14 +31,13 @@
             
             & .user-profile-header-list-link {
                 padding: 0 0 0.5rem 0;
-                background-color: v.$base-color;
-                color: v.$secondary-color;
+                color: v.$marron-color;
                 font-family: "Inter";
                 font-size: 1.3rem;
-                font-weight: 700;
+                font-weight: 300;
                 text-decoration: none;
                 text-align: center;
-                margin: 0 1.5% 1.5% 1.5%;
+                margin: 0 1rem 1.5rem 1rem;
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
@@ -48,6 +47,10 @@
             & .selected-status {
                 text-decoration: underline;
                 color: #d1bda5;                
+            }
+
+            & .user-profile-header-list-link:hover {
+                color: v.$secondary-color;
             }
         }
     }
