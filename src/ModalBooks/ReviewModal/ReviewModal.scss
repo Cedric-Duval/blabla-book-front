@@ -30,11 +30,13 @@
             cursor: pointer;
             font-size: 2.5rem;
             user-select: none;
+            
           }
           
         & .star {
             color: #ccc;
             transition: color 0.2s ease;
+            background: none;
 
             &:hover {
                 transform: scale(1.1);

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { useNavigate } from 'react-router';
 import type { IUser, IUserUpdateError } from '../@types/user';
@@ -60,7 +61,9 @@ function User({
   }, [setUser]);
 
   useEffect(() => {
-    getUser();
+    if (reviewed !== undefined) {
+      getUser();
+    }
   }, [getUser, reviewed]);
   
   //Handle fading title animation
@@ -470,7 +473,7 @@ function User({
                       <p className='note'><strong className='note-text'>Note :</strong> {review.rating} <span className='star'>★</span></p>
                       <p>{review.content}</p>
                       <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
-                      <button className='reviews-delete-button' onClick={() => handleDeleteReview(review.id)}>
+                      <button type="button" className='reviews-delete-button' onClick={() => handleDeleteReview(review.id)}>
                         <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
                       </button>
                     </li>

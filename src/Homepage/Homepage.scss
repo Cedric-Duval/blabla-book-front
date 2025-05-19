@@ -28,6 +28,7 @@
             border: none;
             padding: 15px 40px;
             cursor: pointer;
+            border-radius: 6px;
         }
 
         & .button {
@@ -40,6 +41,7 @@
             text-decoration: none;
             font-family: "Inter";
             font-size: small;
+            border-radius: 6px;
 
             &:hover {
                 background-color: v.$marronlight-color;
@@ -277,6 +279,7 @@ hr {
         border: none;
         padding: 15px 40px;
         cursor: pointer;
+        border-radius: 6px;
 
         &:hover {
             background-color: v.$marronlight-color;
@@ -292,6 +295,7 @@ hr {
         text-decoration: none;
         font-family: "Inter";
         font-size: small;
+        border-radius: 6px;
 
         &:hover {
             background-color: v.$marronlight-color;

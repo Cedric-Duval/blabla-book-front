@@ -27,7 +27,9 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
         console.log(error);
       }
     };
-    getBook();
+    if (reviewed !== undefined) {
+      getBook();
+    }
   }, [bookId, reviewed]);
 
   const handleDeleteReview = async (reviewId: number) => {
@@ -135,17 +137,11 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
                         {new Date(review.createdAt).toLocaleDateString()}
                       </p>
                     </li>
-                    {review.User.id === user.id && (
-                      <button
-                        className="reviews-section-container-delete-button"
-                        onClick={() => handleDeleteReview(review.id)}
-                      >
-                        <img
-                          src="../Pictures/tabler--trash.svg"
-                          alt="Review Trash Icon"
-                        />
-                      </button>
-                    )}
+                      {review.User.id === user.id && (
+                        <button type="button" className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
+                          <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
+                        </button>
+                      )}
                   </div>
                 ))}
               </ul>
