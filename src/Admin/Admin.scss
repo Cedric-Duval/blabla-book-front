@@ -151,7 +151,7 @@
             padding: 8px;
             border-radius: 4px;
             border: solid 2px v.$secondary-color;
-            background-color: white; 
+            background-color: white;
             font-size: 0.9rem;
         }
     
@@ -162,9 +162,13 @@
         }
     
     }
-
-
+    
 }
+
+.register-form-error {
+    font-family: 'Inter';
+    font-size: 0.9rem;
+}    
 
 select {
     padding: 0.4rem 0.6rem;

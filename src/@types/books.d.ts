@@ -1,3 +1,6 @@
+import { IReviews } from "./review";
+
+
 export type IBooks = {
   id: number;
   isbn: number;
@@ -29,11 +32,3 @@ export type ILibraryBook = {
   library_id: number;
   book_id: number;
 };
-
-export type IReviews = {
-  id: number;
-  content: string;
-  rating: number;
-  createdAt: string;
-  User: IUser;
-}

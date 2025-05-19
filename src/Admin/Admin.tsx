@@ -1,118 +1,133 @@
+import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import type { IBooks, IGenre } from '../@types/books';
+import type { IAddBookError } from '../@types/admin';
 import api from '../features/axiosApi';
 
 import './Admin.scss';
-import Loader from '../Loader/Loader';
 import ConfirmAddBookModal from './ConfirmAddBookModal/ConfirmAddBookModal';
 import ConfirmDeleteBookModal from './ConfirmDeleteBookModal/ConfirmDeleteBookModal';
 import ConfirmUpdateBookModal from './ConfirmUpdateBookModal/ConfirmUpdateBookModal';
+import Loader from '../Loader/Loader';
 
 function Admin() {
-  // Menu pour choisir l'action à effectuer par l'admin
-  const [adminChoice, setAdminChoice] = useState('Ajouter un livre');
 
-  // Permet de prévisualiser l'image lors de l'ajout d'un livre
-  const [imagePresentation, setImagePresentation] = useState(
-    'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/old-books-cover-design-template-528851dfc1b6ed275212cd110a105122_screen.jpg',
-  );
+    const [errors, setErrors] = useState<IAddBookError>({} as IAddBookError);
 
-  const [allBooks, setAllBooks] = useState<IBooks[]>([]);
-  const [allGenres, setAllGenres] = useState([]);
+    // Menu pour choisir l'action à effectuer par l'admin
+    const [adminChoice, setAdminChoice] = useState('Ajouter un livre');
 
-  const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<
-    number | undefined
-  >();
-  const [updateBookState, setUpdateBookState] = useState({
-    image: 'https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg',
-    title: '',
-    author: '',
-    publication_year: Number(''),
-    editor: '',
-    isbn: Number(''),
-    pages: Number(''),
-    // genre1: "",
-    // genre2: "",
-    summary: '',
-  });
 
-  //Display confirmation modals for updating/deleting book
-  const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] =
-    useState(false);
-  const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] =
-    useState(false);
-  const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] =
-    useState(false);
+    // Permet de prévisualiser l'image lors de l'ajout d'un livre
+    const [imagePresentation, setImagePresentation] = useState("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/old-books-cover-design-template-528851dfc1b6ed275212cd110a105122_screen.jpg");
 
-  //For fading title animation
-  const [displayedChoice, setDisplayedChoice] = useState('');
-  const [fadeClass, setFadeClass] = useState('');
 
-  const [isLoading, setIsLoading] = useState(true);
+    const [allBooks, setAllBooks] = useState<IBooks[]>([]);
+    const [allGenres, setAllGenres] = useState([]);
 
-  const getAllBooks = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await api.get('/books');
-      setAllBooks(response.data);
-      setIsLoading(false);
-    } catch (_error) {}
-  }, []);
-
-  const getAllGenres = useCallback(async () => {
-    try {
-      const response = await api.get('/genres');
-      setAllGenres(response.data);
-    } catch (_error) {}
-  }, []);
-
-  //API call to get all the books in the DB when page first loading only
-  useEffect(() => {
-    getAllBooks();
-    getAllGenres();
-  }, [getAllBooks, getAllGenres]);
-
-  //Handle fading title animation
-  useEffect(() => {
-    if (adminChoice !== displayedChoice) {
-      setFadeClass('fade-out');
-
-      const timeout = setTimeout(() => {
-        setDisplayedChoice(adminChoice);
-        setFadeClass('');
-      }, 300);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [adminChoice, displayedChoice]);
-
-  function closeConfirmUpdateBookModal() {
-    setDisplayConfirmUpdateBookModal(false);
-  }
-
-  function closeConfirmDeleteBookModal() {
-    setDisplayConfirmDeleteBookModal(false);
-    setUpdateBookState({
-      image: 'https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg',
-      title: '',
-      author: '',
-      publication_year: Number(''),
-      editor: '',
-      isbn: Number(''),
-      pages: Number(''),
-      summary: '',
+    const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<
+        number | undefined
+    >();
+    const [updateBookState, setUpdateBookState] = useState({
+        image: "https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg",
+        title: "",
+        author: "",
+        publication_year: Number(""),
+        editor: "",
+        isbn: Number(""),
+        pages: Number(""),
+        // genre1: "",
+        // genre2: "",
+        summary: "",
     });
-  }
 
-  function closeConfirmAddBookModal() {
-    setDisplayConfirmAddBookModal(false);
-  }
 
-  // Fonctionnalité d'ajout d'un livre
-  async function addBook(event: React.FormEvent<HTMLFormElement>) {
+    //Display confirmation modals for updating/deleting book
+    const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] = 
+        useState(false);
+    const [displayConfirmUpdateBookModal, setDisplayConfirmUpdateBookModal] = 
+        useState(false);
+    const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] = 
+        useState(false);
+    
+
+    //For fading title animation
+    const [displayedChoice, setDisplayedChoice] = useState('');
+    const [fadeClass, setFadeClass] = useState('');
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getAllBooks = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const response = await api.get('/books');
+            setAllBooks(response.data);
+            setIsLoading(false);
+        } catch (_error) {}
+    }, []);
+
+    const getAllGenres = useCallback(async () => {
+        try {
+          const response = await api.get('/genres');
+          setAllGenres(response.data);
+        } catch (_error) {}
+      }, []);
+    
+
+    //API call to get all the books in the DB when page first loading only
+    useEffect(() => {
+        getAllBooks();
+        getAllGenres();
+    }, [getAllBooks, getAllGenres]);
+
+
+    //Handle fading title animation
+    useEffect(() => {
+        if (adminChoice !== displayedChoice) {
+            setFadeClass('fade-out');
+
+            const timeout = setTimeout(() => {
+                setDisplayedChoice(adminChoice);
+                setFadeClass('');
+            }, 300);
+
+            return () => clearTimeout(timeout);
+        }
+
+    }, [adminChoice, displayedChoice]);
+
+
+    function closeConfirmUpdateBookModal() {
+        setDisplayConfirmUpdateBookModal(false)
+    }
+
+    function closeConfirmDeleteBookModal() {
+        setDisplayConfirmDeleteBookModal(false);
+        setUpdateBookState({
+            image: 'https://m.media-amazon.com/images/I/6155jsTHk1L._SL1499_.jpg',
+            title: '',
+            author: '',
+            publication_year: Number(''),
+            editor: '',
+            isbn: Number(''),
+            pages: Number(''),
+            summary: '',
+        });
+    }
+
+    function closeConfirmAddBookModal() {
+        setDisplayConfirmAddBookModal(false);
+    }
+
+    // Fonctionnalité d'ajout d'un livre
+  async function addBook(
+    event: React.FormEvent<HTMLFormElement>,
+  ) {
     try {
       event.preventDefault();
+
+      setErrors({} as IAddBookError);
 
       const form = event.currentTarget;
       const formData = new FormData(form);
@@ -134,6 +149,26 @@ function Admin() {
       setDisplayConfirmAddBookModal(true);
     } catch (error) {
       console.log(error);
+
+      if (axios.isAxiosError(error) && error.response?.data.errors) {
+        const zodErrors = error.response.data.errors;
+        const formattedErrors: IAddBookError = {
+          title: '',
+          image: '',
+          author: '',
+          publication_year: '',
+          editor: '',
+          isbn: '',
+          pages: '',
+          summary: ''
+        };
+        for (const error of zodErrors) {
+            formattedErrors[error.field as keyof IAddBookError] = error.message;
+        }
+        console.log(zodErrors);
+        setErrors(formattedErrors);
+        console.log(formattedErrors);
+      }
     }
   }
 
@@ -199,84 +234,89 @@ function Admin() {
     }
   }
 
-  if (isLoading) {
-    return <Loader />;
-  }
+    if (isLoading) {
+        return <Loader />;
+    }
 
-  return (
-    <section className="admin-page-section section">
-      {displayConfirmDeleteBookModal && (
-        <ConfirmDeleteBookModal
-          closeConfirmDeleteBookModal={closeConfirmDeleteBookModal}
-        />
-      )}
-      {displayConfirmUpdateBookModal && (
-        <ConfirmUpdateBookModal
-          closeConfirmUpdateBookModal={closeConfirmUpdateBookModal}
-        />
-      )}
-      {displayConfirmAddBookModal && (
-        <ConfirmAddBookModal
-          closeConfirmAddBookModal={closeConfirmAddBookModal}
-        />
-      )}
 
-      <div className="admin-container">
-        <div className="admin-header">
-          <h1 className="admin-header-title">Page administrateur</h1>
 
-          <ul className="admin-header-list">
-            <li>
-              <NavLink
-                className={
-                  adminChoice === 'Ajouter un livre'
-                    ? 'admin-header-list-link selected-status'
-                    : 'admin-header-list-link'
-                }
-                to=""
-                onClick={(event) => {
-                  event.preventDefault();
 
-                  setAdminChoice('Ajouter un livre');
-                }}
-              >
-                Ajouter un livre
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={
-                  adminChoice === 'Modifier un livre'
-                    ? 'admin-header-list-link selected-status'
-                    : 'admin-header-list-link'
-                }
-                to=""
-                onClick={(event) => {
-                  event.preventDefault();
-                  setAdminChoice('Modifier un livre');
-                }}
-              >
-                Modifier un livre
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={
-                  adminChoice === 'Supprimer un livre'
-                    ? 'admin-header-list-link selected-status'
-                    : 'admin-header-list-link'
-                }
-                to=""
-                onClick={(event) => {
-                  event.preventDefault();
-                  setAdminChoice('Supprimer un livre');
-                }}
-              >
-                Supprimer un livre
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+    return (
+        <section className="admin-page-section section">
+
+
+            {displayConfirmDeleteBookModal && (
+                < ConfirmDeleteBookModal
+                    closeConfirmDeleteBookModal={closeConfirmDeleteBookModal}
+                />
+            )}
+            {displayConfirmUpdateBookModal && (
+                < ConfirmUpdateBookModal
+                    closeConfirmUpdateBookModal={closeConfirmUpdateBookModal}
+                />
+            )}
+            {displayConfirmAddBookModal && (
+                < ConfirmAddBookModal
+                    closeConfirmAddBookModal={closeConfirmAddBookModal}
+                />
+            )}
+
+            <div className="admin-container">
+                <div className="admin-header">
+                    <h1 className='admin-header-title'>Page administrateur</h1>
+
+                    <ul className='admin-header-list'>
+                        <li>
+                            <NavLink
+                                className={
+                                    adminChoice === 'Ajouter un livre'
+                                        ? 'admin-header-list-link selected-status'
+                                        : 'admin-header-list-link'
+                                }
+                                to=""
+                                onClick={(event) => {
+                                    event.preventDefault();
+
+                                    setAdminChoice('Ajouter un livre');
+                                }}
+                            >
+                                Ajouter un livre
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className={
+                                    adminChoice === 'Modifier un livre'
+                                        ? 'admin-header-list-link selected-status'
+                                        : 'admin-header-list-link'
+                                }
+                                to=""
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    setAdminChoice('Modifier un livre');
+                                }}
+                            >
+                                Modifier un livre
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className={
+                                    adminChoice === 'Supprimer un livre'
+                                        ? 'admin-header-list-link selected-status'
+                                        : 'admin-header-list-link'
+                                }
+                                to=""
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    setAdminChoice('Supprimer un livre');
+                                }}
+                            >
+                                Supprimer un livre
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
 
         <div className="admin-body">
           <p className={`admin-subtitle fade ${fadeClass}`}>
@@ -298,7 +338,9 @@ function Admin() {
                       placeholder="Don Quichotte"
                       required
                     />
-
+                    {errors?.title && (
+                      <p className="register-form-error">{errors.title}</p>
+                    )}
                     <label htmlFor="image">URL image:</label>
                     <input
                       type="text"
@@ -308,7 +350,9 @@ function Admin() {
                       onChange={(e) => setImagePresentation(e.target.value)}
                       required
                     />
-
+                    {errors?.image && (
+                      <p className="register-form-error">{errors.image}</p>
+                    )}
                     <label htmlFor="author">Auteur:</label>
                     <input
                       type="text"
@@ -316,7 +360,9 @@ function Admin() {
                       placeholder="Prénom Nom"
                       required
                     />
-
+                    {errors?.author && (
+                      <p className="register-form-error">{errors.author}</p>
+                    )}
                     <label htmlFor="parution">Parution:</label>
                     <input
                       type="text"
@@ -324,7 +370,9 @@ function Admin() {
                       placeholder="Année (ex: 1964)"
                       required
                     />
-
+                    {errors?.publication_year && (
+                      <p className="register-form-error">{errors.publication_year}</p>
+                    )}
                     <label htmlFor="editor">Edition:</label>
                     <input
                       type="text"
@@ -332,7 +380,9 @@ function Admin() {
                       placeholder="Hachette, Gallimard, Editis, ..."
                       required
                     />
-
+                    {errors?.editor && (
+                      <p className="register-form-error">{errors.editor}</p>
+                    )}
                     <label htmlFor="isbn">ISBN:</label>
                     <input
                       type="text"
@@ -340,7 +390,9 @@ function Admin() {
                       placeholder="10 à 13 chiffres"
                       required
                     />
-
+                    {errors?.isbn && (
+                      <p className="register-form-error">{errors.isbn}</p>
+                    )}
                     <label htmlFor="pages">Pages:</label>
                     <input
                       type="text"
@@ -348,7 +400,9 @@ function Admin() {
                       placeholder="Nombre de pages (ex: 361)"
                       required
                     />
-
+                    {errors?.pages && (
+                      <p className="register-form-error">{errors.pages}</p>
+                    )}
                     <label htmlFor="genre1">1er genre:</label>
 
                     {/* <input type="text" name="name" placeholder='Roman -- non fonctionnel' required /> */}
@@ -378,6 +432,9 @@ function Admin() {
                       placeholder="Description du livre"
                       required
                     />
+                    {errors?.summary && (
+                      <p className="register-form-error">{errors.summary}</p>
+                    )}
                     <button type="submit">Valider</button>
                   </div>
                 </div>
