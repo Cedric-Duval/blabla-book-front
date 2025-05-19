@@ -43,114 +43,123 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
 
   return (
     <section id="book-section" className="section">
-      <Link to="/books">
-        <img
-          id="left-arrow"
-          src="../Pictures/humbleicons--arrow-left.png"
-          alt="left-arrow"
-        />
-      </Link>
-      {book ? (
-        <>
-          <h2>{book.title}</h2>
-          <div id="presentation">
-            <div id="presentation-image">
-              <img src={`${book.image}`} alt={`${book.title}`} />
-            </div>
-            <div id="presentation-texts">
-              <div id="details">
-                {/* <h2>{book.title}</h2> */}
+      <div className="section-detail">
+        <Link to="/books">
+          <img
+            id="left-arrow"
+            src="../Pictures/humbleicons--arrow-left.png"
+            alt="left-arrow"
+          />
+        </Link>
+        {book ? (
+          <>
+            <h2 className="section-detail-title">{book.title}</h2>
+            <div id="presentation">
+              <div id="presentation-image">
+                <img src={`${book.image}`} alt={`${book.title}`} />
+              </div>
+              <div id="presentation-texts">
+                <div id="details">
+                  {/* <h2>{book.title}</h2> */}
 
-                <p>
-                  <b>Auteur :</b> {book.author}
-                </p>
-                <p>
-                  <b>Parution :</b> {book.publication_year}
-                </p>
-                <p>
-                  <b>Édition :</b> {book.editor}
-                </p>
-                <p>
-                  <b>ISBN :</b> {book.isbn}
-                </p>
-                <p>
-                  <b>Pages :</b> {book.pages}
-                </p>
-                <div className="genre-list">
-                  <b>Genres :</b>
-                  <ul>
-                    {book.Genres.map((genre) => (
-                      <li key={genre.id}> {genre.name}</li>
-                    ))}
-                  </ul>
-                </div>
-                {book.Reviews && book.Reviews.length > 0 && (
-                  <p className="note">
-                    <strong className="note-text">Note moyenne :</strong>
-                    {(
-                      book.Reviews.reduce(
-                        (sum, review) => sum + review.rating,
-                        0,
-                      ) / book.Reviews.length
-                    ).toFixed(1)}
-                    <span className="star">★</span>
+                  <p>
+                    <b>Auteur :</b> {book.author}
                   </p>
-                )}
+                  <p>
+                    <b>Parution :</b> {book.publication_year}
+                  </p>
+                  <p>
+                    <b>Édition :</b> {book.editor}
+                  </p>
+                  <p>
+                    <b>ISBN :</b> {book.isbn}
+                  </p>
+                  <p>
+                    <b>Pages :</b> {book.pages}
+                  </p>
+                  <div className="genre-list">
+                    <b>Genres :</b>
+                    <ul>
+                      {book.Genres.map((genre) => (
+                        <li key={genre.id}> {genre.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  {book.Reviews && book.Reviews.length > 0 && (
+                    <p className="note">
+                      <strong className="note-text">Note moyenne :</strong>
+                      {(
+                        book.Reviews.reduce(
+                          (sum, review) => sum + review.rating,
+                          0,
+                        ) / book.Reviews.length
+                      ).toFixed(1)}
+                      <span className="star">★</span>
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div id="summary">
-            <hr />
-            <h3>Résumé:</h3>
-            <p>{book.summary}</p>
+            <div id="summary">
+              <hr className="detail-separator" />
+              <h3 className="summary-title">Résumé:</h3>
+              <p className="summary-resume">{book.summary}</p>
 
-            <button
-              type="button"
-              className="button-add"
-              onClick={() => setDisplayModalBook(true)}
-            >
-              <Link to="">
-                <img
-                  src="../Pictures/ic--outline-plus.png"
-                  id="add-button"
-                  alt="add-button"
-                />
-              </Link>
-            </button>
-          </div>
-          {book.Reviews && book.Reviews.length > 0 && (
-            <div className="reviews-section">
-              <hr />
-              <h3 className="reviews-section-title">Avis des lecteurs :</h3>
-              <ul>
-                {book.Reviews.map((review) => (
-                  <div key={review.id} className="reviews-section-container">
-                    <li>
-                      <p className="note">
-                        <strong className="note-text">Note :</strong>{' '}
-                        {review.rating} <span className="star">★</span>
-                      </p>
-                      <p>{review.content}</p>
-                      <p className="review-meta">
-                        Posté par <b>{review.User.firstname}</b>{' '}
-                        <b>{review.User.name}</b> le{' '}
-                        {new Date(review.createdAt).toLocaleDateString()}
-                      </p>
-                    </li>
+              <button
+                type="button"
+                className="button-add"
+                onClick={() => setDisplayModalBook(true)}
+              >
+                <Link to="">
+                  <img
+                    src="../Pictures/ic--outline-plus.png"
+                    id="add-button"
+                    alt="add-button"
+                  />
+                </Link>
+              </button>
+            </div>
+            {book.Reviews && book.Reviews.length > 0 && (
+              <div className="reviews-section">
+                <hr className="detail-separator" />
+                <h3 className="reviews-section-title">Avis des lecteurs :</h3>
+                <ul>
+                  {book.Reviews.map((review) => (
+                    <div key={review.id} className="reviews-section-container">
+                      <li>
+                        <p className="note">
+                          <strong className="note-text">Note :</strong>{' '}
+                          {review.rating} <span className="star">★</span>
+                        </p>
+                        <p>{review.content}</p>
+                        <p className="review-meta">
+                          Posté par <b>{review.User.firstname}</b>{' '}
+                          <b>{review.User.name}</b> le{' '}
+                          {new Date(review.createdAt).toLocaleDateString()}
+                        </p>
+                      </li>
                       {review.User.id === user?.id && (
-                        <button type="button" className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
-                          <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
+                        <button
+                          type="button"
+                          className="reviews-section-container-delete-button"
+                          onClick={() => handleDeleteReview(review.id)}
+                        >
+                          <img
+                            src="../Pictures/tabler--trash.svg"
+                            alt="Review Trash Icon"
+                          />
                         </button>
                       )}
-                  </div>
-                ))}
-              </ul>
-            </div>
-          )}
-        </>
-      ) : (
-        <p>Chargement.... </p>
-      )}
+                    </div>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
+        ) : (
+          <p>Chargement.... </p>
+        )}
+      </div>
     </section>
   );
 }
