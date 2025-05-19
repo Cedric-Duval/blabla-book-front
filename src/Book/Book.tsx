@@ -10,7 +10,7 @@ interface BookProps {
   setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
   setReviewed: React.Dispatch<React.SetStateAction<boolean>>;
   reviewed: boolean;
-  user: IUser[];
+  user: IUser | undefined;
 }
 
 function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
@@ -137,7 +137,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
                         {new Date(review.createdAt).toLocaleDateString()}
                       </p>
                     </li>
-                      {review.User.id === user.id && (
+                      {review.User.id === user?.id && (
                         <button type="button" className='reviews-section-container-delete-button' onClick={() => handleDeleteReview(review.id)}>
                           <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
                         </button>
