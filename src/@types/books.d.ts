@@ -1,4 +1,4 @@
-import { IReviews } from "./review";
+import type { IReviews } from "./review";
 
 
 export type IBooks = {

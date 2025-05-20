@@ -10,6 +10,8 @@ interface HomepageProps {
   isLogged: boolean;
   setDisplayLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
   user: IUser | undefined;
+  setDisplayModalBook: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentBook: React.Dispatch<React.SetStateAction<IBooks | null | undefined>>;
 }
 
 function Homepage({
@@ -17,6 +19,8 @@ function Homepage({
   isLogged,
   user,
   setDisplayLoginForm,
+  setDisplayModalBook,
+  setCurrentBook
 }: HomepageProps) {
   const [randomBooks, setRandomBooks] = useState<IBooks[]>([]);
 
@@ -126,7 +130,23 @@ function Homepage({
                       <figure>
                         <div id="book-img">
                           <img src={randombook.image} alt="book-image" />
-                          <button type="button"> + </button>
+                          <button
+                            type="button"
+                            className="add-btn"
+                            aria-label="Ajouter à une bibliothèque"
+                            onClick={(e) => {
+                              e.preventDefault();      
+                              e.stopPropagation();
+                              if (isLogged) {
+                                setCurrentBook(randombook);
+                                setDisplayModalBook(true);
+                              } else {
+                                setDisplayLoginForm(true);
+                              }
+                            }}
+                          >
+                            +
+                          </button>
                         </div>
                         <hgroup>
                           <figcaption>{randombook.title}</figcaption>
