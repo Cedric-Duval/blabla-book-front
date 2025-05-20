@@ -136,6 +136,8 @@ function App() {
               isLogged={isLogged}
               setDisplayLoginForm={setDisplayLoginForm}
               user={user}
+              setDisplayModalBook={setDisplayModalBook}
+              setCurrentBook={setCurrentBook}
             />
           }
         />
