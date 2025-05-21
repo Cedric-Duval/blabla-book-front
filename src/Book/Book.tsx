@@ -47,7 +47,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
         <Link to="/books">
           <img
             id="left-arrow"
-            src="./Pictures/humbleicons--arrow-left.png"
+            src="../Pictures/humbleicons--arrow-left.png"
             alt="left-arrow"
           />
         </Link>
