@@ -474,7 +474,7 @@ function User({
                       <p>{review.content}</p>
                       <p className="review-meta">Posté le {new Date(review.createdAt).toLocaleDateString()}</p>
                       <button type="button" className='reviews-delete-button' onClick={() => handleDeleteReview(review.id)}>
-                        <img src="./Pictures/tabler--trash.svg" alt="Review Trash Icon" />
+                        <img src="../Pictures/tabler--trash.svg" alt="Review Trash Icon" />
                       </button>
                     </li>
                   </div>

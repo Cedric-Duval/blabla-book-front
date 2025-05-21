@@ -48,7 +48,7 @@ return (
     <div className="library" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
         <button type="button" onClick={hideReviewModal} className="library-closeBtn">
             <img
-                src="./Pictures/gridicons--cross.svg"
+                src="../Pictures/gridicons--cross.svg"
                 alt="close-button"
             />
         </button>

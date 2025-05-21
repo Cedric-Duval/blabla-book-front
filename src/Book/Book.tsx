@@ -145,7 +145,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
                           onClick={() => handleDeleteReview(review.id)}
                         >
                           <img
-                            src="./Pictures/tabler--trash.svg"
+                            src="../Pictures/tabler--trash.svg"
                             alt="Review Trash Icon"
                           />
                         </button>

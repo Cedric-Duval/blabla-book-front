@@ -40,7 +40,7 @@ function CoverBook({
               {!book.LibraryBook.read && (
                 <span id="read-notRead" className="icon-read-toread">
                   <img
-                    src="./Pictures/tdesign--time.svg"
+                    src="../Pictures/tdesign--time.svg"
                     alt="livre à lire"
                     title="à lire"
                   />
@@ -49,7 +49,7 @@ function CoverBook({
               {book.LibraryBook.read && (
                 <span id="read-notRead" className="icon-read-toread">
                   <img
-                    src="./Pictures/ph--book-open.svg"
+                    src="../Pictures/ph--book-open.svg"
                     alt="livre lu"
                     title="livre lu"
                   />

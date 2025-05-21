@@ -21,11 +21,11 @@ function UpdateUserModal({
                 >
                     <img
                         className="update-modal-closeBtn-img"
-                        src="./Pictures/gridicons--cross.svg"
+                        src="../Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
                     />
                 </button>
-                <img id='validation-icon' src="./Pictures/check.png" alt="Icone de validation" />
+                <img id='validation-icon' src="../Pictures/check.png" alt="Icone de validation" />
                 <div>Vos informations ont bien été mises à jour</div>
             </div>
         </div>

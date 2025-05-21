@@ -82,7 +82,7 @@ function DeleteLibraryModal({
                         className="delete-modal-closeBtn-img"
                     />
                 </button>
-            <img id='caution-icon'src="./Pictures/caution.png" alt="Icone de validation" />
+            <img id='caution-icon'src="../Pictures/caution.png" alt="Icone de validation" />
             <p className='delete-user-message'>
                 Êtes vous sûr de vouloir supprimer cette librairie ?
                 Veuillez saisir votre mot de passe pour confirmer la suppression.
