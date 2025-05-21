@@ -58,7 +58,7 @@ function ModalBooks({
             <div className="library" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                 <button type="button" onClick={closeModalBook} className="library-closeBtn">
                     <img
-                        src="../public/Pictures/gridicons--cross.svg"
+                        src="./Pictures/gridicons--cross.svg"
                         alt="close-button"
                     />
                 </button>
@@ -66,7 +66,7 @@ function ModalBooks({
                     <button type="button" className="library-menu-li" onClick={() => handleClick('read')}>
                         <img
                             className="library-menu-li-img"
-                            src="../public/Pictures/ph--book-open.svg"
+                            src="./Pictures/ph--book-open.svg"
                             alt=""
                         />
                         <p className="library-menu-li-text">Livre lus</p>
@@ -85,7 +85,7 @@ function ModalBooks({
                     <button type="button" className="library-menu-li" onClick={() => handleClick('toRead')}>
                         <img
                             className="library-menu-li-img"
-                            src="../public/Pictures/tdesign--time.svg"
+                            src="./Pictures/tdesign--time.svg"
                             alt=""
                         />
                         <p className="library-menu-li-text">A lire</p>
@@ -106,7 +106,7 @@ function ModalBooks({
                     >
                         <img
                             className="library-menu-li-img"
-                            src="../public/Pictures/stash--star-duotone.svg"
+                            src="./Pictures/stash--star-duotone.svg"
                             alt=""
                         />
                         <p className="library-menu-li-text">Noter</p>
@@ -116,7 +116,7 @@ function ModalBooks({
                     >
                         <img
                             className="library-menu-li-img"
-                            src="../public/Pictures/mdi--dialogue-outline.svg"
+                            src="./Pictures/mdi--dialogue-outline.svg"
                             alt=""
                             />
                         <p className="library-menu-li-text">Laisser un avis</p>

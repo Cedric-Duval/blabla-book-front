@@ -47,7 +47,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
         <Link to="/books">
           <img
             id="left-arrow"
-            src="../Pictures/humbleicons--arrow-left.png"
+            src="./Pictures/humbleicons--arrow-left.png"
             alt="left-arrow"
           />
         </Link>
@@ -112,7 +112,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
               >
                 <Link to="">
                   <img
-                    src="../Pictures/ic--outline-plus.png"
+                    src="./Pictures/ic--outline-plus.png"
                     id="add-button"
                     alt="add-button"
                   />
@@ -145,7 +145,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
                           onClick={() => handleDeleteReview(review.id)}
                         >
                           <img
-                            src="../Pictures/tabler--trash.svg"
+                            src="./Pictures/tabler--trash.svg"
                             alt="Review Trash Icon"
                           />
                         </button>

@@ -67,7 +67,7 @@ function DeleteUserModal({
                     className="delete-modal-closeBtn"
                 >
                     <img
-                        src="../public/Pictures/gridicons--cross.svg"
+                        src="./Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
                         className="delete-modal-closeBtn-img"
                     />

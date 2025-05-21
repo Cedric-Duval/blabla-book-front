@@ -21,7 +21,7 @@ function UpdateUserModal({
                 >
                     <img
                         className="update-modal-closeBtn-img"
-                        src="../public/Pictures/gridicons--cross.svg"
+                        src="./Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
                     />
                 </button>

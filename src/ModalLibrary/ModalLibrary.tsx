@@ -68,7 +68,7 @@ function ModalLibrary({
           className="library-closeBtn"
         >
           <img
-            src="../public/Pictures/gridicons--cross.svg"
+            src="./Pictures/gridicons--cross.svg"
             alt="Fermer la fenêtre"
           />
         </button>
@@ -92,7 +92,7 @@ function ModalLibrary({
               {' '}
               <img
                 className="library-menu-li-img"
-                src="../public/Pictures/ph--book-open.svg"
+                src="./Pictures/ph--book-open.svg"
                 alt=""
               />
               <p className="library-menu-li-text">Livre lu</p>
@@ -116,7 +116,7 @@ function ModalLibrary({
               {' '}
               <img
                 className="library-menu-li-img"
-                src="../public/Pictures/tdesign--time.svg"
+                src="./Pictures/tdesign--time.svg"
                 alt=""
               />
               <p className="library-menu-li-text">A lire </p>
@@ -132,7 +132,7 @@ function ModalLibrary({
             >
               <img
                 className="library-menu-li-img"
-                src="../public/Pictures/tabler--trash.svg"
+                src="./Pictures/tabler--trash.svg"
                 alt=""
               />
               <p className="library-menu-li-text">Supprimer</p>
@@ -148,7 +148,7 @@ function ModalLibrary({
             >
               <img
                 className="library-menu-li-img"
-                src="../public/Pictures/material-symbols--change-circle-rounded.svg"
+                src="./Pictures/material-symbols--change-circle-rounded.svg"
                 alt=""
               />
               <p className="library-menu-li-text">Changer de bibliothèque</p>

@@ -60,7 +60,7 @@ function Navbar({
     <nav className="navbar">
       <div id="logo">
         <Link to="">
-          <img src="../Pictures/Logo2.png" alt="" className="header-logo" />
+          <img src="./Pictures/Logo2.png" alt="" className="header-logo" />
         </Link>
       </div>
       {isLogged ? (
@@ -220,10 +220,10 @@ function Navbar({
         }}
       >
         {!menuBurger && (
-          <img src="../public/Pictures/burgerMenu.svg" alt="Menu" />
+          <img src="./Pictures/burgerMenu.svg" alt="Menu" />
         )}
         {menuBurger && (
-          <img src="../public/Pictures/burgerCross.svg" alt="Menu" />
+          <img src="./Pictures/burgerCross.svg" alt="Menu" />
         )}
       </Link>
     </nav>

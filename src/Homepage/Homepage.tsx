@@ -80,7 +80,7 @@ function Homepage({
           )}
         </div>
         <div id="presentation-img">
-          <img src="../Pictures/pres.jpeg" alt="" />
+          <img src="./Pictures/pres.jpeg" alt="" />
         </div>
       </section>
 
@@ -190,7 +190,7 @@ function Homepage({
 
       <section id="section5" className="section5">
         <div className="img-livres">
-          <img src="../Pictures/img-livres.jpg" alt="" />
+          <img src="./Pictures/img-livres.jpg" alt="" />
         </div>
         <div className="section5-text">
           <h2>Une bibliothèque à votre image</h2>
