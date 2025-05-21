@@ -112,7 +112,7 @@ function Book({ setDisplayModalBook, setReviewed, reviewed, user }: BookProps) {
               >
                 <Link to="">
                   <img
-                    src="./Pictures/ic--outline-plus.png"
+                    src="../Pictures/ic--outline-plus.png"
                     id="add-button"
                     alt="add-button"
                   />
