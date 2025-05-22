@@ -39,3 +39,23 @@
     margin: 0;
     padding: 0;
 }
+
+.caution-icon {
+    box-shadow: none;
+    width: 20%;
+    margin-bottom: 7%;
+}
+
+.input-delete-book {
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #EFEFED;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 2px;
+}
+
+.delete-book-button {
+    margin: 0 auto;
+    display: block;
+}

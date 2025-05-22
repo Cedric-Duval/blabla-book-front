@@ -1,31 +1,25 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
-import type { IBooks, IGenre } from '../@types/books';
 import type { IAddBookError } from '../@types/admin';
+import type { IBooks, IGenre } from '../@types/books';
 import api from '../features/axiosApi';
 
 import './Admin.scss';
+import Loader from '../Loader/Loader';
 import ConfirmAddBookModal from './ConfirmAddBookModal/ConfirmAddBookModal';
 import ConfirmDeleteBookModal from './ConfirmDeleteBookModal/ConfirmDeleteBookModal';
 import ConfirmUpdateBookModal from './ConfirmUpdateBookModal/ConfirmUpdateBookModal';
-import Loader from '../Loader/Loader';
 
 function Admin() {
 
   const [errors, setErrors] = useState<IAddBookError>({} as IAddBookError);
-
   // Menu pour choisir l'action à effectuer par l'admin
   const [adminChoice, setAdminChoice] = useState('Ajouter un livre');
-
-
   // Permet de prévisualiser l'image lors de l'ajout d'un livre
   const [imagePresentation, setImagePresentation] = useState("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/old-books-cover-design-template-528851dfc1b6ed275212cd110a105122_screen.jpg");
-
-
   const [allBooks, setAllBooks] = useState<IBooks[]>([]);
   const [allGenres, setAllGenres] = useState([]);
-
   const [currentBookIDtoUpdate, setCurrentBookIDtoUpdate] = useState<
     number | undefined
   >();
@@ -41,8 +35,6 @@ function Admin() {
     // genre2: "",
     summary: "",
   });
-
-
   //Display confirmation modals for updating/deleting book
   const [displayConfirmDeleteBookModal, setDisplayConfirmDeleteBookModal] =
     useState(false);
@@ -50,8 +42,6 @@ function Admin() {
     useState(false);
   const [displayConfirmAddBookModal, setDisplayConfirmAddBookModal] =
     useState(false);
-
-
   //For fading title animation
   const [displayedChoice, setDisplayedChoice] = useState('');
   const [fadeClass, setFadeClass] = useState('');
@@ -204,36 +194,6 @@ function Admin() {
     }
   }
 
-  async function deleteBook(event: React.FormEvent<HTMLFormElement>) {
-    try {
-      event.preventDefault();
-
-      const form = event.currentTarget;
-      const formData = new FormData(form);
-
-      await api.delete(`/admin/book/${currentBookIDtoUpdate}`, {
-        data: {
-          title: formData.get('title'),
-          image: formData.get('image'),
-          author: formData.get('author'),
-          publication_year: Number(formData.get('parution')),
-          editor: formData.get('editor'),
-          isbn: formData.get('isbn'),
-          pages: Number(formData.get('pages')),
-          // genre1: formData.get('genre1'),
-          // genre2: formData.get('genre2'),
-          summary: formData.get('summary'),
-        },
-      });
-
-      console.log(event);
-      getAllBooks();
-      setDisplayConfirmDeleteBookModal(true);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   if (isLoading) {
     return <Loader />;
   }
@@ -248,6 +208,9 @@ function Admin() {
       {displayConfirmDeleteBookModal && (
         < ConfirmDeleteBookModal
           closeConfirmDeleteBookModal={closeConfirmDeleteBookModal}
+          currentBookIDtoUpdate={currentBookIDtoUpdate}
+          setIsLoading={setIsLoading}
+          setAllBooks={setAllBooks}
         />
       )}
       {displayConfirmUpdateBookModal && (
@@ -653,7 +616,7 @@ function Admin() {
           )}
 
           {adminChoice === 'Supprimer un livre' && (
-            <form onSubmit={deleteBook}>
+            <form>
               <div className="book-modification-selection">
                 {/* <label htmlFor="book-to-update">Choisir le livre à modifier:</label>  */}
                 <select
@@ -843,7 +806,10 @@ function Admin() {
                       }
                       required
                     />
-                    <button className="delete" type="submit">
+                    <button className="delete" type="button" onClick={(event) => {
+                    event.stopPropagation();
+                    setDisplayConfirmDeleteBookModal(true);
+                  }}>
                       Supprimer
                     </button>
                   </div>
