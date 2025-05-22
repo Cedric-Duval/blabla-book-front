@@ -1,15 +1,17 @@
 import { Link } from 'react-router';
 import './LoginForm.scss';
-import api from '../features/axiosApi';
 import axios from 'axios';
 import { useState } from 'react';
+import type { ILibrary } from '../@types/books';
 import type { IUser, IUserError } from '../@types/user';
+import api from '../features/axiosApi';
 
 interface iRegisterFormProps {
   closeLoginForm: () => void;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   setDisplayRegisterForm: React.Dispatch<React.SetStateAction<boolean>>;
+  setMyLibraries: React.Dispatch<React.SetStateAction<ILibrary[]>>;
 }
 
 function LoginForm({
@@ -17,6 +19,7 @@ function LoginForm({
   setUser,
   setIsLogged,
   setDisplayRegisterForm,
+  setMyLibraries,
 }: iRegisterFormProps) {
   const [errors, setErrors] = useState<IUserError>({} as IUserError);
 
@@ -24,27 +27,25 @@ function LoginForm({
     event.preventDefault();
     const formDatas = new FormData(event.currentTarget);
     try {
-      const httpResponse = await api.post(
-        '/login',
-        formDatas,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const httpResponse = await api.post('/login', formDatas, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
       setUser(httpResponse.data.currentUser);
       localStorage.setItem('token', httpResponse.data.token);
       setIsLogged(true);
+      const response = await api.get('/libraries/books');
+      setMyLibraries(response.data);
       closeLoginForm();
     } catch (error) {
       console.log(error);
-      
+
       if (axios.isAxiosError(error) && error.response?.data.errors) {
         const zodErrors = error.response.data.errors;
         const formattedErrors: IUserError = {
           email: '',
-          password: ''
+          password: '',
         };
         for (const error of zodErrors) {
           formattedErrors[error.field as keyof IUserError] = error.error;
@@ -56,16 +57,17 @@ function LoginForm({
 
   return (
     <div className="hidden-background" /* onClick={closeLoginForm} */>
-      <div className="login" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
-      <button
+      <div
+        className="login"
+        onClick={(event) => event.stopPropagation()}
+        onKeyDown={(event) => event.stopPropagation()}
+      >
+        <button
           type="button"
           onClick={closeLoginForm}
           className="login-closeBtn"
         >
-          <img
-            src="../Pictures/gridicons--cross.svg"
-            alt="Fermer la fenêtre"
-          />
+          <img src="../Pictures/gridicons--cross.svg" alt="Fermer la fenêtre" />
         </button>
         <form className="login-form" method="post" onSubmit={handleSubmitLogin}>
           <p className="login-form-title">Connexion</p>
