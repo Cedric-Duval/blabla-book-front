@@ -77,12 +77,12 @@ function DeleteLibraryModal({
                     className="delete-modal-closeBtn"
                 >
                     <img
-                        src="../public/Pictures/gridicons--cross.svg"
+                        src="./Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
                         className="delete-modal-closeBtn-img"
                     />
                 </button>
-            <img id='caution-icon'src="./Pictures/caution.png" alt="Icone de validation" />
+            <img id='caution-icon'src="../Pictures/caution.png" alt="Icone de validation" />
             <p className='delete-user-message'>
                 Êtes vous sûr de vouloir supprimer cette librairie ?
                 Veuillez saisir votre mot de passe pour confirmer la suppression.

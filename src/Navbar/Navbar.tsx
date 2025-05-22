@@ -220,10 +220,10 @@ function Navbar({
         }}
       >
         {!menuBurger && (
-          <img src="../public/Pictures/burgerMenu.svg" alt="Menu" />
+          <img src="../Pictures/burgerMenu.svg" alt="Menu" />
         )}
         {menuBurger && (
-          <img src="../public/Pictures/burgerCross.svg" alt="Menu" />
+          <img src="../Pictures/burgerCross.svg" alt="Menu" />
         )}
       </Link>
     </nav>

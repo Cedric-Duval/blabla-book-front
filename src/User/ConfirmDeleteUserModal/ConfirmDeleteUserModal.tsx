@@ -19,12 +19,12 @@ function ConfirmDeleteUserModal({
                     className="update-modal-closeBtn"
                 >
                     <img
-                        src="../public/Pictures/gridicons--cross.svg"
+                        src="../Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
                         className="update-modal-closeBtn-img"
                     />
                 </button>
-                <img id='validation-icon' src="./Pictures/check.png" alt="Icone de validation" />
+                <img id='validation-icon' src="../Pictures/check.png" alt="Icone de validation" />
                 <p className='confirm-delete-message'>
                     Votre compte a bien été supprimé. <br />
                     Merci d'avoir utilisé BlaBla Book !

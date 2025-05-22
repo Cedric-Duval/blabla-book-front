@@ -67,12 +67,12 @@ function DeleteUserModal({
                     className="delete-modal-closeBtn"
                 >
                     <img
-                        src="../public/Pictures/gridicons--cross.svg"
+                        src="../Pictures/gridicons--cross.svg"
                         alt="Fermer la fenêtre"
                         className="delete-modal-closeBtn-img"
                     />
                 </button>
-                <img id='caution-icon'src="./Pictures/caution.png" alt="Icone de validation" />
+                <img id='caution-icon'src="../Pictures/caution.png" alt="Icone de validation" />
                 <p className='delete-user-message'>
                     Attention, la suppression de votre compte est définitive. Êtes vous bien sûr de vouloir continuer ?
                     Veuillez saisir votre mot de passe pour confirmer la suppression.
