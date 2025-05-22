@@ -42,6 +42,7 @@ function App() {
       try {
         const response = await api.get('/user');
         setUser(response.data);
+        setMyLibraries(response.data.Libraries);
       } catch (_error) {
         localStorage.removeItem('token');
         setIsLogged(false);
@@ -87,6 +88,7 @@ function App() {
           setUser={setUser}
           setIsLogged={setIsLogged}
           setDisplayRegisterForm={setDisplayRegisterForm}
+          setMyLibraries={setMyLibraries}
         />
       )}
       {displayModalLibrary && (
