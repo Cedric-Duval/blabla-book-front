@@ -298,6 +298,7 @@ function Admin() {
                     <input
                       type="text"
                       name="title"
+                      id="title"
                       placeholder="Don Quichotte"
                       required
                     />
@@ -308,6 +309,7 @@ function Admin() {
                     <input
                       type="text"
                       name="image"
+                      id="image"
                       placeholder="https://www. --- image-du-livre.jpg"
                       value={imagePresentation}
                       onChange={(e) => setImagePresentation(e.target.value)}
@@ -320,6 +322,7 @@ function Admin() {
                     <input
                       type="text"
                       name="author"
+                      id="author"
                       placeholder="Prénom Nom"
                       required
                     />
@@ -330,6 +333,7 @@ function Admin() {
                     <input
                       type="text"
                       name="parution"
+                      id="parution"
                       placeholder="Année (ex: 1964)"
                       required
                     />
@@ -340,6 +344,7 @@ function Admin() {
                     <input
                       type="text"
                       name="editor"
+                      id="editor"
                       placeholder="Hachette, Gallimard, Editis, ..."
                       required
                     />
@@ -350,6 +355,7 @@ function Admin() {
                     <input
                       type="text"
                       name="isbn"
+                      id="isbn"
                       placeholder="10 à 13 chiffres"
                       required
                     />
@@ -360,6 +366,7 @@ function Admin() {
                     <input
                       type="text"
                       name="pages"
+                      id="pages"
                       placeholder="Nombre de pages (ex: 361)"
                       required
                     />
@@ -369,7 +376,7 @@ function Admin() {
                     <label htmlFor="genre1">1er genre:</label>
 
                     {/* <input type="text" name="name" placeholder='Roman -- non fonctionnel' required /> */}
-                    <select name="genre1" required>
+                    <select name="genre1" id="genre1" required>
                       <option value="">Choisir le genre principal</option>
                       {allGenres.map((genre: IGenre) => (
                         <option key={genre.id} value={genre.id}>
@@ -379,7 +386,7 @@ function Admin() {
                     </select>
 
                     <label htmlFor="genre2">2ème genre:</label>
-                    <select name="genre2">
+                    <select name="genre2" id="genre2">
                       <option value="">Choisir le genre secondaire</option>
                       <option value="">Aucun</option>
                       {allGenres.map((genre: IGenre) => (
@@ -392,6 +399,7 @@ function Admin() {
                     <label htmlFor="summary">Résumé:</label>
                     <textarea
                       name="summary"
+                      id="summary"
                       placeholder="Description du livre"
                       required
                     />
@@ -471,6 +479,7 @@ function Admin() {
                     <input
                       type="text"
                       name="title"
+                      id="title"
                       placeholder="Don Quichotte"
                       value={updateBookState.title}
                       onChange={(e) =>
@@ -486,6 +495,7 @@ function Admin() {
                     <input
                       type="text"
                       name="image"
+                      id="image"
                       placeholder="https://www. --- image-du-livre-à-modifier.jpg"
                       value={updateBookState.image}
                       onChange={(e) =>
@@ -501,6 +511,7 @@ function Admin() {
                     <input
                       type="text"
                       name="author"
+                      id="author"
                       placeholder="Prénom Nom"
                       value={updateBookState.author}
                       onChange={(e) =>
@@ -516,6 +527,7 @@ function Admin() {
                     <input
                       type="text"
                       name="parution"
+                      id="parution"
                       placeholder="Année (ex: 1964)"
                       value={updateBookState.publication_year}
                       onChange={(e) =>
@@ -531,6 +543,7 @@ function Admin() {
                     <input
                       type="text"
                       name="editor"
+                      id="editor"
                       placeholder="Hachette, Gallimard, Editis, ..."
                       value={updateBookState.editor}
                       onChange={(e) =>
@@ -546,6 +559,7 @@ function Admin() {
                     <input
                       type="text"
                       name="isbn"
+                      id="isbn"
                       placeholder="10 à 13 chiffres"
                       value={updateBookState.isbn}
                       onChange={(e) =>
@@ -561,6 +575,7 @@ function Admin() {
                     <input
                       type="text"
                       name="pages"
+                      id="pages"
                       placeholder="Nombre de pages (ex: 361)"
                       value={updateBookState.pages}
                       onChange={(e) =>
@@ -574,7 +589,7 @@ function Admin() {
 
                     <label htmlFor="genre1">1er genre:</label>
                     {/* <input type="text" name="name" placeholder='Roman -- non fonctionnel' required /> */}
-                    <select name="genre1">
+                    <select name="genre1" id="genre1">
                       <option value="">Choisir le genre principal</option>
                       {allGenres.map((genre: IGenre) => (
                         <option key={genre.id} value={genre.id}>
@@ -584,7 +599,7 @@ function Admin() {
                     </select>
 
                     <label htmlFor="genre2">2ème genre:</label>
-                    <select name="genre2">
+                    <select name="genre2" id="genre2">
                       <option value="">Choisir le genre secondaire</option>
                       <option value="">Aucun</option>
                       {allGenres.map((genre: IGenre) => (
@@ -597,6 +612,7 @@ function Admin() {
                     <label htmlFor="summary">Résumé:</label>
                     <textarea
                       name="summary"
+                      id="summary"
                       placeholder="Description du livre"
                       value={updateBookState.summary}
                       onChange={(e) =>
@@ -681,6 +697,7 @@ function Admin() {
                     <input
                       type="text"
                       name="title"
+                      id="title"
                       placeholder="Don Quichotte"
                       value={updateBookState.title}
                       onChange={(e) =>
@@ -696,6 +713,7 @@ function Admin() {
                     <input
                       type="text"
                       name="image"
+                      id="image"
                       placeholder="https://www. --- image-du-livre-à-modifier.jpg"
                       value={updateBookState.image}
                       onChange={(e) =>
@@ -711,6 +729,7 @@ function Admin() {
                     <input
                       type="text"
                       name="author"
+                      id="author"
                       placeholder="Prénom Nom"
                       value={updateBookState.author}
                       onChange={(e) =>
@@ -726,6 +745,7 @@ function Admin() {
                     <input
                       type="text"
                       name="parution"
+                      id="parution"
                       placeholder="Année (ex: 1964)"
                       value={updateBookState.publication_year}
                       onChange={(e) =>
@@ -741,6 +761,7 @@ function Admin() {
                     <input
                       type="text"
                       name="editor"
+                      id="editor"
                       placeholder="Hachette, Gallimard, Editis, ..."
                       value={updateBookState.editor}
                       onChange={(e) =>
@@ -756,6 +777,7 @@ function Admin() {
                     <input
                       type="text"
                       name="isbn"
+                      id="isbn"
                       placeholder="10 à 13 chiffres"
                       value={updateBookState.isbn}
                       onChange={(e) =>
@@ -771,6 +793,7 @@ function Admin() {
                     <input
                       type="text"
                       name="pages"
+                      id="pages"
                       placeholder="Nombre de pages (ex: 361)"
                       value={updateBookState.pages}
                       onChange={(e) =>
@@ -784,18 +807,19 @@ function Admin() {
 
                     <label htmlFor="genre1">1er genre:</label>
                     {/* <input type="text" name="name" placeholder='Roman -- non fonctionnel' required /> */}
-                    <select name="genre1">
+                    <select name="genre1" id="genre1">
                       <option value="">Choisir le genre principal</option>
                     </select>
 
                     <label htmlFor="genre2">2ème genre:</label>
-                    <select name="genre1">
+                    <select name="genre1" id="genre2">
                       <option value="">Choisir le genre secondaire</option>
                     </select>
 
                     <label htmlFor="summary">Résumé:</label>
                     <textarea
                       name="summary"
+                      id="summary"
                       placeholder="Description du livre"
                       value={updateBookState.summary}
                       onChange={(e) =>

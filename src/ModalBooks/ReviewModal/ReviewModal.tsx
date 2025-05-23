@@ -53,7 +53,7 @@ return (
             />
         </button>
         <div className="review-form">
-        <label htmlFor="star-rating">Note :</label>
+        <h1> Note :</h1>
         <div className="star-rating">
               <div className="stars">
                 {[1, 2, 3, 4, 5].map((star) => (
