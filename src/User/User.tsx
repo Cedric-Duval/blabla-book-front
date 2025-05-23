@@ -323,7 +323,7 @@ function User({
               <input
                 className="user-update-form-input"
                 type="password"
-                id="current-password"
+                id="old-password"
                 name="current-password"
               />
               {errors.password && (
@@ -363,7 +363,7 @@ function User({
               <input
                 className="user-update-form-input"
                 type="password"
-                id="confirm-password"
+                id="renew-password"
                 name="confirm-password"
               />
               {errors.confirmPassword && (
