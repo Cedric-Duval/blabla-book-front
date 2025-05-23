@@ -1,5 +1,7 @@
 @use '../../styles/variables' as v;
 @use '../../styles/section';
+@use '../../styles/confirmationModal';
+
 
 .hidden-background {
     color: #F4F4F6;
@@ -14,48 +16,4 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
-
-    & .update-modal {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #C6AD8E;
-        width: 25%;
-        min-width: 500px;
-        padding: 3rem 5rem;
-        border-radius: 8px;
-
-        & #validation-icon {
-            width: 20%;
-            margin-bottom: 7%;
-            box-shadow: none;
-        }
-    }
-}
-
-.confirm-delete-message {
-    font-family: 'Inter';
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-.caution-icon {
-    box-shadow: none;
-    width: 20%;
-    margin-bottom: 7%;
-}
-
-.input-delete-book {
-    padding: 0.4rem 0.6rem;
-    border-radius: 6px;
-    border: 1px solid #EFEFED;
-    font-size: 0.9rem;
-    width: 100%;
-    margin-top: 2px;
-}
-
-.delete-book-button {
-    margin: 0 auto;
-    display: block;
 }
