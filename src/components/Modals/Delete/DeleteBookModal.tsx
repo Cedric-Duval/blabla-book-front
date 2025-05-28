@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import api from '../../../utils/axiosApi';
-import './Confirm.scss';
+import './Delete.scss';
 import axios from 'axios';
 import type { IDeleteBookError } from '../../../@types/admin';
 import type { IBooks } from '../../../@types/books';

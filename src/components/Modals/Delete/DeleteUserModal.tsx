@@ -1,6 +1,6 @@
 import axios from 'axios';
 import api from '../../../utils/axiosApi';
-import './DeleteUserModal.scss';
+import './Delete.scss';
 import type { IUserUpdateError } from '../../../@types/user';
 
 interface iDeleteUserProps {
@@ -86,7 +86,7 @@ function DeleteUserModal({
           onSubmit={handleDeleteUserDatas}
         >
           <label htmlFor="current-password">
-            Mot de passe actuel <em>*</em>
+            Mot de passe <em>*</em>
           </label>
           <input
             type="password"

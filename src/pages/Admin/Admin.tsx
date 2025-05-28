@@ -7,9 +7,9 @@ import api from '../../utils/axiosApi';
 
 import './Admin.scss';
 import Loader from '../../components/Loader/Loader';
-import ConfirmAddBookModal from '../../components/modals/ConfirmAddBookModal/ConfirmAddBookModal';
-import ConfirmUpdateBookModal from '../../components/modals/ConfirmUpdateBookModal/ConfirmUpdateBookModal';
-import ConfirmDeleteBookModal from '../../components/modals/confirm/ConfirmDeleteBookModal';
+import ConfirmAddBookModal from '../../components/Modals/Confirm/ConfirmAddBookModal';
+import ConfirmUpdateBookModal from '../../components/Modals/Confirm/ConfirmUpdateBookModal';
+import ConfirmDeleteBookModal from '../../components/Modals/Delete/DeleteBookModal';
 
 function Admin() {
   const [errors, setErrors] = useState<IAddBookError>({} as IAddBookError);

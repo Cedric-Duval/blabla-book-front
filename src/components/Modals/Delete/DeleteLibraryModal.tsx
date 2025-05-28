@@ -1,6 +1,6 @@
 import axios from 'axios';
 import api from '../../../utils/axiosApi';
-import './DeleteLibraryModal.scss';
+import './Delete.scss';
 import type { IUser, IUserUpdateError } from '../../../@types/user';
 
 interface iDeleteLibraryModalProps {
@@ -84,8 +84,8 @@ function DeleteLibraryModal({
           alt="Icone de validation"
         />
         <p className="confirmation-modal-message">
-          Êtes vous sûr de vouloir supprimer cette librairie ? Veuillez saisir
-          votre mot de passe pour confirmer la suppression.
+          Êtes vous sûr de vouloir supprimer cette bibliothèque ? Veuillez
+          saisir votre mot de passe pour confirmer la suppression.
         </p>
         <form
           className="confirmation-modal-form"

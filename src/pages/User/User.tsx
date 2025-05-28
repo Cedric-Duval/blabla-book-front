@@ -7,10 +7,10 @@ import type { IUser, IUserUpdateError } from '../../@types/user';
 import api from '../../utils/axiosApi';
 import './User.scss';
 import Loader from '../../components/Loader/Loader';
-import ConfirmDeleteUserModal from '../../components/modals/ConfirmDeleteUserModal/ConfirmDeleteUserModal';
-import DeleteLibraryModal from '../../components/modals/DeleteLibraryModal/DeleteLibraryModal';
-import DeleteUserModal from '../../components/modals/DeleteUserModal/DeleteUserModal';
-import UpdateUserModal from '../../components/modals/UpdateUserModal/UpdateUserModal';
+import ConfirmDeleteUserModal from '../../components/Modals/Confirm/ConfirmDeleteUserModal';
+import UpdateUserModal from '../../components/Modals/Confirm/ConfirmUpdateUserModal';
+import DeleteLibraryModal from '../../components/Modals/Delete/DeleteLibraryModal';
+import DeleteUserModal from '../../components/Modals/Delete/DeleteUserModal';
 
 interface IUserProps {
   user?: IUser;

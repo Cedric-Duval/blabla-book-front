@@ -1,4 +1,4 @@
-import './ConfirmAddBookModal.scss';
+import './Confirm.scss';
 
 interface IConfirmAddProps {
   closeConfirmAddBookModal: () => void;
@@ -7,24 +7,24 @@ interface IConfirmAddProps {
 function ConfirmAddBookModal({ closeConfirmAddBookModal }: IConfirmAddProps) {
   return (
     <div className="hidden-background">
-      <div className="update-modal">
+      <div className="confirm-modal">
         <button
           type="button"
           onClick={closeConfirmAddBookModal}
-          className="update-modal-closeBtn"
+          className="confirm-modal-closeBtn"
         >
           <img
             src="../Pictures/gridicons--cross.svg"
             alt="Fermer la fenêtre"
-            className="update-modal-img"
+            className="confirm-modal-closeBtn-img"
           />
         </button>
         <img
-          id="validation-icon"
+          className="confirm-modal-caution-icon"
           src="./Pictures/check.png"
           alt="Icone de validation"
         />
-        <p className="confirm-delete-message">
+        <p className="confirm-modal-message">
           Ce livre a bien été ajouté dans la base de données.
         </p>
       </div>

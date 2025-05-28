@@ -1,4 +1,4 @@
-import './ConfirmDeleteUserModal.scss';
+import './Confirm.scss';
 
 interface iConfirmDeleteProps {
   closeConfirmDeleteUserModal: () => void;
@@ -11,24 +11,24 @@ function ConfirmDeleteUserModal({
     <div
       className="hidden-background" /*  onClick={closeConfirmDeleteUserModal} */
     >
-      <div className="update-modal">
+      <div className="confirm-modal">
         <button
           type="button"
           onClick={closeConfirmDeleteUserModal}
-          className="update-modal-closeBtn"
+          className="confirm-modal-closeBtn"
         >
           <img
             src="../Pictures/gridicons--cross.svg"
             alt="Fermer la fenêtre"
-            className="update-modal-closeBtn-img"
+            className="confirm-modal-closeBtn-img"
           />
         </button>
         <img
-          id="validation-icon"
+          className="confirm-modal-caution-icon"
           src="../Pictures/check.png"
           alt="Icone de validation"
         />
-        <p className="confirm-delete-message">
+        <p className="confirm-modal-message">
           Votre compte a bien été supprimé. <br />
           Merci d'avoir utilisé BlaBla Book !
         </p>
