@@ -21,24 +21,11 @@
         &-title {
             text-align: start;
         }
-
-        &-button {
-            background-color: v.$secondary-color;
-            margin: 1rem 0;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            cursor: pointer;
-            text-decoration: none;
-            font-family: "Inter";
-            font-size: small;
-            border-radius: 6px;
-
-            &:hover {
-                background-color: v.$marronlight-color;
-              }
+        
+        &-subtitle {
+            margin-top: 1.5rem;
         }
-  
+        
     }
 
     //Partie image
@@ -51,20 +38,25 @@
     }
 }
 
+@media screen and (min-width:800px){
+    .hero-section-presentation-subtitle {
+        margin-top: 0rem;
+    }
+}
 
 //------------------------- PERSONNAL LIBRARY SECTION ----------------------
 
-#personal-library-section {
+.personal-section {
     background-color: v.$primary-color;
     text-align: center;
-}
-
-.personal-library-container {
-    max-width: 780px;
-    margin: 0 auto;
-
-    &-title {
-        overflow-x: auto;
+    
+    &-container {
+        max-width: 780px;
+        margin: 0 auto;
+    
+        &-title {
+            overflow-x: auto;
+        }
     }
 }
 
@@ -76,11 +68,10 @@ hr {
 
 // --------------------- RANDOMBOOKS SECTION -----------------------
 
-#books-section {
+.inspiration-section {
     background-color: v.$base-color;
 
-
-    & .books-title {
+    &-title {
         text-align: center;
         padding-bottom: 20px;
         font-family: "Inter";
@@ -89,7 +80,6 @@ hr {
         & h3 {
             font-size: 1.8rem;
             font-weight: 400;
-
         }
 
         & p {
@@ -97,7 +87,7 @@ hr {
         }
     }
 
-    & #books-list {
+    &-list {
         max-width: 1200px;
         display: flex;
         margin: 0 auto;
@@ -106,8 +96,7 @@ hr {
         text-align: center;
         justify-content: center;
 
-
-        & #book-img {
+        &-img {
             position: relative;
             width: 150px;
             height: 220px;
@@ -125,9 +114,7 @@ hr {
         }
 
         & figure {
-
             display: inline-block;
-
             font-family: "Inter";
             width: 180px;
 
@@ -137,7 +124,6 @@ hr {
 
                 & figcaption {
                     font-size: 1rem;
-
                 }
 
                 & h5 {
@@ -146,9 +132,6 @@ hr {
                 }
             }
         }
-
-
-
 
         & button {
             position: absolute;
@@ -162,137 +145,124 @@ hr {
             bottom: 8px;
             cursor: cell;
         }
-
     }
 }
 
 
 //--------------- Paragraphe section --------------------
 
-#paragraphs-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 1rem;
+.paragraphs-section {
     padding: 2rem;
     background-color: v.$primary-color;
-
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 
     & .left-paragraph,
     .right-paragraph {
-        max-width: 650px;
+        max-width: 700px;
         text-align: center;
         padding: 3vh;
+
+        & h3 {
+            text-align: center;
+        }
     }
 
-    & .divider {
-        width: 2px;
-        background-color: v.$secondary-color;
-    }
-
-    & h3 {
-        text-align: center;
-    }
-
-
-}
-
-@media (max-width: 1429px) {
-    #paragraphs-section {
-        flex-direction: column;
-        align-items: center;
-
-
-        & .divider {
-            width: 60vw;
+    .center-paragraph {
+        width: 60vw;
+        
+        &-divider {
             height: 2px;
             margin: 1.5rem auto;
+            background-color: v.$secondary-color;
         }
+    }
+}
+
+@media (min-width: 800px) {
+    .paragraphs-section {
+        flex-direction: row;
+        align-items: stretch;
 
         & .left-paragraph,
         .right-paragraph {
-            max-width: 700px;
+            max-width: 650px;
+        }
+
+        .center-paragraph {
+            width: 2px;
+            
+            &-divider {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                background-color: v.$secondary-color;
+            }
         }
     }
 }
 
 
-//--------------- Section 5 ------------------------------
+//--------------- info-section ------------------------------
 
-#section5 {
+.info-section {
     display: flex;
     flex-wrap: wrap;
     background-color: v.$base-color ;
     gap: 8vw;
 
-    & .img-livres {
-
+    &-img {
         max-width: 450px;
 
         & img {
             width: 100%;
-
-
         }
     }
 
-    & .section5-text {
+    &-text {
         max-width: 470px;
     }
 }
 
 
-
-
-
 // ------------- Call to action section -------------------
 
-#call-to-action-section {
+.call-to-action-section {
     background: url('../Pictures/img-footer.png') center/cover fixed;
     display: flex;
     flex-direction: column;
 
-
     & h2 {
         text-align: center;
-    }
-
-    & button {
-        background-color: v.$secondary-color;
-        margin: 1rem 0;
-        color: white;
-        border: none;
-        padding: 15px 40px;
-        cursor: pointer;
-        border-radius: 6px;
-
-        &:hover {
-            background-color: v.$marronlight-color;
-          }
-    }
-
-    & .button {
-        background-color: v.$secondary-color;
-        margin: 1rem 0;
-        color: white;
-        border: none;
-        padding: 15px 40px;
-        text-decoration: none;
-        font-family: "Inter";
-        font-size: small;
-        border-radius: 6px;
-
-        &:hover {
-            background-color: v.$marronlight-color;
-          }
     }
 }
 
 
-@media screen and (max-width:800px){
-    .hero-section-presentation-subtitle {
-        margin-top: 1.5rem;;
-    }
+// ------------- Buttons -------------------
+
+.hero-section-presentation-button,
+.call-to-action-section-button {
+    background-color: v.$secondary-color;
+    margin: 1rem 0;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: "Inter";
+    font-size: small;
+    border-radius: 6px;
+
+    &:hover {
+        background-color: v.$marronlight-color;
+      }
+}
+
+.link-correction {
+    display: block;
+    width: 250px;
+    text-align: center;
 }

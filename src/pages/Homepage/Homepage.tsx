@@ -70,7 +70,10 @@ function Homepage({
           )}
 
           {isLogged ? (
-            <Link to="/books" className="hero-section-presentation-button">
+            <Link
+              to="/books"
+              className="hero-section-presentation-button link-correction"
+            >
               Accéder à nos livres
             </Link>
           ) : (
@@ -88,9 +91,9 @@ function Homepage({
         </div>
       </section>
 
-      <section id="personal-library-section" className="section">
-        <div className="personal-library-container">
-          <hgroup className="personal-library-container-title">
+      <section className="personal-section section">
+        <div className="personal-section-container">
+          <hgroup className="personal-section-container-title">
             <h4>PRENEZ PLAISIR À CRÉER</h4>
             <h2>Vos bibliothèques personnelles</h2>
           </hgroup>
@@ -111,14 +114,14 @@ function Homepage({
         </div>
       </section>
 
-      <section id="books-section" className="section">
+      <section className="inspiration-section section">
         <div>
-          <hgroup className="books-title">
+          <hgroup className="inspiration-section-title">
             <h3>Besoin d’inspiration ?</h3>
             <p>Laissez-vous surprendre par notre sélection du jour.</p>
           </hgroup>
           <div>
-            <ul id="books-list">
+            <ul className="inspiration-section-list">
               {randomBooks.map((randombook) => {
                 return (
                   <li key={randombook.id}>
@@ -132,7 +135,7 @@ function Homepage({
                       }}
                     >
                       <figure>
-                        <div id="book-img">
+                        <div className="inspiration-section-list-img">
                           <img src={randombook.image} alt="book-image" />
                           <button
                             type="button"
@@ -166,7 +169,7 @@ function Homepage({
         </div>
       </section>
 
-      <section id="paragraphs-section" className="section">
+      <section className="paragraphs-section section">
         <div className="left-paragraph">
           <h3>Un espace dédié à chaque ouvrage</h3>
           <p>
@@ -178,7 +181,9 @@ function Homepage({
           </p>
         </div>
 
-        <div className="divider" />
+        <div className="center-paragraph">
+          <div className="center-paragraph-divider" />
+        </div>
 
         <div className="right-paragraph">
           <h3>Exprimez-vous en tant que lecteur</h3>
@@ -192,11 +197,11 @@ function Homepage({
         </div>
       </section>
 
-      <section id="section5" className="section5">
-        <div className="img-livres">
+      <section className="info-section section">
+        <div className="info-section-img">
           <img src="../Pictures/img-livres.jpg" alt="" />
         </div>
-        <div className="section5-text">
+        <div className="info-section-text">
           <h2>Une bibliothèque à votre image</h2>
           <p>
             Vous retrouvez tous les livres que vous avez ajoutés à votre profil.
@@ -213,7 +218,7 @@ function Homepage({
         </div>
       </section>
 
-      <section id="call-to-action-section" className="">
+      <section className="call-to-action-section">
         {isLogged && user?.firstname ? (
           <h2>Bienvenue chez BlaBla Book, {user.firstname} !</h2>
         ) : (
@@ -221,14 +226,14 @@ function Homepage({
         )}
 
         {isLogged ? (
-          <Link to="/myLibrary" className="button">
+          <Link to="/myLibrary" className="call-to-action-section-button">
             Accéder à ma bibliothèque
           </Link>
         ) : (
           <button
             type="button"
             onClick={clickButtonHomePage}
-            className="button"
+            className="call-to-action-section-button"
           >
             Commencer ici
           </button>
