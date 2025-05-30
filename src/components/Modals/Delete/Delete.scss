@@ -86,13 +86,14 @@
             border-radius: 8px;
             color: v.$primary-color;
             font-size: 1rem;
-            width:80%
+            width: 80%;
+
+            &:hover {
+                background-color: #862020;
+                cursor: pointer;
+            }
         }
 
-        &-button:hover {
-            background-color: #862020;
-            cursor: pointer;
-        }
     }
 }
 

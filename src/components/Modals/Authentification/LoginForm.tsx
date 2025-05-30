@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import './LoginForm.scss';
+import './Authentification.scss';
 import axios from 'axios';
 import { useState } from 'react';
 import type { ILibrary } from '../../../@types/books';
@@ -58,24 +58,28 @@ function LoginForm({
   return (
     <div className="hidden-background" /* onClick={closeLoginForm} */>
       <div
-        className="login"
+        className="auth-modal"
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={closeLoginForm}
-          className="login-closeBtn"
+          className="auth-modal-closeBtn"
         >
           <img src="../Pictures/gridicons--cross.svg" alt="Fermer la fenêtre" />
         </button>
-        <form className="login-form" method="post" onSubmit={handleSubmitLogin}>
-          <p className="login-form-title">Connexion</p>
-          <label className="login-form-label" htmlFor="email">
+        <form
+          className="auth-modal-form"
+          method="post"
+          onSubmit={handleSubmitLogin}
+        >
+          <p className="auth-modal-form-title">Connexion</p>
+          <label className="auth-modal-form-label" htmlFor="email">
             Adresse mail
           </label>
           <input
-            className="login-form-input"
+            className="auth-modal-form-input"
             type="email"
             id="email"
             name="email"
@@ -84,11 +88,11 @@ function LoginForm({
             <p className="register-form-error">{errors.email}</p>
           )}
 
-          <label className="login-form-label" htmlFor="password">
+          <label className="auth-modal-form-label" htmlFor="password">
             Mot de passe
           </label>
           <input
-            className="login-form-input"
+            className="auth-modal-form-input"
             type="password"
             id="password"
             name="password"
@@ -97,12 +101,12 @@ function LoginForm({
             <p className="register-form-error">{errors.password}</p>
           )}
 
-          <button className="login-form-button" type="submit">
+          <button className="auth-modal-form-button" type="submit">
             Se connecter
           </button>
           <Link
             to="#"
-            className="login-form-redirection"
+            className="auth-modal-form-redirection"
             onClick={() => {
               closeLoginForm();
               setDisplayRegisterForm(true);

@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import './RegisterForm.scss';
+import './Authentification.scss';
 import axios from 'axios';
 import { useState } from 'react';
 import type { IRegisterError } from '../../../@types/user';
@@ -47,91 +47,93 @@ function RegisterForm({
   return (
     <div className="hidden-background" /* onClick={closeRegisterForm} */>
       <div
-        className="register"
+        className="auth-modal"
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={closeRegisterForm}
-          className="register-closeBtn"
+          className="auth-modal-closeBtn"
         >
           <img src="../Pictures/gridicons--cross.svg" alt="Fermer la fenêtre" />
         </button>
         <form
-          className="register-form"
+          className="auth-modal-form"
           method="post"
           onSubmit={handleSubmitRegister}
         >
-          <p className="register-form-title">Rejoindre BlaBla Book</p>
-          <label className="register-form-label" htmlFor="email">
+          <p className="auth-modal-form-title">Rejoindre BlaBla Book</p>
+          <label className="auth-modal-form-label" htmlFor="email">
             Adresse mail
           </label>
           <input
-            className="register-form-input"
+            className="auth-modal-form-input"
             type="email"
             id="email"
             name="email"
           />
           {errors.email && (
-            <p className="register-form-error">{errors.email}</p>
+            <p className="auth-modal-form-error">{errors.email}</p>
           )}
 
-          <label className="register-form-label" htmlFor="firstname">
+          <label className="auth-modal-form-label" htmlFor="firstname">
             Prénom
           </label>
           <input
-            className="register-form-input"
+            className="auth-modal-form-input"
             type="text"
             id="firstname"
             name="firstname"
           />
           {errors.firstname && (
-            <p className="register-form-error">{errors.firstname}</p>
+            <p className="auth-modal-form-error">{errors.firstname}</p>
           )}
 
-          <label className="register-form-label" htmlFor="name">
+          <label className="auth-modal-form-label" htmlFor="name">
             Nom
           </label>
           <input
-            className="register-form-input"
+            className="auth-modal-form-input"
             type="text"
             id="name"
             name="name"
           />
-          {errors.name && <p className="register-form-error">{errors.name}</p>}
+          {errors.name && (
+            <p className="auth-modal-form-error">{errors.name}</p>
+          )}
 
-          <label className="register-form-label" htmlFor="password">
+          <label className="auth-modal-form-label" htmlFor="password">
             Mot de passe
           </label>
           <input
-            className="register-form-input"
+            className="auth-modal-form-input"
             type="password"
             id="password"
             name="password"
           />
           {errors.password && (
-            <p className="register-form-error">{errors.password}</p>
+            <p className="auth-modal-form-error">{errors.password}</p>
           )}
 
-          <div className="register-form-div">
+          <div className="auth-modal-form-cg">
             <input
-              className="register-form-input"
+              className="auth-modal-form-input"
               type="checkbox"
               id="cgv"
               name="cgv"
               required
             />
-            <label className="register-form-label" htmlFor="cgv">
+            <label className="auth-modal-form-label" htmlFor="cgv">
               Conditions générales
             </label>
           </div>
-          <button className="register-form-button" type="submit">
+          <button className="auth-modal-form-button" type="submit">
             S'inscrire
           </button>
           <Link
             to="#"
-            className="register-form-redirection"
+            className="auth-modal-form-redirection"
             onClick={() => {
               closeRegisterForm();
               setDisplayLoginForm(true);
