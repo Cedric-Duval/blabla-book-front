@@ -43,14 +43,14 @@ function Homepage({
   };
 
   return (
-    <div id="homepage">
-      <section id="hero-section" className="section">
-        <div id="presentation">
+    <div className="homepage">
+      <section className="hero-section section">
+        <div className="hero-section-presentation">
           <hgroup>
-            <h4 className="hero-section-subtitle">
+            <h4 className="hero-section-presentation-subtitle">
               PARTAGEZ VOTRE PASSION AVEC
             </h4>
-            <h1 className="hero-section-title">Blabla Book</h1>
+            <h1 className="hero-section-presentation-title">Blabla Book</h1>
           </hgroup>
           {isLogged && user?.firstname ? (
             <p>
@@ -70,20 +70,20 @@ function Homepage({
           )}
 
           {isLogged ? (
-            <Link to="/books" className="button">
+            <Link to="/books" className="hero-section-presentation-button">
               Accéder à nos livres
             </Link>
           ) : (
             <button
               type="button"
-              className="button"
+              className="hero-section-presentation-button"
               onClick={clickButtonHomePage}
             >
               Commencer ici
             </button>
           )}
         </div>
-        <div id="presentation-img">
+        <div className="hero-section-img">
           <img src="../Pictures/pres.jpeg" alt="" />
         </div>
       </section>

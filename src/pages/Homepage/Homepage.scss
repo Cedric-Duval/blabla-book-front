@@ -2,36 +2,27 @@
 @use '../../styles/section';
 
 
-#homepage {
+.homepage {
     overflow-x: auto;
 }
 
 //----------------------------- HERO SECTION -------------------------
-.hero-section-title {
-    text-align: start;
-}
 
-#hero-section {
+.hero-section {
     display: flex;
     background-color: v.$base-color;
     gap: 8vw;
     flex-wrap: wrap;
 
-    & #presentation {
+    //Partie texte
+    &-presentation {
         max-width: 470px;
 
-
-        & button {
-            background-color: v.$secondary-color;
-            margin: 1rem 0;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            cursor: pointer;
-            border-radius: 6px;
+        &-title {
+            text-align: start;
         }
 
-        & .button {
+        &-button {
             background-color: v.$secondary-color;
             margin: 1rem 0;
             color: white;
@@ -47,21 +38,17 @@
                 background-color: v.$marronlight-color;
               }
         }
-
-        
+  
     }
 
-    & #presentation-img {
-
+    //Partie image
+    &-img {
         max-width: 450px;
 
         & img {
             width: 100%;
-
-
         }
     }
-
 }
 
 
@@ -305,7 +292,7 @@ hr {
 
 
 @media screen and (max-width:800px){
-    .hero-section-subtitle {
+    .hero-section-presentation-subtitle {
         margin-top: 1.5rem;;
     }
 }
