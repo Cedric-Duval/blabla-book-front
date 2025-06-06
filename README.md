@@ -1,54 +1,57 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Blabla Book Front
 
-Currently, two official plugins are available:
+## Présentation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Blabla Book est une plateforme de gestion de bibliothèques personnelles en ligne créée par une association fictive de passionnés de lecture.
 
-## Expanding the ESLint configuration
+## Procédure d'initialisation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Création d'un repo local
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone <cle_ssh_du_repo>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Se positionner dans le dossier de votre repo local et l'ouvrir
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+cd blabla-book-front
+code .
 ```
+
+### Installer les modules
+
+Dans un terminal positionné dans le projet blabla-book-back :
+
+```bash
+npm install
+```
+
+Installer l'extension Biome ou vérifier que votre extension Biome soit active.
+(l'extension peut avoir besoin d'être désactivée puis ré-activée pour fonctionner correctement)
+
+### Création des variables d'environnement
+
+Créer un fichier `.env` à la racine du projet en vous basant sur le fichier `.env.development.example`
+
+Pensez à remplacer les informations par :
+
+- `le port de fonctionnement de l'application Vite React pour le Front`
+- `Le protocole, l'url et le port de fonctionnement du serveur Node/Express pour l'utilisation d'AxiosAPI`
+
+### Fin de l'initialisation
+
+## Démarrage du serveur avec Vite
+### En développement
+
+```bash
+npm run dev
+```
+
+Démarrer le serveur Node en Back puis accéder au lien de l'application React par défaut http://localhost:5173/
+
+
+
+ 
+ 
